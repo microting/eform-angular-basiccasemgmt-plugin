@@ -1,0 +1,66 @@
+<subheader-pn [title]="currentTemplate.label">
+
+</subheader-pn>
+
+<!--Here you can choose approach as you like: container-row, or flex, or just element with required styles and markup-->
+<div class="container-fluid">
+  <div class="row pl-1">
+    <div class="col-md-2">
+      <div class="md-form">
+        <input mdbInputDirective
+               [mdbValidate]="false"
+               (input)="onLabelInputChanged($event.target.value)"
+               type="text" class="form-control" id="labelInput">
+        <label for="labelInput">{{ 'Search' | translate }}</label>
+      </div>
+    </div>
+  </div>
+  <div class="row p-1 table-responsive no-gutters">
+    <table class="table table-sm table-striped text-center z-depth-1">
+      <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th>{{ 'eForm finished at' | translate }}</th>
+        <th>{{ 'Data accessible at' | translate }}</th>
+        <th>{{ 'eForm done by' | translate }}</th>
+        <th>{{ 'Actions' | translate }}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let caseModel of caseListModel.cases">
+        <td scope="row">{{caseModel.id}}</td>
+        <td> {{caseModel.doneAt | date:'dd.MM.y HH:mm:ss'}}</td>
+        <td> {{caseModel.createdAt | date:'dd.MM.y HH:mm:ss'}}</td>
+        <td> {{caseModel.workerName}}</td>
+        <td>
+          <div class="d-flex flex-row justify-content-center">
+            <button class="btn btn-success btn-icon mb-2"
+                    [routerLink]="['/cases/edit/' + caseModel.id + '/' + currentTemplate.id]"
+                    mdbTooltip="{{ 'Edit Case' | translate }}">
+              <i class="material-icons">
+                edit
+              </i>
+            </button>
+            <button class="btn btn-success btn-icon mb-2"
+                    (click)="downloadPDF(caseModel.id)"
+                    mdbTooltip="{{ 'Download PDF' | translate }}">
+              <i class="material-icons">
+                picture_as_pdf
+              </i>
+            </button>
+            <button class="btn btn-danger btn-icon mb-2 "
+                    mdbTooltip="{{ 'Delete Case' | translate }}"
+                    (click)="onDeleteClicked(caseModel)">
+              <i class="material-icons" >
+                delete_forever
+              </i>
+            </button>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<spinner-pn [spinnerVisibility]="spinnerStatus"></spinner-pn>

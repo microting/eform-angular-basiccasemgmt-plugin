@@ -1,0 +1,97 @@
+<subheader-pn [title]="'Calendar' | translate">
+  <div class="p-3">
+    <button class="btn btn-danger text-black-50 btn-icon"
+            [routerLink]="'/plugins/case-management-pn/calendar-users'"
+            mdbTooltip="{{ 'Calendar Settings' | translate }}">
+      <i class="material-icons">
+        build
+      </i>
+    </button>
+  </div>
+</subheader-pn>
+
+<div class="container-fluid mt-3">
+  <div class="d-flex justify-content-around">
+    <div class="btn-group">
+      <div
+        class="btn btn-primary"
+        mwlCalendarPreviousView
+        [view]="view"
+        [(viewDate)]="viewDate"
+        (viewDateChange)="activeDayIsOpen = false">
+        {{'Previous' | translate}}
+      </div>
+      <div
+        class="btn btn-primary"
+        mwlCalendarToday
+        [(viewDate)]="viewDate">
+        {{'Current' | translate}}
+      </div>
+      <div
+        class="btn btn-primary"
+        mwlCalendarNextView
+        [view]="view"
+        [(viewDate)]="viewDate"
+        (viewDateChange)="activeDayIsOpen = false">
+        {{'Next' | translate}}
+      </div>
+    </div>
+
+    <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):locale }}</h3>
+
+    <div class="btn-group">
+      <div
+        class="btn btn-primary"
+        (click)="view = CalendarView.Month"
+        [class.active]="view === CalendarView.Month">
+        {{'Month' | translate}}
+      </div>
+      <div
+        class="btn btn-primary"
+        (click)="view = CalendarView.Week"
+        [class.active]="view === CalendarView.Week">
+        {{'Week' | translate}}
+      </div>
+      <div
+        class="btn btn-primary"
+        (click)="view = CalendarView.Day"
+        [class.active]="view === CalendarView.Day">
+        {{'Day' | translate}}
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<div [ngSwitch]="view" class="z-depth-1 mr-4 ml-4 mb-4">
+  <mwl-calendar-month-view
+    *ngSwitchCase="CalendarView.Month"
+    [viewDate]="viewDate"
+    [events]="events"
+    [refresh]="refresh"
+    [excludeDays]="excludeDays"
+    [locale]="locale"
+    [activeDayIsOpen]="activeDayIsOpen"
+    (dayClicked)="dayClicked($event.day)"
+    (eventClicked)="handleEvent('Clicked', $event.event)">
+  </mwl-calendar-month-view>
+  <mwl-calendar-week-view
+    *ngSwitchCase="CalendarView.Week"
+    [viewDate]="viewDate"
+    [events]="events"
+    [refresh]="refresh"
+    [excludeDays]="excludeDays"
+    [locale]="locale"
+    (eventClicked)="handleEvent('Clicked', $event.event)">
+  </mwl-calendar-week-view>
+  <mwl-calendar-day-view
+    *ngSwitchCase="CalendarView.Day"
+    [viewDate]="viewDate"
+    [events]="events"
+    [refresh]="refresh"
+    [locale]="locale"
+    (eventClicked)="handleEvent('Clicked', $event.event)">
+  </mwl-calendar-day-view>
+</div>
+
+
+<spinner-pn [spinnerVisibility]="spinnerStatus"></spinner-pn>
