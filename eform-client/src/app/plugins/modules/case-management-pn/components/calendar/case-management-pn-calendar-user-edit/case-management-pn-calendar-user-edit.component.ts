@@ -1,6 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {SimpleSiteModel} from 'src/app/common/models/device-users';
 import {DeviceUserService} from 'src/app/common/services/device-users';
+import {CalendarUserModel} from 'src/app/plugins/modules/case-management-pn/models/calendar/users';
+import {CaseManagementPnCalendarService} from 'src/app/plugins/modules/case-management-pn/services';
 
 @Component({
   selector: 'app-case-management-pn-calendar-user-edit',
@@ -8,12 +10,12 @@ import {DeviceUserService} from 'src/app/common/services/device-users';
   styleUrls: ['./case-management-pn-calendar-user-edit.component.scss']
 })
 export class CaseManagementPnCalendarUserEditComponent implements OnInit {
-  @Input() selectedDeviceUser: SimpleSiteModel = new SimpleSiteModel();
+  @Input() selectedCalendarUser: CalendarUserModel = new CalendarUserModel();
   @Output() onUserEdited: EventEmitter<void> = new EventEmitter<void>();
   @ViewChild('frame') frame;
   spinnerStatus = false;
 
-  constructor(private deviceUserService: DeviceUserService) { }
+  constructor(private calendarService: CaseManagementPnCalendarService) { }
 
   ngOnInit() {
   }
@@ -24,9 +26,10 @@ export class CaseManagementPnCalendarUserEditComponent implements OnInit {
 
   updateSingle() {
     this.spinnerStatus = true;
-    this.deviceUserService.updateSingleSimpleSite(this.selectedDeviceUser).subscribe(operation => {
+    this.calendarService.updateCalendarUser(this.selectedCalendarUser).subscribe(operation => {
       if (operation && operation.success) {
         this.onUserEdited.emit();
+        this.selectedCalendarUser = new CalendarUserModel();
         this.frame.hide();
       }
       this.spinnerStatus = false;

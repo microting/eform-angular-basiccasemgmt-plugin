@@ -1,8 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
-import {SimpleSiteModel} from 'src/app/common/models/device-users';
 import {SiteDto} from 'src/app/common/models/dto';
 import {DeviceUserService} from 'src/app/common/services/device-users';
+import {CalendarUserModel, CalendarUsersModel, CalendarUsersRequestModel} from '../../../models/calendar/users';
+import {CaseManagementPnCalendarService} from '../../../services';
 
 @Component({
   selector: 'app-case-management-pn-calendar-users',
@@ -11,33 +12,52 @@ import {DeviceUserService} from 'src/app/common/services/device-users';
 })
 export class CaseManagementPnCalendarUsersComponent implements OnInit {
   @ViewChild('editDeviceUserModal') editDeviceUserModal;
-  selectedSimpleSite: SimpleSiteModel = new SimpleSiteModel;
-  spinnerStatus = true;
+  @ViewChild('createCalendarUserModal') createCalendarUserModal;
+  selectedCalendarUser: CalendarUserModel = new CalendarUserModel();
+  calendarUsers: CalendarUsersModel = new CalendarUsersModel();
+  calendarUsersRequestModel: CalendarUsersRequestModel = new CalendarUsersRequestModel();
+  spinnerStatus = false;
   sitesDto: Array<SiteDto>;
 
   constructor(
     private deviceUsersService: DeviceUserService,
+    private calendarService: CaseManagementPnCalendarService,
     private router: Router) {
   }
 
   ngOnInit() {
+    this.getCalendarUsers();
     this.loadAllSimpleSites();
   }
 
-  openEditModal(simpleSiteDto: SiteDto) {
-    this.selectedSimpleSite.userFirstName = simpleSiteDto.firstName;
-    this.selectedSimpleSite.userLastName = simpleSiteDto.lastName;
-    this.selectedSimpleSite.id = simpleSiteDto.siteId;
+  openEditModal(selectedUser: CalendarUserModel) {
+    this.selectedCalendarUser = selectedUser;
     this.editDeviceUserModal.show();
+  }
+
+  openCreateCalendarUserModal() {
+    this.createCalendarUserModal.show();
   }
 
   loadAllSimpleSites() {
     this.spinnerStatus = true;
     this.deviceUsersService.getAllSimpleSites().subscribe(operation => {
       if (operation && operation.success) {
-        this.sitesDto = operation.model;
+        this.sitesDto = operation.model.map(function(x) {
+          x.fullName = x.firstName + ' ' + x.lastName;
+          return x;
+        });
       }
       this.spinnerStatus = false;
+    });
+  }
+
+  getCalendarUsers() {
+    this.spinnerStatus = true;
+    this.calendarService.getCalendarUsers(this.calendarUsersRequestModel).subscribe((data) => {
+      if (data && data.success) {
+        this.calendarUsers = data.model;
+      } this.spinnerStatus = false;
     });
   }
 

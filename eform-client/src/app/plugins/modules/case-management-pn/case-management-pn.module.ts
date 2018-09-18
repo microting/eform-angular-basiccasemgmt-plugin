@@ -9,14 +9,14 @@ import localeDa from '@angular/common/locales/da';
 import {MDBRootModule} from 'port/angular-bootstrap-md';
 
 import {CaseManagementPnLayoutComponent} from './layouts';
-import {CaseManagementPnService} from './services';
+import {CaseManagementPnCalendarService, CaseManagementPnService} from './services';
 import {CaseManagementPnRouting} from './case-management-pn.routing';
 import {SharedPnModule} from '../shared/shared-pn.module';
 import {
   CaseManagementPnCalendarComponent,
   CaseManagementPnCalendarUsersComponent,
   CaseManagementPnCalendarUserEditComponent,
-  CaseManagementPnCasesComponent
+  CaseManagementPnCasesComponent, CaseManagementPnCalendarUserCreateComponent
 } from './components';
 
 registerLocaleData(localeDa);
@@ -41,10 +41,12 @@ registerLocaleData(localeDa);
     CaseManagementPnCalendarComponent,
     CaseManagementPnCalendarUsersComponent,
     CaseManagementPnCalendarUserEditComponent,
-    CaseManagementPnCasesComponent
+    CaseManagementPnCasesComponent,
+    CaseManagementPnCalendarUserCreateComponent
   ],
   providers: [
-    CaseManagementPnService
+    CaseManagementPnService,
+    CaseManagementPnCalendarService
   ]
 })
 export class CaseManagementPnModule { }

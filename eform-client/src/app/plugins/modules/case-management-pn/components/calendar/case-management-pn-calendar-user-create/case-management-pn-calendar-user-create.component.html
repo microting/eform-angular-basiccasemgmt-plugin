@@ -2,18 +2,19 @@
   <div class="modal-dialog modal-md">
     <div class="modal-content">
       <div class="modal-header">
-        <h3>{{'Edit Calendar User' | translate}}</h3>
+        <h3>{{'Create Calendar User' | translate}}</h3>
       </div>
       <div class="modal-body">
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-12">
-              <div class="md-form mt-1">
-                <input mdbInputDirective required
-                       [(ngModel)]="selectedCalendarUser.nameInCalendar"
-                       [mdbValidate]="false" type="text" name="email"
-                       id="editNameInCalendar" class="form-control">
-                <label class="text-black-50" for="editNameInCalendar">{{'Name in Calendar' | translate }} </label>
+              <div class="md-form m-0">
+                <ng-select
+                  bindValue="unitId"
+                  bindLabel="fullName" required
+                  [placeholder]="'Selected Device User' | translate"
+                  [(ngModel)]="newCalendarUser.unitId"
+                  [items]="deviceUsers"></ng-select>
               </div>
             </div>
             <div class="col-md-12">
@@ -22,25 +23,34 @@
                   bindValue="value"
                   bindLabel="text" required
                   [placeholder]="'Visible in calendar' | translate"
-                  [(ngModel)]="selectedCalendarUser.isVisibleInCalendar"
+                  [(ngModel)]="newCalendarUser.isVisibleInCalendar"
                   [items]="[{value: true, text: 'Yes'},
                   {value: false, text: 'No'}]">
                 </ng-select>
               </div>
             </div>
+            <div class="col-md-12">
+              <div class="md-form mt-1">
+                <input mdbInputDirective required
+                       [(ngModel)]="newCalendarUser.nameInCalendar"
+                       [mdbValidate]="false" type="text" name="email"
+                       id="createNameInCalendar" class="form-control">
+                <label class="text-black-50" for="createNameInCalendar">{{'Name in Calendar' | translate }} </label>
+              </div>
+            </div>
 
           </div>
           <input required style="height: 0; width: 0; display: none"
-                 [(ngModel)]="selectedCalendarUser.color"
-                 type="color" name="color" #editColorPickerInput
-                 id="editColorInput" class="form-control">
+                 [(ngModel)]="newCalendarUser.color"
+                 type="color" name="color" #createColorPickerInput
+                 id="createColorInput" class="form-control">
           <div class="row mt-2">
             <div class="col-md-12">
               <label class="text-black-50">{{'Color' | translate}}</label>
               <button mdbWavesEffect type="button"
-                      [ngStyle]="{'background-color': selectedCalendarUser.color}" class="btn
+                      [ngStyle]="{'background-color': newCalendarUser.color}" class="btn
               btn-lg btn-block"
-                      (click)="editColorPickerInput.click()" id="editColor">
+                      (click)="createColorPickerInput.click()" id="createColor">
               </button>
             </div>
 
@@ -49,8 +59,9 @@
       </div>
       <div class="modal-footer">
         <button class="btn btn-danger" id="saveEditBtn"
-                [disabled]="!selectedDeviceUser.userFirstName || !selectedDeviceUser.userLastName"
-                (click)="updateSingle()">{{'Save' | translate}}</button>
+                [disabled]="!newCalendarUser.nameInCalendar
+                || !newCalendarUser.unitId"
+                (click)="createCalendarUser()">{{'Create' | translate}}</button>
         <button id="cancelEditBtn" class="btn btn-accent text-black-50" (click)="frame.hide()">
           {{'Cancel' | translate}}</button>
       </div>

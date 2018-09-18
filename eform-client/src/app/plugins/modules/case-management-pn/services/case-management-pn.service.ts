@@ -7,8 +7,8 @@ import {Router} from '@angular/router';
 import {OperationDataResult, OperationResult} from 'src/app/common/models/operation.models';
 import {BaseService} from 'src/app/common/services/base.service';
 
-export let CustomerPnMethods = {
-  CustomerPn: 'api/case-management-pn',
+export let CaseManagementPnMethods = {
+  CaseManagementPn: 'api/case-management-pn',
 };
 
 @Injectable()

@@ -1,5 +1,10 @@
 <subheader-pn [title]="'Calendar Users' | translate">
-
+  <div class="p-3">
+    <button
+      class="btn btn-success"
+      mdbTooltip="{{'Create new calendar user' | translate}}"
+      (click)="openCreateCalendarUserModal()">{{ 'New User' | translate }}</button>
+  </div>
 </subheader-pn>
 
 <!--Here you can choose approach as you like: container-row, or flex, or just element with required styles and markup-->
@@ -70,5 +75,8 @@
 
 <app-case-management-pn-calendar-user-edit
   (onUserEdited)="loadAllSimpleSites()"
-  [selectedDeviceUser]="selectedSimpleSite"
+  [selectedCalendarUser]="selectedCalendarUser"
   #editDeviceUserModal></app-case-management-pn-calendar-user-edit>
+<app-case-management-pn-calendar-user-create (onUserEdited)="loadAllSimpleSites()"
+  [deviceUsers]="sitesDto" #createCalendarUserModal>
+</app-case-management-pn-calendar-user-create>

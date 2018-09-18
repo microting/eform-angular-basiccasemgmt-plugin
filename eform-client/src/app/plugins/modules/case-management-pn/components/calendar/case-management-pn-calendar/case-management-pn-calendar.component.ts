@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from '@angular/router';
 import {addDays, addHours, endOfMonth, isSameDay, isSameMonth, startOfDay, subDays} from 'date-fns';
 import {Subject} from 'rxjs';
 import {
@@ -8,6 +9,8 @@ import {
   CalendarView,
   DAYS_OF_WEEK
 } from 'angular-calendar';
+import {CalendarEventsRequestModel} from 'src/app/plugins/modules/case-management-pn/models';
+import {CaseManagementPnCalendarService} from '../../../services';
 
 const colors: any = {
   red: {
@@ -32,6 +35,7 @@ const colors: any = {
 export class CaseManagementPnCalendarComponent implements OnInit {
   spinnerStatus = false;
   view: CalendarView = CalendarView.Month;
+  calendarEvents = [];
 
   CalendarView = CalendarView;
 
@@ -96,10 +100,14 @@ export class CaseManagementPnCalendarComponent implements OnInit {
     }
   ];
 
-  activeDayIsOpen: boolean = true;
-  constructor() { }
+  activeDayIsOpen = true;
+  constructor(
+              private calendarService: CaseManagementPnCalendarService,
+              private router: Router
+  ) { }
 
   ngOnInit() {
+   // this.getEvents();
   }
 
   handleEvent(action: string, event: CalendarEvent): void {
@@ -118,6 +126,20 @@ export class CaseManagementPnCalendarComponent implements OnInit {
         this.activeDayIsOpen = true;
       }
     }
+  }
+
+  getEvents() {
+    this.spinnerStatus = true;
+    this.calendarService.getCalendarEvents(
+      new CalendarEventsRequestModel()).subscribe((data) => {
+       if (data && data.success) {
+          this.calendarEvents = data.model;
+       }
+    });
+  }
+
+  redirectToCase() {
+    this.router.navigate(['']).then();
   }
 
 }
