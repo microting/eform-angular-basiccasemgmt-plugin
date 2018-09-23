@@ -10,7 +10,7 @@ import {CaseManagementPnCalendarService} from 'src/app/plugins/modules/case-mana
   styleUrls: ['./case-management-pn-calendar-user-edit.component.scss']
 })
 export class CaseManagementPnCalendarUserEditComponent implements OnInit {
-  @Input() selectedCalendarUser: CalendarUserModel = new CalendarUserModel();
+  selectedCalendarUser: CalendarUserModel = new CalendarUserModel();
   @Output() onUserEdited: EventEmitter<void> = new EventEmitter<void>();
   @ViewChild('frame') frame;
   spinnerStatus = false;
@@ -20,7 +20,8 @@ export class CaseManagementPnCalendarUserEditComponent implements OnInit {
   ngOnInit() {
   }
 
-  show() {
+  show(model: CalendarUserModel) {
+    this.selectedCalendarUser = model;
     this.frame.show();
   }
 

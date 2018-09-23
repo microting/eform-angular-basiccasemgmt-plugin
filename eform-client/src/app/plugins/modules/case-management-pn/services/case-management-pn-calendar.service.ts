@@ -35,6 +35,10 @@ export class CaseManagementPnCalendarService  extends BaseService{
   }
 
   updateCalendarUser(model: CalendarUserModel): Observable<OperationResult> {
-    return this.put(CaseManagementPnCalendarMethods.CaseManagementPnCalendar, model);
+    return this.post(CaseManagementPnCalendarMethods.CaseManagementPnCalendar + '/update', model);
+  }
+
+  deleteCalendarUser(id: number): Observable<OperationResult> {
+    return this.get(CaseManagementPnCalendarMethods.CaseManagementPnCalendar + '/delete/' + id);
   }
 }

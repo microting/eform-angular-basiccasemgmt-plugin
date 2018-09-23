@@ -5,11 +5,13 @@ import {Subject} from 'rxjs';
 import {
   CalendarEvent,
   CalendarEventAction,
-  CalendarEventTimesChangedEvent,
+  CalendarEventTimesChangedEvent, CalendarEventTitleFormatter,
   CalendarView,
   DAYS_OF_WEEK
 } from 'angular-calendar';
-import {CalendarEventsRequestModel} from 'src/app/plugins/modules/case-management-pn/models';
+import {LocaleService} from 'src/app/common/services/auth';
+import {CalendarEventsRequestModel} from '../../../models';
+import {CustomEventTitleFormatter} from '../../../services/calendar/custom-event-title-formatter.provider';
 import {CaseManagementPnCalendarService} from '../../../services';
 
 const colors: any = {
@@ -30,6 +32,12 @@ const colors: any = {
 @Component({
   selector: 'app-case-management-pn-calendar',
   templateUrl: './case-management-pn-calendar.component.html',
+  providers: [
+    {
+      provide: CalendarEventTitleFormatter,
+      useClass: CustomEventTitleFormatter
+    }
+  ],
   styleUrls: ['./case-management-pn-calendar.component.scss']
 })
 export class CaseManagementPnCalendarComponent implements OnInit {
@@ -47,7 +55,7 @@ export class CaseManagementPnCalendarComponent implements OnInit {
   };
 
   excludeDays: number[] = [0, 6];
-  locale: string = 'en';
+  locale: string;
 
   weekStartsOn = DAYS_OF_WEEK.SUNDAY;
 
@@ -69,7 +77,7 @@ export class CaseManagementPnCalendarComponent implements OnInit {
 
   refresh: Subject<any> = new Subject();
 
-  events: CalendarEvent[] = [
+  events: CalendarEvent<any>[] = [
     {
       start: subDays(startOfDay(new Date()), 1),
       end: addDays(new Date(), 1),
@@ -103,15 +111,18 @@ export class CaseManagementPnCalendarComponent implements OnInit {
   activeDayIsOpen = true;
   constructor(
               private calendarService: CaseManagementPnCalendarService,
-              private router: Router
+              private router: Router,
+              private localeService: LocaleService
   ) { }
 
   ngOnInit() {
+    let userLocale = this.localeService.getCurrentUserLocale();
+    if (userLocale === 'da-DK') {
+      this.locale = 'da';
+    } else {
+      this.locale = 'en';
+    }
    // this.getEvents();
-  }
-
-  handleEvent(action: string, event: CalendarEvent): void {
-    this.modalData = { event, action };
   }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
@@ -128,18 +139,35 @@ export class CaseManagementPnCalendarComponent implements OnInit {
     }
   }
 
+  handleEvent(action: string, event: CalendarEvent): void {
+    this.modalData = { event, action };
+  }
+
   getEvents() {
     this.spinnerStatus = true;
     this.calendarService.getCalendarEvents(
       new CalendarEventsRequestModel()).subscribe((data) => {
        if (data && data.success) {
+          if (data.model.length > 0) {
+            for (let calendarEvent of data.model) {
+              this.calendarEvents.push(
+                {
+                  start: calendarEvent.fromDate,
+                  end: calendarEvent.toDate,
+                  title: calendarEvent.title,
+                  color: calendarEvent.color,
+                  meta: {}
+                }
+              );
+            }
+          }
           this.calendarEvents = data.model;
        }
     });
   }
 
-  redirectToCase() {
+  eventClicked({ event }: { event: CalendarEvent }): void {
+    console.log('Event clicked', event);
     this.router.navigate(['']).then();
   }
-
 }

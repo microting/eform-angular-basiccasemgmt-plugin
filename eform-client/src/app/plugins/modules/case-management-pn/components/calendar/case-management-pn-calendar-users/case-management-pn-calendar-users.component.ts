@@ -11,7 +11,8 @@ import {CaseManagementPnCalendarService} from '../../../services';
   styleUrls: ['./case-management-pn-calendar-users.component.scss']
 })
 export class CaseManagementPnCalendarUsersComponent implements OnInit {
-  @ViewChild('editDeviceUserModal') editDeviceUserModal;
+  @ViewChild('editCalendarUserModal') editCalendarUserModal;
+  @ViewChild('deleteCalendarUserModal') deleteCalendarUserModal;
   @ViewChild('createCalendarUserModal') createCalendarUserModal;
   selectedCalendarUser: CalendarUserModel = new CalendarUserModel();
   calendarUsers: CalendarUsersModel = new CalendarUsersModel();
@@ -32,7 +33,12 @@ export class CaseManagementPnCalendarUsersComponent implements OnInit {
 
   openEditModal(selectedUser: CalendarUserModel) {
     this.selectedCalendarUser = selectedUser;
-    this.editDeviceUserModal.show();
+    this.editCalendarUserModal.show();
+  }
+
+  openDeleteModal(selectedUser: CalendarUserModel) {
+    this.selectedCalendarUser = selectedUser;
+    this.deleteCalendarUserModal.show();
   }
 
   openCreateCalendarUserModal() {
