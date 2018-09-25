@@ -5,6 +5,4 @@
         public int? SelectedTemplateId { get; set; }
         public string SelectedTemplateName { get; set; }
     }
-
-
 }

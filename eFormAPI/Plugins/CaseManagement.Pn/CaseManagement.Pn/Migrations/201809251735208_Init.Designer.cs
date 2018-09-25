@@ -13,12 +13,12 @@ namespace CaseManagement.Pn.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201809251555319_Init"; }
+            get { return "201809251735208_Init"; }
         }
         
         string IMigrationMetadata.Source
         {
-            get { return null; }
+            get { return Resources.GetString("Source"); }
         }
         
         string IMigrationMetadata.Target

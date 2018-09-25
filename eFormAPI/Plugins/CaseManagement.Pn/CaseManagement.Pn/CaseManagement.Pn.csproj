@@ -20,7 +20,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\eFormAPI\Plugins\Customers\</OutputPath>
+    <OutputPath>..\..\..\eFormAPI\Plugins\CaseManagement\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -28,7 +28,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\..\eFormAPI\Plugins\Customers\</OutputPath>
+    <OutputPath>..\..\..\eFormAPI\Plugins\CaseManagement\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -242,15 +242,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\CalendarUsersController.cs" />
     <Compile Include="Controllers\CaseManagementSettingsController.cs" />
     <Compile Include="Infrastructure\Data\CaseManagementPnDbContext.cs" />
+    <Compile Include="Infrastructure\Data\Entities\CalendarUser.cs" />
     <Compile Include="Infrastructure\Data\Entities\CaseManagementSetting.cs" />
     <Compile Include="Infrastructure\Extensions\OrderedQueryableExtensions.cs" />
     <Compile Include="Infrastructure\Helpers\CustomersPnLocaleHelper.cs" />
+    <Compile Include="Infrastructure\Models\Calendar\CalendarUserModel.cs" />
+    <Compile Include="Infrastructure\Models\Calendar\CalendarUsersModel.cs" />
+    <Compile Include="Infrastructure\Models\Calendar\CalendarUsersRequestModel.cs" />
     <Compile Include="Infrastructure\Models\CaseManagementPnSettingsModel.cs" />
-    <Compile Include="Migrations\201809251555319_Init.cs" />
-    <Compile Include="Migrations\201809251555319_Init.Designer.cs">
-      <DependentUpon>201809251555319_Init.cs</DependentUpon>
+    <Compile Include="Migrations\201809251735208_Init.cs" />
+    <Compile Include="Migrations\201809251735208_Init.Designer.cs">
+      <DependentUpon>201809251735208_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\PnMigrationConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -261,8 +266,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201809251555319_Init.resx">
-      <DependentUpon>201809251555319_Init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201809251735208_Init.resx">
+      <DependentUpon>201809251735208_Init.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\CaseManagementPnResources.da.resx" />
     <EmbeddedResource Include="Properties\CaseManagementPnResources.resx">

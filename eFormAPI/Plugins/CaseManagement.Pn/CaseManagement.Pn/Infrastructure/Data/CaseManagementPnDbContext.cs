@@ -1,4 +1,6 @@
-﻿using System.Data.Entity;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure.Annotations;
 using CaseManagement.Pn.Infrastructure.Data.Entities;
 
 namespace CaseManagement.Pn.Infrastructure.Data
@@ -27,16 +29,17 @@ namespace CaseManagement.Pn.Infrastructure.Data
         }
 
         public DbSet<CaseManagementSetting> CaseManagementSettings { get; set; }
+        public DbSet<CalendarUser> CalendarUsers { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            //modelBuilder.Entity<CaseManagementSetting>()
-            //    .Property(e => e.SelectedTemplateId)
-            //    .HasColumnAnnotation(
-            //        IndexAnnotation.AnnotationName,
-            //        new IndexAnnotation(new IndexAttribute { IsUnique = false }));
+            modelBuilder.Entity<CalendarUser>()
+                .Property(e => e.SiteId)
+                .HasColumnAnnotation(
+                    IndexAnnotation.AnnotationName,
+                    new IndexAnnotation(new IndexAttribute { IsUnique = true }));
         }
     }
 }

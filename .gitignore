@@ -330,3 +330,5 @@ ASALocalRun/
 .mfractor/
 
 eFormAPI/eFormAPI/Plugins/Customers/
+
+eFormAPI/eFormAPI/Plugins/CaseManagement/
