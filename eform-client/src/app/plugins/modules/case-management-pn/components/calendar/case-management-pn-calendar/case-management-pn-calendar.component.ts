@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
+import {TranslateService} from '@ngx-translate/core';
 import {addDays, addHours, endOfMonth, isSameDay, isSameMonth, startOfDay, subDays} from 'date-fns';
+import {ToastrService} from 'ngx-toastr';
 import {Subject} from 'rxjs';
 import {
   CalendarEvent,
@@ -9,7 +11,7 @@ import {
   CalendarView,
   DAYS_OF_WEEK
 } from 'angular-calendar';
-import {LocaleService} from 'src/app/common/services/auth';
+import {AuthService, LocaleService} from 'src/app/common/services/auth';
 import {CalendarEventsRequestModel, CaseManagementPnSettingsModel} from '../../../models';
 import {CustomEventTitleFormatter} from '../../../services/calendar/custom-event-title-formatter.provider';
 import {CaseManagementPnCalendarService, CaseManagementPnService} from '../../../services';
@@ -46,6 +48,8 @@ export class CaseManagementPnCalendarComponent implements OnInit {
   calendarEventsRequestModel: CalendarEventsRequestModel = new CalendarEventsRequestModel();
   view: CalendarView = CalendarView.Month;
   calendarEvents = [];
+
+  get role() { return this.authService.currentRole }
 
   CalendarView = CalendarView;
 
@@ -114,9 +118,11 @@ export class CaseManagementPnCalendarComponent implements OnInit {
   constructor(
               private calendarService: CaseManagementPnCalendarService,
               private caseManagementService: CaseManagementPnService,
-              private router: Router,
               private localeService: LocaleService,
-
+              private translateService: TranslateService,
+              private toastrService: ToastrService,
+              private router: Router,
+              private authService: AuthService
   ) { }
 
   ngOnInit() {
@@ -128,8 +134,20 @@ export class CaseManagementPnCalendarComponent implements OnInit {
     }
     this.caseManagementService.getSettings().subscribe((data) => {
       this.settingsModel = data.model;
-      this.calendarEventsRequestModel.templateId = this.settingsModel.selectedTemplateId;
-      this.getEvents();
+      if (!this.settingsModel.selectedTemplateId) {
+        if (this.role === 'admin') {
+          this.router.navigate(['/plugins/case-management-pn/settings']);
+          this.toastrService.error(
+            this.translateService.instant('Select template to proceed'));
+        } else {
+          this.toastrService.error(
+            this.translateService.instant('Contact admin to select template'));
+        }
+      } else {
+        this.calendarEventsRequestModel.templateId =
+          this.settingsModel.selectedTemplateId;
+        this.getEvents();
+      }
     });
   }
 
@@ -174,8 +192,8 @@ export class CaseManagementPnCalendarComponent implements OnInit {
   }
 
   eventClicked({ event }: { event: CalendarEvent }): void {
-    this.router.navigate(['/templates',
-      this.settingsModel.selectedTemplateId,
-      event.meta.caseId]).then();
+    this.router.navigate(['/edit', event.meta.caseId,
+      this.settingsModel.selectedTemplateId
+      ]).then();
   }
 }

@@ -25,7 +25,7 @@ export const routes: Routes = [
         component: CaseManagementPnCalendarUsersComponent
       },
       {
-        path: 'eform-cases',
+        path: 'cases',
         canActivate: [AuthGuard],
         component: CaseManagementPnCasesComponent
       },
