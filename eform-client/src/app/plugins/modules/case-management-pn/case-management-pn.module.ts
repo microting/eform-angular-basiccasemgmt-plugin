@@ -16,7 +16,10 @@ import {
   CaseManagementPnCalendarComponent,
   CaseManagementPnCalendarUsersComponent,
   CaseManagementPnCalendarUserEditComponent,
-  CaseManagementPnCasesComponent, CaseManagementPnCalendarUserCreateComponent, CaseManagementPnCalendarUserDeleteComponent
+  CaseManagementPnCasesComponent,
+  CaseManagementPnCalendarUserCreateComponent,
+  CaseManagementPnCalendarUserDeleteComponent,
+  CaseManagementPnSettingsComponent
 } from './components';
 
 registerLocaleData(localeDa);
@@ -42,6 +45,7 @@ registerLocaleData(localeDa);
     CaseManagementPnCalendarUsersComponent,
     CaseManagementPnCalendarUserEditComponent,
     CaseManagementPnCalendarUserDeleteComponent,
+    CaseManagementPnSettingsComponent,
     CaseManagementPnCasesComponent,
     CaseManagementPnCalendarUserCreateComponent
   ],

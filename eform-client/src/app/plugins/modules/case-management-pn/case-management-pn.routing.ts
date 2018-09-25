@@ -5,7 +5,7 @@ import {AdminGuard, AuthGuard} from 'src/app/common/guards';
 import {
   CaseManagementPnCalendarComponent,
   CaseManagementPnCalendarUsersComponent,
-  CaseManagementPnCasesComponent
+  CaseManagementPnCasesComponent, CaseManagementPnSettingsComponent
 } from './components';
 import {CaseManagementPnLayoutComponent} from './layouts';
 
@@ -28,6 +28,11 @@ export const routes: Routes = [
         path: 'eform-cases',
         canActivate: [AuthGuard],
         component: CaseManagementPnCasesComponent
+      },
+      {
+        path: 'settings',
+        canActivate: [AdminGuard],
+        component: CaseManagementPnSettingsComponent
       }
     ]
   }

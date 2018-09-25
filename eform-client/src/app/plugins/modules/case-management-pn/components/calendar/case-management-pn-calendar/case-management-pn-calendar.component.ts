@@ -10,9 +10,9 @@ import {
   DAYS_OF_WEEK
 } from 'angular-calendar';
 import {LocaleService} from 'src/app/common/services/auth';
-import {CalendarEventsRequestModel} from '../../../models';
+import {CalendarEventsRequestModel, CaseManagementPnSettingsModel} from '../../../models';
 import {CustomEventTitleFormatter} from '../../../services/calendar/custom-event-title-formatter.provider';
-import {CaseManagementPnCalendarService} from '../../../services';
+import {CaseManagementPnCalendarService, CaseManagementPnService} from '../../../services';
 
 const colors: any = {
   red: {
@@ -42,6 +42,8 @@ const colors: any = {
 })
 export class CaseManagementPnCalendarComponent implements OnInit {
   spinnerStatus = false;
+  settingsModel: CaseManagementPnSettingsModel = new CaseManagementPnSettingsModel();
+  calendarEventsRequestModel: CalendarEventsRequestModel = new CalendarEventsRequestModel();
   view: CalendarView = CalendarView.Month;
   calendarEvents = [];
 
@@ -111,8 +113,10 @@ export class CaseManagementPnCalendarComponent implements OnInit {
   activeDayIsOpen = true;
   constructor(
               private calendarService: CaseManagementPnCalendarService,
+              private caseManagementService: CaseManagementPnService,
               private router: Router,
-              private localeService: LocaleService
+              private localeService: LocaleService,
+
   ) { }
 
   ngOnInit() {
@@ -122,7 +126,11 @@ export class CaseManagementPnCalendarComponent implements OnInit {
     } else {
       this.locale = 'en';
     }
-   // this.getEvents();
+    this.caseManagementService.getSettings().subscribe((data) => {
+      this.settingsModel = data.model;
+      this.calendarEventsRequestModel.templateId = this.settingsModel.selectedTemplateId;
+      this.getEvents();
+    });
   }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
@@ -145,8 +153,7 @@ export class CaseManagementPnCalendarComponent implements OnInit {
 
   getEvents() {
     this.spinnerStatus = true;
-    this.calendarService.getCalendarEvents(
-      new CalendarEventsRequestModel()).subscribe((data) => {
+    this.calendarService.getCalendarEvents(this.calendarEventsRequestModel).subscribe((data) => {
        if (data && data.success) {
           if (data.model.length > 0) {
             for (let calendarEvent of data.model) {
@@ -167,7 +174,8 @@ export class CaseManagementPnCalendarComponent implements OnInit {
   }
 
   eventClicked({ event }: { event: CalendarEvent }): void {
-    console.log('Event clicked', event);
-    this.router.navigate(['']).then();
+    this.router.navigate(['/templates',
+      this.settingsModel.selectedTemplateId,
+      event.meta.caseId]).then();
   }
 }

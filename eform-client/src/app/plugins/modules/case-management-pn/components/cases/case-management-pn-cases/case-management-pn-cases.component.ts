@@ -4,6 +4,8 @@ import {CaseListModel, CaseModel, CasesRequestModel} from 'src/app/common/models
 import {TemplateDto} from 'src/app/common/models/dto';
 import {CasesService} from 'src/app/common/services/cases';
 import {EFormService} from 'src/app/common/services/eform';
+import {CaseManagementPnSettingsModel} from '../../../models';
+import {CaseManagementPnService} from '../../../services';
 
 @Component({
   selector: 'app-case-management-pn-cases',
@@ -16,18 +18,23 @@ export class CaseManagementPnCasesComponent implements OnInit {
   currentTemplate: TemplateDto = new TemplateDto;
   casesRequestModel: CasesRequestModel = new CasesRequestModel();
   caseListModel: CaseListModel = new CaseListModel();
-  id: number;
+  settingsModel: CaseManagementPnSettingsModel = new CaseManagementPnSettingsModel();
   spinnerStatus = false;
 
   constructor(private activateRoute: ActivatedRoute,
               private casesService: CasesService,
+              private caseManagementService: CaseManagementPnService,
               private eFormService: EFormService) {
-    this.id = 26;
   }
 
   ngOnInit() {
-    this.loadAllCases();
-    this.loadTemplateData();
+    this.spinnerStatus = true;
+    this.caseManagementService.getSettings().subscribe((data) => {
+      this.settingsModel = data.model;
+      this.spinnerStatus = false;
+      this.loadAllCases();
+      this.loadTemplateData();
+    });
   }
 
   onLabelInputChanged(label: string) {
@@ -47,7 +54,7 @@ export class CaseManagementPnCasesComponent implements OnInit {
 
   loadAllCases() {
     this.spinnerStatus = true;
-    this.casesRequestModel.templateId = this.id;
+    this.casesRequestModel.templateId = this.settingsModel.selectedTemplateId;
     this.casesService.getCases(this.casesRequestModel).subscribe(operation => {
       if (operation && operation.success) {
         this.caseListModel = operation.model;
@@ -57,7 +64,7 @@ export class CaseManagementPnCasesComponent implements OnInit {
   }
 
   loadTemplateData() {
-    this.eFormService.getSingle(this.id).subscribe(operation => {
+    this.eFormService.getSingle(this.settingsModel.selectedTemplateId).subscribe(operation => {
       this.spinnerStatus = true;
       if (operation && operation.success) {
         this.currentTemplate = operation.model;

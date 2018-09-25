@@ -4,9 +4,9 @@ import {ToastrService} from 'ngx-toastr';
 
 import {Observable} from 'rxjs';
 import {Router} from '@angular/router';
-import {CaseModel} from 'src/app/common/models/cases';
 import {OperationDataResult, OperationResult} from 'src/app/common/models/operation.models';
 import {BaseService} from 'src/app/common/services/base.service';
+import {CaseManagementPnSettingsModel} from '../models';
 
 export let CaseManagementPnMethods = {
   CaseManagementPn: 'api/case-management-pn',
@@ -18,7 +18,11 @@ export class CaseManagementPnService extends BaseService {
     super(_http, router, toastrService);
   }
 
-  getAllCases(model: any): Observable<OperationDataResult<Array<CaseModel>>> {
-    return this.get(CaseManagementPnMethods.CaseManagementPn + '/get-all', model);
+  getSettings(): Observable<OperationDataResult<CaseManagementPnSettingsModel>> {
+    return this.get(CaseManagementPnMethods.CaseManagementPn + '/settings');
+  }
+
+  updateSettings(model: CaseManagementPnSettingsModel): Observable<OperationResult> {
+    return this.post(CaseManagementPnMethods.CaseManagementPn + '/settings', model);
   }
 }
