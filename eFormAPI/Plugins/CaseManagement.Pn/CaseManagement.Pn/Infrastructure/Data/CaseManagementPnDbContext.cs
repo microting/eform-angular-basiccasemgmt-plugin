@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure.Annotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data.Entity;
+using CaseManagement.Pn.Infrastructure.Data.Entities;
 
 namespace CaseManagement.Pn.Infrastructure.Data
 {
@@ -32,20 +26,17 @@ namespace CaseManagement.Pn.Infrastructure.Data
             return new CaseManagementPnDbContext();
         }
 
-     //   public DbSet<Customer> Customers { get; set; }
-    //    public DbSet<Field> Fields { get; set; }
-     //   public DbSet<CustomerField> CustomerFields { get; set; }
-    //    public DbSet<CustomerSettings> CustomerSettings { get; set; }
+        public DbSet<CaseManagementSetting> CaseManagementSettings { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            //modelBuilder.Entity<Customer>()
-            //    .Property(e => e.RelatedEntityId)
+            //modelBuilder.Entity<CaseManagementSetting>()
+            //    .Property(e => e.SelectedTemplateId)
             //    .HasColumnAnnotation(
             //        IndexAnnotation.AnnotationName,
-            //        new IndexAnnotation(new IndexAttribute { IsUnique = true }));
+            //        new IndexAnnotation(new IndexAttribute { IsUnique = false }));
         }
     }
 }
