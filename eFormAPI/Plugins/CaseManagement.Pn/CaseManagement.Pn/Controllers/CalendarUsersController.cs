@@ -63,6 +63,7 @@ namespace CaseManagement.Pn.Controllers
                 {
                     var item = new CalendarUserModel
                     {
+                        Id = calendarUser.Id,
                         SiteId = calendarUser.SiteId,
                         IsVisibleInCalendar = calendarUser.IsVisibleInCalendar,
                         NameInCalendar = calendarUser.NameInCalendar,
