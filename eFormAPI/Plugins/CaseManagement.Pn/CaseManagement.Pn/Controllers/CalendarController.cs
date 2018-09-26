@@ -68,12 +68,11 @@ namespace CaseManagement.Pn.Controllers
                                 item.Start = date;
                                 item.End = date;
                             }
-                            var meta = new CalendarEventMeta
+                            item.Meta = new CalendarEventMeta
                             {
                                 CaseId = caseItem.Id.ToString(),
                                 CalendarUserName = calendarUser.NameInCalendar
                             };
-                            item.Meta.Add(meta);
                             // Add item
                             calendarEventModels.Add(item);
                         }

@@ -9,8 +9,6 @@ namespace CaseManagement.Pn.Infrastructure.Models.Calendar
         public DateTime End { get; set; }
         public string Title { get; set; }
         public string Color { get; set; }
-        public List<CalendarEventMeta> Meta { get; set; } 
-            = new List<CalendarEventMeta>();
-
+        public CalendarEventMeta Meta { get; set; } = new CalendarEventMeta();
     }
 }
