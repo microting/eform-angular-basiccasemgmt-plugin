@@ -27,7 +27,7 @@ namespace CaseManagement.Pn.Controllers
         }
 
         [HttpPost]
-        [Route("api/case-management-pn/calendar")]
+        [Route("api/case-management-pn/calendar/events")]
         public OperationDataResult<List<CalendarEventModel>> GetCalendarEvents(CalendarEventsRequestModel requestModel)
         {
             try
