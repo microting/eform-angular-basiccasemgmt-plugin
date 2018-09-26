@@ -19,5 +19,23 @@
   "Loading": "Indlæser",
   "Edit Case": "Rediger tilfælde",
   "Download PDF": "Hent PDF",
-  "Delete Case": "Slet tilfældet"
+  "Delete Case": "Slet tilfældet",
+
+  "Case Management Plugin settings": "Installationsinstaller til sagstyring",
+  "Template settings": "Skabelon indstillinger",
+  "Selected template": "Udvalgt skabelon",
+  "Calendar Users": "Kalender brugere",
+  "Create new calendar user": "Opret ny kalender bruger",
+  "ID": "ID",
+  "Calendar name": "Kalendernavn",
+  "Edit Calendar User": "Rediger kalenderbruger",
+  "Name in Calendar": "Navn i kalender",
+  "Color": "Farve",
+  "Selected Device User": "Valgte enhed Bruger",
+  "Visible in calendar": "Synlig i kalender",
+  "Create Calendar User": "Opret kalenderbruger",
+  "Create": "Skab",
+  "Calendar Name": "Kalendernavn",
+  "Close": "Tæt",
+  "Yes": "Ja"
 }
