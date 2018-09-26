@@ -9,7 +9,6 @@ import {CaseManagementPnCalendarService} from 'src/app/plugins/modules/case-mana
 })
 export class CaseManagementPnCalendarUserEditComponent implements OnInit {
   selectedCalendarUser: CalendarUserModel = new CalendarUserModel();
-  calendarUserModel: CalendarUserModel = new CalendarUserModel();
   @Output() onUserEdited: EventEmitter<void> = new EventEmitter<void>();
   @ViewChild('frame') frame;
   spinnerStatus = false;
@@ -20,7 +19,7 @@ export class CaseManagementPnCalendarUserEditComponent implements OnInit {
   }
 
   show(model: CalendarUserModel) {
-    this.selectedCalendarUser = model;
+    this.selectedCalendarUser = Object.assign({}, model);
     this.frame.show();
   }
 

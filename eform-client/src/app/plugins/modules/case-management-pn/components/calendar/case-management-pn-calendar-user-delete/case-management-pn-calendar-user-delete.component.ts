@@ -1,5 +1,4 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {SiteDto} from 'src/app/common/models/dto';
 import {CalendarUserModel} from '../../../models';
 import {CaseManagementPnCalendarService} from '../../../services';
 
