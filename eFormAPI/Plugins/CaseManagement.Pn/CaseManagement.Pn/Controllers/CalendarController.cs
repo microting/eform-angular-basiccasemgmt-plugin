@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Web.Http;
 using CaseManagement.Pn.Infrastructure.Data;
@@ -37,7 +38,7 @@ namespace CaseManagement.Pn.Controllers
                 var casesSiteIds = cases.Where(x => x.SiteId != null)
                     .Select(x => x.SiteId)
                     .GroupBy(x => x)
-                    .Select(x=> (int) x.Key)
+                    .Select(x => (int) x.Key)
                     .ToList();
 
                 var calendarUsers = _dbContext.CalendarUsers
@@ -52,13 +53,21 @@ namespace CaseManagement.Pn.Controllers
                         var calendarUser = calendarUsers.FirstOrDefault(x => x.SiteId == siteId);
                         if (calendarUser != null)
                         {
+                            var dateParseResult = DateTime.TryParseExact(caseItem.FieldValue1, 
+                                "yyyy-MM-dd", 
+                                null,
+                                DateTimeStyles.None, 
+                                out DateTime date);
                             var item = new CalendarEventModel
                             {
                                 Color = calendarUser.Color,
-                                Title = "title",
-                                Start = DateTime.UtcNow,
-                                End = DateTime.UtcNow,
+                                Title = caseItem.FieldValue2
                             };
+                            if (dateParseResult)
+                            {
+                                item.Start = date;
+                                item.End = date;
+                            }
                             var meta = new CalendarEventMeta
                             {
                                 CaseId = caseItem.Id.ToString(),
@@ -70,6 +79,7 @@ namespace CaseManagement.Pn.Controllers
                         }
                     }
                 }
+
                 return new OperationDataResult<List<CalendarEventModel>>(true, calendarEventModels);
             }
             catch (Exception e)
