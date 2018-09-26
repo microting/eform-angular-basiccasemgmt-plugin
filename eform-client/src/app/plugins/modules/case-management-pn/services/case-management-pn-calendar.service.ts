@@ -1,7 +1,6 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {ToastrService} from 'ngx-toastr';
-
 import {Observable} from 'rxjs';
 import {Router} from '@angular/router';
 import {OperationDataResult, OperationResult} from 'src/app/common/models/operation.models';
@@ -14,14 +13,14 @@ export let CaseManagementPnCalendarMethods = {
 };
 
 @Injectable()
-export class CaseManagementPnCalendarService  extends BaseService{
+export class CaseManagementPnCalendarService  extends BaseService {
   constructor(private _http: HttpClient, router: Router, toastrService: ToastrService) {
     super(_http, router, toastrService);
   }
 
   getCalendarEvents(model: CalendarEventsRequestModel):
     Observable<OperationDataResult<Array<CalendarEventModel>>> {
-    return this.post(CaseManagementPnCalendarMethods.CaseManagementPnCalendar,
+    return this.post(CaseManagementPnCalendarMethods.CaseManagementPnCalendar + '/events',
       model);
   }
 

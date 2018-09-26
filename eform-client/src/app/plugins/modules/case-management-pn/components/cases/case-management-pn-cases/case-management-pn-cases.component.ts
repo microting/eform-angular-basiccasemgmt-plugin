@@ -20,6 +20,7 @@ export class CaseManagementPnCasesComponent implements OnInit {
   @ViewChild('modalRemoveCase') modalRemoveCase;
   casesRequestModel: CasesRequestModel = new CasesRequestModel();
   caseListModel: CaseListModel = new CaseListModel();
+  currentTemplate: TemplateDto = new TemplateDto;
   settingsModel: CaseManagementPnSettingsModel = new CaseManagementPnSettingsModel();
   spinnerStatus = false;
 
@@ -31,7 +32,8 @@ export class CaseManagementPnCasesComponent implements OnInit {
               private authService: AuthService,
               private translateService: TranslateService,
               private toastrService: ToastrService,
-              private router: Router) {
+              private router: Router,
+              private eFormService: EFormService) {
   }
 
   ngOnInit() {
@@ -49,6 +51,7 @@ export class CaseManagementPnCasesComponent implements OnInit {
             this.translateService.instant('Contact admin to select template'));
         }
       } else {
+        this.loadTemplateData();
         this.loadAllCases();
       }
     });
@@ -75,6 +78,16 @@ export class CaseManagementPnCasesComponent implements OnInit {
     this.casesService.getCases(this.casesRequestModel).subscribe(operation => {
       if (operation && operation.success) {
         this.caseListModel = operation.model;
+      }
+      this.spinnerStatus = false;
+    });
+  }
+
+  loadTemplateData() {
+    this.eFormService.getSingle(this.settingsModel.selectedTemplateId).subscribe(operation => {
+      this.spinnerStatus = true;
+      if (operation && operation.success) {
+        this.currentTemplate = operation.model;
       }
       this.spinnerStatus = false;
     });

@@ -52,12 +52,6 @@
         [class.active]="view === CalendarView.Week">
         {{'Week' | translate}}
       </div>
-      <div
-        class="btn btn-primary"
-        (click)="view = CalendarView.Day"
-        [class.active]="view === CalendarView.Day">
-        {{'Day' | translate}}
-      </div>
     </div>
   </div>
 </div>
@@ -83,14 +77,6 @@
     [locale]="locale"
     (eventClicked)="eventClicked($event)">
   </mwl-calendar-week-view>
-  <mwl-calendar-day-view
-    *ngSwitchCase="CalendarView.Day"
-    [viewDate]="viewDate"
-    [events]="events"
-    [refresh]="refresh"
-    [locale]="locale"
-    (eventClicked)="eventClicked($event)">
-  </mwl-calendar-day-view>
 </div>
 
 
