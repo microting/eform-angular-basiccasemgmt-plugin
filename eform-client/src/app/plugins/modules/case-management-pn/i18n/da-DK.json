@@ -37,5 +37,7 @@
   "Create": "Skab",
   "Calendar Name": "Kalendernavn",
   "Close": "Tæt",
-  "Yes": "Ja"
+  "Yes": "Ja",
+  "Select template to proceed": "Vælg skabelon for at fortsætte",
+  "Contact admin to select template": "Kontakt admin for at vælge skabelon"
 }
