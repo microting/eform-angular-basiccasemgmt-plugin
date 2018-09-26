@@ -55,7 +55,7 @@ namespace CaseManagement.Pn.Controllers
                             var item = new CalendarEventModel
                             {
                                 Color = calendarUser.Color,
-                                Title = "111",
+                                Title = "title",
                                 Start = DateTime.UtcNow,
                                 End = DateTime.UtcNow,
                             };
@@ -77,7 +77,7 @@ namespace CaseManagement.Pn.Controllers
                 Trace.TraceError(e.Message);
                 _logger.Error(e);
                 return new OperationDataResult<List<CalendarEventModel>>(false,
-                    CustomersPnLocaleHelper.GetString("ErrorObtainingCustomersInfo"));
+                    CustomersPnLocaleHelper.GetString("ErrorObtainingCalendarInfo"));
             }
         }
     }
