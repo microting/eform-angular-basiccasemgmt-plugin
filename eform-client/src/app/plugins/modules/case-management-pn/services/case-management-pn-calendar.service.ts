@@ -27,7 +27,7 @@ export class CaseManagementPnCalendarService  extends BaseService{
 
   getCalendarUsers(model: CalendarUsersRequestModel):
     Observable<OperationDataResult<CalendarUsersModel>> {
-    return this.get(CaseManagementPnCalendarMethods.CaseManagementPnCalendar, model);
+    return this.post(CaseManagementPnCalendarMethods.CaseManagementPnCalendar + '/get-all', model);
   }
 
   createCalendarUser(model: CalendarUserModel): Observable<OperationResult> {

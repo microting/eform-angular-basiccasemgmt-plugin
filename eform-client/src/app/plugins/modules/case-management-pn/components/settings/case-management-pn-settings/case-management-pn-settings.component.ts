@@ -36,7 +36,7 @@ export class CaseManagementPnSettingsComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.getSettings();
   }
 
   getSettings() {
@@ -56,5 +56,9 @@ export class CaseManagementPnSettingsComponent implements OnInit {
 
       } this.spinnerStatus = false;
     });
+  }
+
+  onSelectedChanged(e: any) {
+    this.settingsModel.selectedTemplateId = e.id;
   }
 }

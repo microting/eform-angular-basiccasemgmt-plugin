@@ -1,6 +1,4 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {SimpleSiteModel} from 'src/app/common/models/device-users';
-import {DeviceUserService} from 'src/app/common/services/device-users';
 import {CalendarUserModel} from 'src/app/plugins/modules/case-management-pn/models/calendar/users';
 import {CaseManagementPnCalendarService} from 'src/app/plugins/modules/case-management-pn/services';
 
@@ -11,6 +9,7 @@ import {CaseManagementPnCalendarService} from 'src/app/plugins/modules/case-mana
 })
 export class CaseManagementPnCalendarUserEditComponent implements OnInit {
   selectedCalendarUser: CalendarUserModel = new CalendarUserModel();
+  calendarUserModel: CalendarUserModel = new CalendarUserModel();
   @Output() onUserEdited: EventEmitter<void> = new EventEmitter<void>();
   @ViewChild('frame') frame;
   spinnerStatus = false;

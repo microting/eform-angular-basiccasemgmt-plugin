@@ -33,12 +33,12 @@ export class CaseManagementPnCalendarUsersComponent implements OnInit {
 
   openEditModal(selectedUser: CalendarUserModel) {
     this.selectedCalendarUser = selectedUser;
-    this.editCalendarUserModal.show();
+    this.editCalendarUserModal.show(this.selectedCalendarUser);
   }
 
   openDeleteModal(selectedUser: CalendarUserModel) {
     this.selectedCalendarUser = selectedUser;
-    this.deleteCalendarUserModal.show();
+    this.deleteCalendarUserModal.show(this.selectedCalendarUser);
   }
 
   openCreateCalendarUserModal() {

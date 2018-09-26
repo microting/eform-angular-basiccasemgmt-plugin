@@ -16,10 +16,10 @@
           <div class="col-md-6">
             <ng-select [items]="templatesModel.templates"
                        bindLabel="label"
-                       [placeholder]="('Selected template' | translate) || settingsModel.selectedTemplateName"
+                       [placeholder]="settingsModel.selectedTemplateName || ('Selected template' | translate)"
                        bindValue="id"
                        [typeahead]="typeahead"
-                       [(ngModel)]="settingsModel.selectedTemplateId">
+                       (change)="onSelectedChanged($event)">
             </ng-select>
           </div>
 

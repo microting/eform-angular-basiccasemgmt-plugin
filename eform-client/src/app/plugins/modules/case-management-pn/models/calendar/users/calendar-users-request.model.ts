@@ -7,7 +7,7 @@ export class CalendarUsersRequestModel {
   offset: number;
 
   constructor() {
-    this.sort = 'id';
+    this.sort = 'Id';
     this.isSortDsc = true;
     this.pageSize = 10;
     this.pageIndex = 0;

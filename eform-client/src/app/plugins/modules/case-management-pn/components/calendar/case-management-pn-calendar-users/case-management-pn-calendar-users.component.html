@@ -33,17 +33,23 @@
           {{calendarUser.lastName}}
         </td>
         <td>
-          {{calendarUser.unitId}}
+          {{calendarUser.siteId}}
         </td>
         <td>
           {{calendarUser.nameInCalendar}}
         </td>
         <td>
-          {{calendarUser.isVisibleInCalendar}}
+          <ng-container *ngIf="calendarUser.isVisibleInCalendar">
+            {{'Yes' | translate}}
+          </ng-container>
+          <ng-container *ngIf="!calendarUser.isVisibleInCalendar">
+            {{'No' | translate}}
+          </ng-container>
         </td>
         <td>
           <div class="d-flex justify-content-center">
-            <div class="z-depth-1" style="background-color: #dff0d8; width: 100px; height: 20px"></div>
+            <div class="z-depth-1" [ngStyle]="{'background-color': calendarUser.color}"
+            style="width: 100px; height: 20px"></div>
           </div>
         </td>
         <td>
@@ -75,10 +81,12 @@
 
 <app-case-management-pn-calendar-user-edit
   (onUserEdited)="getCalendarUsers()"
-  #editDeviceUserModal></app-case-management-pn-calendar-user-edit>
-<app-case-management-pn-calendar-user-create (onUserEdited)="getCalendarUsers()"
+  #editCalendarUserModal></app-case-management-pn-calendar-user-edit>
+<app-case-management-pn-calendar-user-create (onUserCreated)="getCalendarUsers()"
   [deviceUsers]="sitesDto" #createCalendarUserModal>
 </app-case-management-pn-calendar-user-create>
-<app-case-management-pn-calendar-user-delete (onUserDeleted)="getCalendarUsers()">
+<app-case-management-pn-calendar-user-delete
+  #deleteCalendarUserModal
+  (onUserDeleted)="getCalendarUsers()">
 
 </app-case-management-pn-calendar-user-delete>
