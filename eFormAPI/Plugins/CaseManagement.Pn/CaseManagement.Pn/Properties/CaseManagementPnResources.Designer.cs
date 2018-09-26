@@ -59,5 +59,113 @@ namespace CaseManagement.Pn.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Calendar user deleted successfully.
+        /// </summary>
+        internal static string CalendarUserDeletedSuccessfully {
+            get {
+                return ResourceManager.GetString("CalendarUserDeletedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Calendar user has been created.
+        /// </summary>
+        internal static string CalendarUserHasBeenCreated {
+            get {
+                return ResourceManager.GetString("CalendarUserHasBeenCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Calendar user not found.
+        /// </summary>
+        internal static string CalendarUserNotFound {
+            get {
+                return ResourceManager.GetString("CalendarUserNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Calendar user updated successfully.
+        /// </summary>
+        internal static string CalendarUserUpdatedSuccessfully {
+            get {
+                return ResourceManager.GetString("CalendarUserUpdatedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while obtaining calendar info.
+        /// </summary>
+        internal static string ErrorObtainingCalendarInfo {
+            get {
+                return ResourceManager.GetString("ErrorObtainingCalendarInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while creating calendar user.
+        /// </summary>
+        internal static string ErrorWhileCreatingCalendarUser {
+            get {
+                return ResourceManager.GetString("ErrorWhileCreatingCalendarUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while deleting calendar user.
+        /// </summary>
+        internal static string ErrorWhileDeletingCalendarUser {
+            get {
+                return ResourceManager.GetString("ErrorWhileDeletingCalendarUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while obtaining calendar user info.
+        /// </summary>
+        internal static string ErrorWhileObtainingCalendarUserInfo {
+            get {
+                return ResourceManager.GetString("ErrorWhileObtainingCalendarUserInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while obtaining case management settings.
+        /// </summary>
+        internal static string ErrorWhileObtainingCaseManagementSettings {
+            get {
+                return ResourceManager.GetString("ErrorWhileObtainingCaseManagementSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while updating calendar user.
+        /// </summary>
+        internal static string ErrorWhileUpdatingCalendarUser {
+            get {
+                return ResourceManager.GetString("ErrorWhileUpdatingCalendarUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while updating case management settings.
+        /// </summary>
+        internal static string ErrorWhileUpdatingCaseManagementSettings {
+            get {
+                return ResourceManager.GetString("ErrorWhileUpdatingCaseManagementSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings has been updated successfully.
+        /// </summary>
+        internal static string SettingsHasBeenUpdatedSuccessfully {
+            get {
+                return ResourceManager.GetString("SettingsHasBeenUpdatedSuccessfully", resourceCulture);
+            }
+        }
     }
 }

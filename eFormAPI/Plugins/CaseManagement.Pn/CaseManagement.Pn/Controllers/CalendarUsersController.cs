@@ -87,7 +87,7 @@ namespace CaseManagement.Pn.Controllers
                 Trace.TraceError(e.Message);
                 _logger.Error(e);
                 return new OperationDataResult<CalendarUsersModel>(false,
-                    CustomersPnLocaleHelper.GetString("ErrorObtainingCustomersInfo"));
+                    CustomersPnLocaleHelper.GetString("ErrorWhileObtainingCalendarUserInfo"));
             }
         }
 
@@ -107,14 +107,14 @@ namespace CaseManagement.Pn.Controllers
                 _dbContext.CalendarUsers.Add(calendarUser);
                 _dbContext.SaveChanges();
                 return new OperationResult(true,
-                    CustomersPnLocaleHelper.GetString("CustomerCreated"));
+                    CustomersPnLocaleHelper.GetString("CalendarUserHasBeenCreated"));
             }
             catch (Exception e)
             {
                 Trace.TraceError(e.Message);
                 _logger.Error(e);
                 return new OperationResult(false,
-                    CustomersPnLocaleHelper.GetString("ErrorWhileCreatingCustomer"));
+                    CustomersPnLocaleHelper.GetString("ErrorWhileCreatingCalendarUser"));
             }
         }
 
@@ -128,7 +128,7 @@ namespace CaseManagement.Pn.Controllers
                 if (calendarUser == null)
                 {
                     return new OperationResult(false,
-                        CustomersPnLocaleHelper.GetString("CustomerNotFound"));
+                        CustomersPnLocaleHelper.GetString("CalendarUserNotFound"));
                 }
 
                 calendarUser.SiteId = requestModel.SiteId;
@@ -137,14 +137,14 @@ namespace CaseManagement.Pn.Controllers
                 calendarUser.NameInCalendar = requestModel.NameInCalendar;
                 _dbContext.SaveChanges();
                 return new OperationResult(true,
-                    CustomersPnLocaleHelper.GetString("CustomerUpdatedSuccessfully"));
+                    CustomersPnLocaleHelper.GetString("CalendarUserUpdatedSuccessfully"));
             }
             catch (Exception e)
             {
                 Trace.TraceError(e.Message);
                 _logger.Error(e);
                 return new OperationResult(false,
-                    CustomersPnLocaleHelper.GetString("ErrorWhileUpdatingCustomerInfo"));
+                    CustomersPnLocaleHelper.GetString("ErrorWhileUpdatingCalendarUser"));
             }
         }
 
@@ -159,19 +159,19 @@ namespace CaseManagement.Pn.Controllers
                 if (calendarUser == null)
                 {
                     return new OperationResult(false,
-                        CustomersPnLocaleHelper.GetString("CustomerNotFound"));
+                        CustomersPnLocaleHelper.GetString("CalendarUserNotFound"));
                 }
                 _dbContext.CalendarUsers.Remove(calendarUser);
                 _dbContext.SaveChanges();
                 return new OperationResult(true,
-                    CustomersPnLocaleHelper.GetString("CustomerDeletedSuccessfully"));
+                    CustomersPnLocaleHelper.GetString("CalendarUserDeletedSuccessfully"));
             }
             catch (Exception e)
             {
                 Trace.TraceError(e.Message);
                 _logger.Error(e);
                 return new OperationResult(false,
-                    CustomersPnLocaleHelper.GetString("ErrorWhileDeletingCustomer"));
+                    CustomersPnLocaleHelper.GetString("ErrorWhileDeletingCalendarUser"));
             }
         }
     }

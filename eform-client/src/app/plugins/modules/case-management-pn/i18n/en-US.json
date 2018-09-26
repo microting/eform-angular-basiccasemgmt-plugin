@@ -1,3 +1,23 @@
 {
-  
+  "Calendar": "Calendar",
+  "Calendar Settings": "Calendar Settings",
+  "Previous": "Previous",
+  "Current": "Current",
+  "Next": "Next",
+  "Month": "Month",
+  "Week": "Week",
+  "Day": "Day",
+  "Terms of Service": "Terms of Service",
+  "Privacy Policy": "Privacy Policy",
+  "Case Management": "Case Management",
+  "Cases": "Cases",
+  "Selected date": "Selected date",
+  "eForm finished at": "eForm finished at",
+  "Data accessible at": "Data accessible at",
+  "eForm done by": "eForm done by",
+  "Actions": "Actions",
+  "Loading": "Loading",
+  "Edit Case": "Edit Case",
+  "Download PDF": "Download PDF",
+  "Delete Case": "Delete Case"
 }
