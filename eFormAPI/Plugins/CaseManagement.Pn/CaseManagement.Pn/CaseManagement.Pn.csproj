@@ -269,6 +269,10 @@
     <Compile Include="Migrations\201809251735208_Init.Designer.cs">
       <DependentUpon>201809251735208_Init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810030806231_AddingRelatedEntityGroupIdToSettings.cs" />
+    <Compile Include="Migrations\201810030806231_AddingRelatedEntityGroupIdToSettings.Designer.cs">
+      <DependentUpon>201810030806231_AddingRelatedEntityGroupIdToSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\PnMigrationConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\CaseManagementPnResources.Designer.cs">
@@ -280,6 +284,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201809251735208_Init.resx">
       <DependentUpon>201809251735208_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810030806231_AddingRelatedEntityGroupIdToSettings.resx">
+      <DependentUpon>201810030806231_AddingRelatedEntityGroupIdToSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\CaseManagementPnResources.da.resx" />
     <EmbeddedResource Include="Properties\CaseManagementPnResources.resx">
