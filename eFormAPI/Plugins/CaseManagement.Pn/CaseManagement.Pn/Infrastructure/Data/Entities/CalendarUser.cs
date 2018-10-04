@@ -8,5 +8,6 @@ namespace CaseManagement.Pn.Infrastructure.Data.Entities
         public bool IsVisibleInCalendar { get; set; }
         public string NameInCalendar { get; set; }
         public string Color { get; set; }
+        public int RelatedEntityId { get; set; }
     }
 }
