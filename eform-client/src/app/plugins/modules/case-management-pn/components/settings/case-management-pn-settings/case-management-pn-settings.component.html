@@ -37,10 +37,10 @@
           <div class="col-md-6">
             <ng-select [items]="advEntitySelectableGroupListModel.entityGroups"
                        bindLabel="name"
-                       [placeholder]="settingsModel.selectedTemplateName || ('Selected list' | translate)"
+                       [placeholder]="settingsModel.relatedEntityGroupName || ('Selected list' | translate)"
                        bindValue="microtingUUID"
                        [typeahead]="typeahead"
-                       (change)="onSelectedChanged($event)">
+                       (change)="onSelectedChangedEntity($event)">
             </ng-select>
           </div>
 

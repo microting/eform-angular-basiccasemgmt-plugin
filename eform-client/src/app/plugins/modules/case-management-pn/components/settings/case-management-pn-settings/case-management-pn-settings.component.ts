@@ -65,7 +65,6 @@ export class CaseManagementPnSettingsComponent implements OnInit {
     });
   }
   getEntitySelectableGroupList() {
-    debugger;
     this.spinnerStatus = true;
     this.entitySelectService.getEntitySelectableGroupList(this.advEntitySelectableGroupListRequestModel).subscribe((data) => {
       if (data && data.model) {
@@ -75,5 +74,8 @@ export class CaseManagementPnSettingsComponent implements OnInit {
   }
   onSelectedChanged(e: any) {
     this.settingsModel.selectedTemplateId = e.id;
+  }
+  onSelectedChangedEntity(ev: any) {
+    this.settingsModel.relatedEntityGroupId = ev.microtingUUID;
   }
 }

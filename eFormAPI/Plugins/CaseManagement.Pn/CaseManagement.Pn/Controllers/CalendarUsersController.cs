@@ -106,6 +106,40 @@ namespace CaseManagement.Pn.Controllers
                 };
                 _dbContext.CalendarUsers.Add(calendarUser);
                 _dbContext.SaveChanges();
+                var calendarUsers = _dbContext.CalendarUsers.FirstOrDefault();
+                if (calendarUsers?.RelatedEntityGroupId != null)
+                {
+                    var core = _coreHelper.GetCore();
+                    var entityGroup = core.EntityGroupRead(calendarUsers.RelatedEntityGroupId.ToString());
+                    if (entityGroup == null)
+                    {
+                        return new OperationResult(false, "Entity group not found");
+                    }
+
+                    var nextItemUid = entityGroup.EntityGroupItemLst.Count;
+                    var label = calendarUser.NameInCalendar;
+                    if (string.IsNullOrEmpty(label))
+                    {
+                        label = $"Empty company {nextItemUid}";
+                    }
+                    var item = core.EntitySelectItemCreate(entityGroup.Id, $"{label}", 0,
+                        nextItemUid.ToString());
+                    if (item != null)
+                    {
+                        entityGroup = core.EntityGroupRead(calendarUsers.RelatedEntityGroupId.ToString());
+                        if (entityGroup != null)
+                        {
+                            foreach (var entityItem in entityGroup.EntityGroupItemLst)
+                            {
+                                if (entityItem.MicrotingUUID == item.MicrotingUUID)
+                                {
+                                    calendarUser.RelatedEntityId = entityItem.Id;
+                                }
+                            }
+                        }
+                    }
+                    _dbContext.SaveChanges();
+                }
                 return new OperationResult(true,
                     CustomersPnLocaleHelper.GetString("CalendarUserHasBeenCreated"));
             }
