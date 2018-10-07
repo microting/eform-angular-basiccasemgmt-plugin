@@ -10,28 +10,31 @@ using Microting.eFormApi.BasePn;
 
 namespace CaseManagement.Pn
 {
-    public class EformVehiclesPlugin : IEformPlugin
+    public class EformCaseManagementPlugin : IEformPlugin
     {
-        public string GetName() => "Microting Vehicles plugin";
-        public string ConnectionStringName() => "EFormVehiclesPnConnection";
+        public string GetName() => "Microting Case Management plugin";
+        public string ConnectionStringName() => "EFormCaseManagementPnConnection";
         public string PluginPath() => PluginAssembly().Location;
 
         public Assembly PluginAssembly()
         {
-            return typeof(EformVehiclesPlugin).GetTypeInfo().Assembly;
+            return typeof(EformCaseManagementPlugin).GetTypeInfo().Assembly;
         }
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IVehiclesService, VehiclesService>();
+            services.AddSingleton<ICaseManagementLocalizationService, CaseManagementLocalizationService>();
+            services.AddScoped<ICalendarService, CalendarService>();
+            services.AddScoped<ICalendarUsersService, CalendarUsersService>();
+            services.AddScoped<ICaseManagementSettingsService, CaseManagementSettingsService>();
         }
 
         public void ConfigureDbContext(IServiceCollection services, string connectionString)
         {
-            services.AddDbContext<VehiclesPnDbContext>(o => o.UseSqlServer(connectionString,
+            services.AddDbContext<CaseManagementPnDbContext>(o => o.UseSqlServer(connectionString,
                 b => b.MigrationsAssembly(PluginAssembly().FullName)));
 
-            var contextFactory = new VehiclesPnContextFactory();
+            var contextFactory = new CaseManagementPnDbContextFactory();
             var context = contextFactory.CreateDbContext(new[] {connectionString});
             context.Database.Migrate();
         }

@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore.Design;
 
 namespace CaseManagement.Pn.Infrastructure.Data.Factories
 {
-    public class VehiclesPnContextFactory : IDesignTimeDbContextFactory<VehiclesPnDbContext>
+    public class CaseManagementPnDbContextFactory : IDesignTimeDbContextFactory<CaseManagementPnDbContext>
     {
-        public VehiclesPnDbContext CreateDbContext(string[] args)
+        public CaseManagementPnDbContext CreateDbContext(string[] args)
         {
-            var optionsBuilder = new DbContextOptionsBuilder<VehiclesPnDbContext>();
+            var optionsBuilder = new DbContextOptionsBuilder<CaseManagementPnDbContext>();
             if (args.Any())
             {
                 optionsBuilder.UseSqlServer(args.FirstOrDefault());
@@ -17,7 +17,7 @@ namespace CaseManagement.Pn.Infrastructure.Data.Factories
             {
                 optionsBuilder.UseSqlServer("...");
             }
-            return new VehiclesPnDbContext(optionsBuilder.Options);
+            return new CaseManagementPnDbContext(optionsBuilder.Options);
         }
     }
 }
