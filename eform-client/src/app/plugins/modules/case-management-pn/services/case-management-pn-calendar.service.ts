@@ -1,7 +1,6 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {ToastrService} from 'ngx-toastr';
-
 import {Observable} from 'rxjs';
 import {Router} from '@angular/router';
 import {OperationDataResult, OperationResult} from 'src/app/common/models/operation.models';
@@ -14,20 +13,20 @@ export let CaseManagementPnCalendarMethods = {
 };
 
 @Injectable()
-export class CaseManagementPnCalendarService  extends BaseService{
+export class CaseManagementPnCalendarService  extends BaseService {
   constructor(private _http: HttpClient, router: Router, toastrService: ToastrService) {
     super(_http, router, toastrService);
   }
 
   getCalendarEvents(model: CalendarEventsRequestModel):
     Observable<OperationDataResult<Array<CalendarEventModel>>> {
-    return this.post(CaseManagementPnCalendarMethods.CaseManagementPnCalendar,
+    return this.post(CaseManagementPnCalendarMethods.CaseManagementPnCalendar + '/events',
       model);
   }
 
   getCalendarUsers(model: CalendarUsersRequestModel):
     Observable<OperationDataResult<CalendarUsersModel>> {
-    return this.get(CaseManagementPnCalendarMethods.CaseManagementPnCalendar, model);
+    return this.post(CaseManagementPnCalendarMethods.CaseManagementPnCalendar + '/get-all', model);
   }
 
   createCalendarUser(model: CalendarUserModel): Observable<OperationResult> {
@@ -35,6 +34,10 @@ export class CaseManagementPnCalendarService  extends BaseService{
   }
 
   updateCalendarUser(model: CalendarUserModel): Observable<OperationResult> {
-    return this.put(CaseManagementPnCalendarMethods.CaseManagementPnCalendar, model);
+    return this.post(CaseManagementPnCalendarMethods.CaseManagementPnCalendar + '/update', model);
+  }
+
+  deleteCalendarUser(id: number): Observable<OperationResult> {
+    return this.get(CaseManagementPnCalendarMethods.CaseManagementPnCalendar + '/delete/' + id);
   }
 }

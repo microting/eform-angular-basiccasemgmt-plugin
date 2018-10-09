@@ -49,7 +49,7 @@
       </div>
       <div class="modal-footer">
         <button class="btn btn-danger" id="saveEditBtn"
-                [disabled]="!selectedDeviceUser.userFirstName || !selectedDeviceUser.userLastName"
+                [disabled]="!selectedCalendarUser.nameInCalendar"
                 (click)="updateSingle()">{{'Save' | translate}}</button>
         <button id="cancelEditBtn" class="btn btn-accent text-black-50" (click)="frame.hide()">
           {{'Cancel' | translate}}</button>

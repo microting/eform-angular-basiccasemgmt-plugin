@@ -10,10 +10,10 @@
             <div class="col-md-12">
               <div class="md-form m-0">
                 <ng-select
-                  bindValue="unitId"
+                  bindValue="siteId"
                   bindLabel="fullName" required
                   [placeholder]="'Selected Device User' | translate"
-                  [(ngModel)]="newCalendarUser.unitId"
+                  [(ngModel)]="newCalendarUser.siteId"
                   [items]="deviceUsers"></ng-select>
               </div>
             </div>
@@ -60,7 +60,7 @@
       <div class="modal-footer">
         <button class="btn btn-danger" id="saveEditBtn"
                 [disabled]="!newCalendarUser.nameInCalendar
-                || !newCalendarUser.unitId"
+                || !newCalendarUser.siteId"
                 (click)="createCalendarUser()">{{'Create' | translate}}</button>
         <button id="cancelEditBtn" class="btn btn-accent text-black-50" (click)="frame.hide()">
           {{'Cancel' | translate}}</button>
