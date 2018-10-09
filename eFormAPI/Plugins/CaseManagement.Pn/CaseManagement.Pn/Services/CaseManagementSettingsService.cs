@@ -70,6 +70,10 @@ namespace CaseManagement.Pn.Services
         {
             try
             {
+                if (caseManagementSettingsModel.RelatedEntityGroupId == 0 || caseManagementSettingsModel.SelectedTemplateId == 0)
+                {
+                    return new OperationResult(true);
+                }
                 var caseManagementSettings = _dbContext.CaseManagementSettings.FirstOrDefault();
                 if (caseManagementSettings == null)
                 {
