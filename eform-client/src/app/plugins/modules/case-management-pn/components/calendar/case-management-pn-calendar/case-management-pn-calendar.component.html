@@ -12,7 +12,7 @@
 
 <div class="container-fluid mt-3">
   <div class="d-flex justify-content-around">
-    <div class="btn-group">
+    <div class="btn-group-sm">
       <div
         class="btn btn-primary"
         mwlCalendarPreviousView
@@ -39,7 +39,7 @@
 
     <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):locale }}</h3>
 
-    <div class="btn-group">
+    <div class="btn-group-sm">
       <div
         class="btn btn-primary"
         (click)="view = CalendarView.Month"
@@ -51,12 +51,6 @@
         (click)="view = CalendarView.Week"
         [class.active]="view === CalendarView.Week">
         {{'Week' | translate}}
-      </div>
-      <div
-        class="btn btn-primary"
-        (click)="view = CalendarView.Day"
-        [class.active]="view === CalendarView.Day">
-        {{'Day' | translate}}
       </div>
     </div>
   </div>
@@ -72,7 +66,7 @@
     [locale]="locale"
     [activeDayIsOpen]="activeDayIsOpen"
     (dayClicked)="dayClicked($event.day)"
-    (eventClicked)="handleEvent('Clicked', $event.event)">
+    (eventClicked)="eventClicked($event)">
   </mwl-calendar-month-view>
   <mwl-calendar-week-view
     *ngSwitchCase="CalendarView.Week"
@@ -81,16 +75,8 @@
     [refresh]="refresh"
     [excludeDays]="excludeDays"
     [locale]="locale"
-    (eventClicked)="handleEvent('Clicked', $event.event)">
+    (eventClicked)="eventClicked($event)">
   </mwl-calendar-week-view>
-  <mwl-calendar-day-view
-    *ngSwitchCase="CalendarView.Day"
-    [viewDate]="viewDate"
-    [events]="events"
-    [refresh]="refresh"
-    [locale]="locale"
-    (eventClicked)="handleEvent('Clicked', $event.event)">
-  </mwl-calendar-day-view>
 </div>
 
 

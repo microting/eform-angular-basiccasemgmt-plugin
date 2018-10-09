@@ -1,120 +1,91 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {addDays, addHours, endOfMonth, isSameDay, isSameMonth, startOfDay, subDays} from 'date-fns';
+import {TranslateService} from '@ngx-translate/core';
+import {isSameDay, isSameMonth, parse} from 'date-fns';
+import {ToastrService} from 'ngx-toastr';
 import {Subject} from 'rxjs';
 import {
   CalendarEvent,
-  CalendarEventAction,
-  CalendarEventTimesChangedEvent,
-  CalendarView,
-  DAYS_OF_WEEK
+  CalendarEventTitleFormatter,
+  CalendarView
 } from 'angular-calendar';
-import {CalendarEventsRequestModel} from 'src/app/plugins/modules/case-management-pn/models';
-import {CaseManagementPnCalendarService} from '../../../services';
-
-const colors: any = {
-  red: {
-    primary: '#ad2121',
-    secondary: '#FAE3E3'
-  },
-  blue: {
-    primary: '#1e90ff',
-    secondary: '#D1E8FF'
-  },
-  yellow: {
-    primary: '#e3bc08',
-    secondary: '#FDF1BA'
-  }
-};
+import {AuthService, LocaleService} from 'src/app/common/services/auth';
+import {CalendarEventsRequestModel, CaseManagementPnSettingsModel} from '../../../models';
+import {CustomEventTitleFormatter} from '../../../services/calendar/custom-event-title-formatter.provider';
+import {CaseManagementPnCalendarService, CaseManagementPnService} from '../../../services';
 
 @Component({
   selector: 'app-case-management-pn-calendar',
   templateUrl: './case-management-pn-calendar.component.html',
+  providers: [
+    {
+      provide: CalendarEventTitleFormatter,
+      useClass: CustomEventTitleFormatter
+    }
+  ],
   styleUrls: ['./case-management-pn-calendar.component.scss']
 })
 export class CaseManagementPnCalendarComponent implements OnInit {
   spinnerStatus = false;
+  settingsModel: CaseManagementPnSettingsModel = new CaseManagementPnSettingsModel();
+  calendarEventsRequestModel: CalendarEventsRequestModel = new CalendarEventsRequestModel();
   view: CalendarView = CalendarView.Month;
-  calendarEvents = [];
+
+  get role() {
+    return this.authService.currentRole;
+  }
 
   CalendarView = CalendarView;
 
   viewDate: Date = new Date();
 
-  modalData: {
-    action: string;
-    event: CalendarEvent;
-  };
-
   excludeDays: number[] = [0, 6];
-  locale: string = 'en';
-
-  weekStartsOn = DAYS_OF_WEEK.SUNDAY;
-
-  actions: CalendarEventAction[] = [
-    {
-      label: '<i class="fa fa-fw fa-pencil"></i>',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.handleEvent('Edited', event);
-      }
-    },
-    {
-      label: '<i class="fa fa-fw fa-times"></i>',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.events = this.events.filter(iEvent => iEvent !== event);
-        this.handleEvent('Deleted', event);
-      }
-    }
-  ];
+  locale: string;
 
   refresh: Subject<any> = new Subject();
 
-  events: CalendarEvent[] = [
-    {
-      start: subDays(startOfDay(new Date()), 1),
-      end: addDays(new Date(), 1),
-      title: 'A 3 day event',
-      color: colors.red,
-      actions: this.actions,
-      allDay: true
-    },
-    {
-      start: startOfDay(new Date()),
-      title: 'An event with no end date',
-      color: colors.yellow,
-      actions: this.actions
-    },
-    {
-      start: subDays(endOfMonth(new Date()), 3),
-      end: addDays(endOfMonth(new Date()), 3),
-      title: 'A long event that spans 2 months',
-      color: colors.blue,
-      allDay: true
-    },
-    {
-      start: addHours(startOfDay(new Date()), 2),
-      end: new Date(),
-      title: 'A draggable and resizable event',
-      color: colors.yellow,
-      actions: this.actions
-    }
-  ];
+  events: Array<CalendarEvent<any>> = [];
 
-  activeDayIsOpen = true;
+  activeDayIsOpen = false;
+
   constructor(
-              private calendarService: CaseManagementPnCalendarService,
-              private router: Router
-  ) { }
+    private calendarService: CaseManagementPnCalendarService,
+    private caseManagementService: CaseManagementPnService,
+    private localeService: LocaleService,
+    private translateService: TranslateService,
+    private toastrService: ToastrService,
+    private router: Router,
+    private authService: AuthService
+  ) {
+  }
 
   ngOnInit() {
-   // this.getEvents();
+    let userLocale = this.localeService.getCurrentUserLocale();
+    if (userLocale === 'da-DK') {
+      this.locale = 'da';
+    } else {
+      this.locale = 'en';
+    }
+    this.caseManagementService.getSettings().subscribe((data) => {
+      this.settingsModel = data.model;
+      if (!this.settingsModel.selectedTemplateId) {
+        if (this.role === 'admin') {
+          this.router.navigate(['/plugins/case-management-pn/settings']);
+          this.toastrService.error(
+            this.translateService.instant('Select template to proceed'));
+        } else {
+          this.toastrService.error(
+            this.translateService.instant('Contact admin to select template'));
+        }
+      } else {
+        this.calendarEventsRequestModel.templateId =
+          this.settingsModel.selectedTemplateId;
+        this.getEvents();
+      }
+    });
   }
 
-  handleEvent(action: string, event: CalendarEvent): void {
-    this.modalData = { event, action };
-  }
-
-  dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
+  dayClicked({date, events}: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
       this.viewDate = date;
       if (
@@ -130,16 +101,39 @@ export class CaseManagementPnCalendarComponent implements OnInit {
 
   getEvents() {
     this.spinnerStatus = true;
-    this.calendarService.getCalendarEvents(
-      new CalendarEventsRequestModel()).subscribe((data) => {
-       if (data && data.success) {
-          this.calendarEvents = data.model;
-       }
+    this.calendarService.getCalendarEvents(this.calendarEventsRequestModel).subscribe((data) => {
+      if (data && data.success) {
+        if (data.model.length > 0) {
+          for (let calendarEvent of data.model) {
+            this.events.push(
+              {
+                start: parse(calendarEvent.start),
+                end: parse(calendarEvent.end),
+                title: calendarEvent.title,
+                color: {
+                  primary: calendarEvent.color,
+                  secondary: calendarEvent.color
+                },
+                allDay: true,
+                meta: {
+                  calendarUserName: calendarEvent.meta.calendarUserName,
+                  caseId: calendarEvent.meta.caseId
+                }
+              }
+            );
+          }
+        }
+
+        this.refresh.next();
+      }
+      this.spinnerStatus = false;
     });
   }
 
-  redirectToCase() {
-    this.router.navigate(['']).then();
+  eventClicked({event}: { event: CalendarEvent }): void {
+    debugger;
+    this.router.navigate(['/cases/edit', event.meta.caseId,
+      this.settingsModel.selectedTemplateId
+    ]).then();
   }
-
 }

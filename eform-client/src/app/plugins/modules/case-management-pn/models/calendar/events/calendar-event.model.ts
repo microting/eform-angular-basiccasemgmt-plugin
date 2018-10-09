@@ -1,6 +1,7 @@
 export class CalendarEventModel {
-  fromDate: Date;
-  toDate: Date;
-  customerId: number;
-  customerName: string;
+  start: Date;
+  end: Date;
+  color: string;
+  title: string;
+  meta: any;
 }
