@@ -4,6 +4,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {ToastrService} from 'ngx-toastr';
 import {CaseListModel, CaseModel, CasesRequestModel} from 'src/app/common/models/cases';
 import {TemplateDto} from 'src/app/common/models/dto';
+import {TemplateRequestModel} from 'src/app/common/models/eforms';
 import {AuthService} from 'src/app/common/services/auth';
 import {CasesService} from 'src/app/common/services/cases';
 import {EFormService} from 'src/app/common/services/eform';
@@ -21,6 +22,7 @@ export class CaseManagementPnCasesComponent implements OnInit {
   casesRequestModel: CasesRequestModel = new CasesRequestModel();
   caseListModel: CaseListModel = new CaseListModel();
   currentTemplate: TemplateDto = new TemplateDto;
+  vaelgKundeCase: CaseModel = new CaseModel();
   settingsModel: CaseManagementPnSettingsModel = new CaseManagementPnSettingsModel();
   spinnerStatus = false;
 
@@ -53,6 +55,7 @@ export class CaseManagementPnCasesComponent implements OnInit {
       } else {
         this.loadTemplateData();
         this.loadAllCases();
+        this.loadVaelgKundeTemplate();
       }
     });
   }
@@ -88,6 +91,18 @@ export class CaseManagementPnCasesComponent implements OnInit {
       this.spinnerStatus = true;
       if (operation && operation.success) {
         this.currentTemplate = operation.model;
+      }
+      this.spinnerStatus = false;
+    });
+  }
+
+  loadVaelgKundeTemplate() {
+    let requestModel = new CasesRequestModel();
+    requestModel.nameFilter = 'Vaelg Kunde';
+    this.casesService.getCases(requestModel).subscribe(operation => {
+      this.spinnerStatus = true;
+      if (operation && operation.success && operation.model.cases[0]) {
+        this.vaelgKundeCase = operation.model.cases[0];
       }
       this.spinnerStatus = false;
     });
