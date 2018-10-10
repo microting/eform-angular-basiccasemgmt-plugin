@@ -1,5 +1,13 @@
 <subheader-pn [title]="'Cases' | translate">
-
+  <div class="p-3">
+    <button
+      class="btn btn-success"
+      [disabled]="!vaelgKundeCase.id"
+      mdbTooltip="{{ 'Create case' | translate }}"
+      [routerLink]="['/cases/edit/' + vaelgKundeCase.id + '/' + currentTemplate.id]">
+      {{ 'New Case' | translate }}
+    </button>
+  </div>
 </subheader-pn>
 
 <!--Here you can choose approach as you like: container-row, or flex, or just element with required styles and markup-->
