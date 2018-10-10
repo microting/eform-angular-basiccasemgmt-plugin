@@ -1,4 +1,4 @@
-﻿using eFormApi.BasePn.Infrastructure.Data.Base;
+﻿using Microting.eFormApi.BasePn.Infrastructure.Database.Base;
 
 namespace CaseManagement.Pn.Infrastructure.Data.Entities
 {

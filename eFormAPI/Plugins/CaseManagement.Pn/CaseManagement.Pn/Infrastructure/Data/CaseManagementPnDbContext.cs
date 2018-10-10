@@ -1,45 +1,25 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure.Annotations;
-using CaseManagement.Pn.Infrastructure.Data.Entities;
+﻿using CaseManagement.Pn.Infrastructure.Data.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace CaseManagement.Pn.Infrastructure.Data
 {
     public class CaseManagementPnDbContext : DbContext
     {
-        public CaseManagementPnDbContext()
-            : base("eFormCaseManagementPnConnection")
+        public CaseManagementPnDbContext(DbContextOptions<CaseManagementPnDbContext> options) 
+            : base(options)
         {
-            Configuration.ProxyCreationEnabled = false;
-            Configuration.LazyLoadingEnabled = false;
-            Database.SetInitializer<CaseManagementPnDbContext>(null);
-        }
-
-        public CaseManagementPnDbContext(string connectionString)
-            : base(connectionString)
-        {
-            Configuration.ProxyCreationEnabled = false;
-            Configuration.LazyLoadingEnabled = false;
-            Database.SetInitializer<CaseManagementPnDbContext>(null);
-        }
-
-        public static CaseManagementPnDbContext Create()
-        {
-            return new CaseManagementPnDbContext();
         }
 
         public DbSet<CaseManagementSetting> CaseManagementSettings { get; set; }
         public DbSet<CalendarUser> CalendarUsers { get; set; }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<CalendarUser>()
-                .Property(e => e.SiteId)
-                .HasColumnAnnotation(
-                    IndexAnnotation.AnnotationName,
-                    new IndexAnnotation(new IndexAttribute { IsUnique = true }));
+                .HasIndex(x => x.SiteId)
+                .IsUnique();
         }
     }
 }
