@@ -98,7 +98,7 @@ export class CaseManagementPnCasesComponent implements OnInit {
 
   loadVaelgKundeTemplate() {
     let requestModel = new CasesRequestModel();
-    requestModel.nameFilter = 'Vaelg Kunde';
+    requestModel.nameFilter = '...';
     this.casesService.getCases(requestModel).subscribe(operation => {
       this.spinnerStatus = true;
       if (operation && operation.success && operation.model.cases[0]) {
