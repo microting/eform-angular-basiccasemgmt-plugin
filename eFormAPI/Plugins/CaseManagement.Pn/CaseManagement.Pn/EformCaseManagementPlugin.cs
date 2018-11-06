@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Collections.Generic;
+using System.Reflection;
 using CaseManagement.Pn.Abstractions;
 using CaseManagement.Pn.Infrastructure.Data;
 using CaseManagement.Pn.Infrastructure.Data.Factories;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microting.eFormApi.BasePn;
+using Microting.eFormApi.BasePn.Infrastructure.Models.Application;
 
 namespace CaseManagement.Pn
 {
@@ -42,7 +44,47 @@ namespace CaseManagement.Pn
         public void Configure(IApplicationBuilder appBuilder)
         {
         }
-        
+
+        public MenuModel HeaderMenu()
+        {
+            var result = new MenuModel();
+            result.LeftMenu.Add(new MenuItemModel()
+            {
+                Name = "Case Management",
+                E2EId = "case-management-pn",
+                Link = "",
+                MenuItems = new List<MenuItemModel>()
+                {
+                    new MenuItemModel()
+                    {
+                        Name = "Calendar",
+                        E2EId = "case-management-pn-calendar",
+                        Link = "/plugins/case-management-pn/calendar",
+                        Position = 0,
+                    },
+                    new MenuItemModel()
+                    {
+                        Name = "Cases",
+                        E2EId = "case-management-pn-cases",
+                        Link = "/plugins/case-management-pn/cases",
+                        Position = 1,
+                    },
+                    new MenuItemModel()
+                    {
+                        Name = "Settings",
+                        E2EId = "case-management-pn-settings",
+                        Link = "/plugins/case-management-pn/settings",
+                        Position = 2,
+                        Guards = new List<string>()
+                        {
+                            "admin"
+                        }
+                    },
+                } 
+            });
+            return result;
+        }
+
         public void SeedDatabase(string connectionString)
         {
         }
