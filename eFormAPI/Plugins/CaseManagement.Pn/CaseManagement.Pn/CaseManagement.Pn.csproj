@@ -3,6 +3,10 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+  </PropertyGroup>
   
     <ItemGroup>
     <PackageReference Include="Automapper" Version="6.1.0" />
@@ -14,5 +18,9 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.1.3" />
     <PackageReference Include="Microting.eFormApi.BasePn" Version="1.1.45" />
   </ItemGroup>
+  
+    <ItemGroup>
+      <Folder Include="Infrastructure\Helpers\" />
+    </ItemGroup>
 
 </Project>
