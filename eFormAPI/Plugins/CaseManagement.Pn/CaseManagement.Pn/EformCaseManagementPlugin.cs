@@ -33,7 +33,7 @@ namespace CaseManagement.Pn
 
         public void ConfigureDbContext(IServiceCollection services, string connectionString)
         {
-            services.AddDbContext<CaseManagementPnDbContext>(o => o.UseSqlServer(connectionString,
+            services.AddDbContext<CaseManagementPnDbAnySql>(o => o.UseSqlServer(connectionString,
                 b => b.MigrationsAssembly(PluginAssembly().FullName)));
 
             var contextFactory = new CaseManagementPnDbContextFactory();

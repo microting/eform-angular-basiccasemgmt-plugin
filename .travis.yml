@@ -1,0 +1,14 @@
+language: csharp
+solution: CaseManagement.Pn.sln
+mono: none
+dotnet: 2.1
+script:
+  - dotnet restore eFormAPI/Plugins/CaseManagement.Pn/CaseManagement.Pn.sln
+  - dotnet build eFormAPI/Plugins/CaseManagement.Pn/CaseManagement.Pn.sln
+  - dotnet test -v n eFormAPI/Plugins/CaseManagement.Pn/CaseManagement.Pn.Tests/CaseManagement.Pn.Tests.csproj
+  - cd eform-client && npm install
+  - npm test -v
+after_success:
+- echo dotnet test and npm test succeeded
+after_faliure:
+- echo dotnet test and npm test failed

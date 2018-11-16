@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CaseManagement.Pn.Migrations
 {
-    [DbContext(typeof(CaseManagementPnDbContext))]
+    [DbContext(typeof(CaseManagementPnDbAnySql))]
     [Migration("20181009223525_Init")]
     partial class Init
     {
