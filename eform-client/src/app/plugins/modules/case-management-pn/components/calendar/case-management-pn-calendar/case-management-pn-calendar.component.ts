@@ -38,8 +38,6 @@ export class CaseManagementPnCalendarComponent implements OnInit {
   CalendarView = CalendarView;
 
   viewDate: Date = new Date();
-
-  excludeDays: number[] = [0, 6];
   locale: string;
 
   refresh: Subject<any> = new Subject();
