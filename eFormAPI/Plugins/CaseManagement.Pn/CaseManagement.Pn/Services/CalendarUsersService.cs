@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using CaseManagement.Pn.Abstractions;
@@ -6,6 +7,9 @@ using CaseManagement.Pn.Infrastructure.Data;
 using CaseManagement.Pn.Infrastructure.Data.Entities;
 using CaseManagement.Pn.Infrastructure.Extensions;
 using CaseManagement.Pn.Infrastructure.Models.Calendar;
+using eFormCore;
+using eFormData;
+using eFormShared;
 using Microsoft.Extensions.Logging;
 using Microting.eFormApi.BasePn.Abstractions;
 using Microting.eFormApi.BasePn.Infrastructure.Models.API;
@@ -34,8 +38,8 @@ namespace CaseManagement.Pn.Services
         {
             try
             {
-                var calendarUsersModel = new CalendarUsersModel();
-                var calendarUsersQuery = _dbContext.CalendarUsers.AsQueryable();
+                CalendarUsersModel calendarUsersModel = new CalendarUsersModel();
+                IQueryable<CalendarUser> calendarUsersQuery = _dbContext.CalendarUsers.AsQueryable();
                 if (!string.IsNullOrEmpty(requestModel.Sort))
                 {
                     if (requestModel.IsSortDsc)
@@ -59,12 +63,12 @@ namespace CaseManagement.Pn.Services
                     .Skip(requestModel.Offset)
                     .Take(requestModel.PageSize);
 
-                var calendarUsers = calendarUsersQuery.ToList();
+                List<CalendarUser> calendarUsers = calendarUsersQuery.ToList();
                 calendarUsersModel.Total = _dbContext.CalendarUsers.Count();
-                var core = _coreHelper.GetCore();
+                Core core = _coreHelper.GetCore();
                 calendarUsers.ForEach(calendarUser =>
                 {
-                    var item = new CalendarUserModel
+                    CalendarUserModel item = new CalendarUserModel
                     {
                         Id = calendarUser.Id,
                         SiteId = calendarUser.SiteId,
@@ -74,7 +78,7 @@ namespace CaseManagement.Pn.Services
                     };
                     if (item.SiteId > 0)
                     {
-                        var site = core.SiteRead(item.SiteId);
+                        Site_Dto site = core.SiteRead(item.SiteId);
                         if (site != null)
                         {
                             item.FirstName = site.FirstName;
@@ -99,7 +103,7 @@ namespace CaseManagement.Pn.Services
         {
             try
             {
-                var calendarUser = new CalendarUser()
+                CalendarUser calendarUser = new CalendarUser()
                 {
                     SiteId = requestModel.SiteId,
                     NameInCalendar = requestModel.NameInCalendar,
@@ -108,31 +112,31 @@ namespace CaseManagement.Pn.Services
                 };
                 _dbContext.CalendarUsers.Add(calendarUser);
                 _dbContext.SaveChanges();
-                var caseManagementSetting = _dbContext.CaseManagementSettings.FirstOrDefault();
+                CaseManagementSetting caseManagementSetting = _dbContext.CaseManagementSettings.FirstOrDefault();
                 if (caseManagementSetting?.RelatedEntityGroupId != null)
                 {
-                    var core = _coreHelper.GetCore();
-                    var entityGroup = core.EntityGroupRead(caseManagementSetting.RelatedEntityGroupId.ToString());
+                    Core core = _coreHelper.GetCore();
+                    EntityGroup entityGroup = core.EntityGroupRead(caseManagementSetting.RelatedEntityGroupId.ToString());
                     if (entityGroup == null)
                     {
                         return new OperationResult(false, "Entity group not found");
                     }
 
-                    var nextItemUid = entityGroup.EntityGroupItemLst.Count;
-                    var label = calendarUser.NameInCalendar;
+                    int nextItemUid = entityGroup.EntityGroupItemLst.Count;
+                    string label = calendarUser.NameInCalendar;
                     if (string.IsNullOrEmpty(label))
                     {
                         label = $"Empty company {nextItemUid}";
                     }
 
-                    var item = core.EntitySelectItemCreate(entityGroup.Id, $"{label}", 0,
+                    EntityItem item = core.EntitySelectItemCreate(entityGroup.Id, $"{label}", 0,
                         nextItemUid.ToString());
                     if (item != null)
                     {
                         entityGroup = core.EntityGroupRead(caseManagementSetting.RelatedEntityGroupId.ToString());
                         if (entityGroup != null)
                         {
-                            foreach (var entityItem in entityGroup.EntityGroupItemLst)
+                            foreach (EntityItem entityItem in entityGroup.EntityGroupItemLst)
                             {
                                 if (entityItem.MicrotingUUID == item.MicrotingUUID)
                                 {
@@ -161,7 +165,7 @@ namespace CaseManagement.Pn.Services
         {
             try
             {
-                var calendarUser = _dbContext.CalendarUsers.FirstOrDefault(x => x.Id == requestModel.Id);
+                CalendarUser calendarUser = _dbContext.CalendarUsers.FirstOrDefault(x => x.Id == requestModel.Id);
                 if (calendarUser == null)
                 {
                     return new OperationResult(false,
@@ -173,18 +177,18 @@ namespace CaseManagement.Pn.Services
                 calendarUser.IsVisibleInCalendar = requestModel.IsVisibleInCalendar;
                 calendarUser.NameInCalendar = requestModel.NameInCalendar;
                 _dbContext.SaveChanges();
-                var caseManagementSetting = _dbContext.CaseManagementSettings.FirstOrDefault();
+                CaseManagementSetting caseManagementSetting = _dbContext.CaseManagementSettings.FirstOrDefault();
                 if (caseManagementSetting?.RelatedEntityGroupId != null)
                 {
-                    var core = _coreHelper.GetCore();
-                    var entityGroup = core.EntityGroupRead(caseManagementSetting.RelatedEntityGroupId.ToString());
+                    Core core = _coreHelper.GetCore();
+                    EntityGroup entityGroup = core.EntityGroupRead(caseManagementSetting.RelatedEntityGroupId.ToString());
                     if (entityGroup == null)
                     {
                         return new OperationResult(false, "Entity group not found");
                     }
 
-                    var nextItemUid = entityGroup.EntityGroupItemLst.Count;
-                    var label = calendarUser.NameInCalendar;
+                    int nextItemUid = entityGroup.EntityGroupItemLst.Count;
+                    string label = calendarUser.NameInCalendar;
                     if (string.IsNullOrEmpty(label))
                     {
                         label = $"Empty company {nextItemUid}";
@@ -225,7 +229,7 @@ namespace CaseManagement.Pn.Services
         {
             try
             {
-                var calendarUser = _dbContext.CalendarUsers.FirstOrDefault(x => x.Id == id);
+                CalendarUser calendarUser = _dbContext.CalendarUsers.FirstOrDefault(x => x.Id == id);
                 if (calendarUser == null)
                 {
                     return new OperationResult(false,
