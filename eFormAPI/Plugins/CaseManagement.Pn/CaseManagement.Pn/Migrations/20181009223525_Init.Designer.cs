@@ -27,6 +27,19 @@ namespace CaseManagement.Pn.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("Created_at");
+
+                    b.Property<DateTime>("Updated_at");
+
+                    b.Property<int>("Created_By_User_Id");
+
+                    b.Property<int>("Updated_By_User_Id");
+
+                    b.Property<int>("Version");
+
+                    b.Property<string>("Workflow_state")
+                       .HasMaxLength(255);
+
                     b.Property<string>("Color");
 
                     b.Property<bool>("IsVisibleInCalendar");

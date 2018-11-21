@@ -99,16 +99,16 @@ namespace CaseManagement.Pn.Services
             }
         }
 
-        public OperationResult CreateCalendarUser(CalendarUserModel requestModel)
+        public OperationResult CreateCalendarUser(CalendarUserModel calendarUserModel)
         {
             try
             {
                 CalendarUser calendarUser = new CalendarUser()
                 {
-                    SiteId = requestModel.SiteId,
-                    NameInCalendar = requestModel.NameInCalendar,
-                    Color = requestModel.Color,
-                    IsVisibleInCalendar = requestModel.IsVisibleInCalendar,
+                    SiteId = calendarUserModel.SiteId,
+                    NameInCalendar = calendarUserModel.NameInCalendar,
+                    Color = calendarUserModel.Color,
+                    IsVisibleInCalendar = calendarUserModel.IsVisibleInCalendar,
                 };
                 _dbContext.CalendarUsers.Add(calendarUser);
                 _dbContext.SaveChanges();

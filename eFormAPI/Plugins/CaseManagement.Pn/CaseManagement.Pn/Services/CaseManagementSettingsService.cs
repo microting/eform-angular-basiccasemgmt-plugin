@@ -5,6 +5,8 @@ using CaseManagement.Pn.Abstractions;
 using CaseManagement.Pn.Infrastructure.Data;
 using CaseManagement.Pn.Infrastructure.Data.Entities;
 using CaseManagement.Pn.Infrastructure.Models;
+using eFormCore;
+using eFormData;
 using Microsoft.Extensions.Logging;
 using Microting.eFormApi.BasePn.Abstractions;
 using Microting.eFormApi.BasePn.Infrastructure.Models.API;
@@ -33,15 +35,15 @@ namespace CaseManagement.Pn.Services
         {
             try
             {
-                var result = new CaseManagementPnSettingsModel();
-                var customerSettings = _dbContext.CaseManagementSettings.FirstOrDefault();
+                CaseManagementPnSettingsModel result = new CaseManagementPnSettingsModel();
+                CaseManagementSetting customerSettings = _dbContext.CaseManagementSettings.FirstOrDefault();
                 if (customerSettings?.SelectedTemplateId != null && customerSettings?.RelatedEntityGroupId != null)
                 {
                     result.SelectedTemplateId = (int) customerSettings.SelectedTemplateId;
                     result.SelectedTemplateName = customerSettings.SelectedTemplateName;
                     result.RelatedEntityGroupId = customerSettings.RelatedEntityGroupId;
-                    var core = _coreHelper.GetCore();
-                    var entityGroup = core.EntityGroupRead(customerSettings.RelatedEntityGroupId.ToString());
+                    Core core = _coreHelper.GetCore();
+                    EntityGroup entityGroup = core.EntityGroupRead(customerSettings.RelatedEntityGroupId.ToString());
                     if (entityGroup == null)
                     {
                         return new OperationDataResult<CaseManagementPnSettingsModel>(false, "Entity group not found");
@@ -74,7 +76,7 @@ namespace CaseManagement.Pn.Services
                 {
                     return new OperationResult(true);
                 }
-                var caseManagementSettings = _dbContext.CaseManagementSettings.FirstOrDefault();
+                CaseManagementSetting caseManagementSettings = _dbContext.CaseManagementSettings.FirstOrDefault();
                 if (caseManagementSettings == null)
                 {
                     caseManagementSettings = new CaseManagementSetting()
@@ -93,8 +95,8 @@ namespace CaseManagement.Pn.Services
                 if (caseManagementSettingsModel.SelectedTemplateId != null &&
                     caseManagementSettingsModel.RelatedEntityGroupId != null)
                 {
-                    var core = _coreHelper.GetCore();
-                    var template = core.TemplateRead((int) caseManagementSettingsModel.SelectedTemplateId);
+                    Core core = _coreHelper.GetCore();
+                    MainElement template = core.TemplateRead((int) caseManagementSettingsModel.SelectedTemplateId);
                     caseManagementSettings.SelectedTemplateName = template.Label;
                 }
 
