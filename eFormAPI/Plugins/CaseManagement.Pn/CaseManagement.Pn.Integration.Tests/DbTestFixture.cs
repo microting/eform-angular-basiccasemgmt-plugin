@@ -33,7 +33,7 @@ namespace CaseManagement.Pn.Integration.Tests
 
             if (ConnectionString.ToLower().Contains("convert zero datetime"))
             {
-                dbContextOptionsBuilder.UseMySQL(connectionStr);
+                dbContextOptionsBuilder.UseMySql(connectionStr);
             }
             else
             {
@@ -51,14 +51,14 @@ namespace CaseManagement.Pn.Integration.Tests
         [SetUp]
         public void Setup()
         {
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            {
-                ConnectionString = @"data source=(LocalDb)\SharedInstance;Initial catalog=case-mamangement-pn-tests;Integrated Security=True";
-            }
-            else
-            {
+            //if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            //{
+            //    ConnectionString = @"data source=(LocalDb)\SharedInstance;Initial catalog=case-mamangement-pn-tests;Integrated Security=True";
+            //}
+            //else
+            //{
                 ConnectionString = @"Server = localhost; port = 3306; Database = case-mamangement-pn-tests; user = root; Convert Zero Datetime = true;";
-            }
+            //}
 
 
             GetContext(ConnectionString);

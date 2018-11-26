@@ -14,7 +14,7 @@ namespace CaseManagement.Pn.Infrastructure.Data.Factories
             {
                 if (args.FirstOrDefault().ToLower().Contains("convert zero datetime"))
                 {
-                    optionsBuilder.UseMySQL(args.FirstOrDefault());
+                    optionsBuilder.UseMySql(args.FirstOrDefault());
                 }
                 else
                 {
