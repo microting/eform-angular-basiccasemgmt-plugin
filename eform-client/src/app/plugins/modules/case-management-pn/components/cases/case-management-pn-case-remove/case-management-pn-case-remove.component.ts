@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {CaseModel} from 'src/app/common/models/cases';
 import {CasesService} from 'src/app/common/services/cases';
 
@@ -9,6 +9,7 @@ import {CasesService} from 'src/app/common/services/cases';
 })
 export class CaseManagementPnCaseRemove implements OnInit {
   @ViewChild('frame') frame;
+  @Input() templateId: number;
   @Output() onCaseDeleted: EventEmitter<void> = new EventEmitter<void>();
   selectedCaseModel: CaseModel = new CaseModel();
   spinnerStatus = false;
@@ -25,7 +26,7 @@ export class CaseManagementPnCaseRemove implements OnInit {
 
   submitCaseDelete() {
     this.spinnerStatus = true;
-    this.casesService.deleteCase(this.selectedCaseModel.id).subscribe((data => {
+    this.casesService.deleteCase(this.selectedCaseModel.id, this.templateId).subscribe((data => {
       if (data && data.success) {
         this.onCaseDeleted.emit();
         this.frame.hide();
