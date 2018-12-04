@@ -106,6 +106,40 @@ namespace CaseManagement.Pn.Controllers
                 };
                 _dbContext.CalendarUsers.Add(calendarUser);
                 _dbContext.SaveChanges();
+                var caseManagementSetting = _dbContext.CaseManagementSettings.FirstOrDefault();
+                if (caseManagementSetting?.RelatedEntityGroupId != null)
+                {
+                    var core = _coreHelper.GetCore();
+                    var entityGroup = core.EntityGroupRead(caseManagementSetting.RelatedEntityGroupId.ToString());
+                    if (entityGroup == null)
+                    {
+                        return new OperationResult(false, "Entity group not found");
+                    }
+
+                    var nextItemUid = entityGroup.EntityGroupItemLst.Count;
+                    var label = calendarUser.NameInCalendar;
+                    if (string.IsNullOrEmpty(label))
+                    {
+                        label = $"Empty company {nextItemUid}";
+                    }
+                    var item = core.EntitySelectItemCreate(entityGroup.Id, $"{label}", 0,
+                        nextItemUid.ToString());
+                    if (item != null)
+                    {
+                        entityGroup = core.EntityGroupRead(caseManagementSetting.RelatedEntityGroupId.ToString());
+                        if (entityGroup != null)
+                        {
+                            foreach (var entityItem in entityGroup.EntityGroupItemLst)
+                            {
+                                if (entityItem.MicrotingUUID == item.MicrotingUUID)
+                                {
+                                    calendarUser.RelatedEntityId = entityItem.Id;
+                                }
+                            }
+                        }
+                    }
+                    _dbContext.SaveChanges();
+                }
                 return new OperationResult(true,
                     CustomersPnLocaleHelper.GetString("CalendarUserHasBeenCreated"));
             }
@@ -136,6 +170,41 @@ namespace CaseManagement.Pn.Controllers
                 calendarUser.IsVisibleInCalendar = requestModel.IsVisibleInCalendar;
                 calendarUser.NameInCalendar = requestModel.NameInCalendar;
                 _dbContext.SaveChanges();
+                var caseManagementSetting = _dbContext.CaseManagementSettings.FirstOrDefault();
+                if (caseManagementSetting?.RelatedEntityGroupId != null)
+                {
+                    var core = _coreHelper.GetCore();
+                    var entityGroup = core.EntityGroupRead(caseManagementSetting.RelatedEntityGroupId.ToString());
+                    if (entityGroup == null)
+                    {
+                        return new OperationResult(false, "Entity group not found");
+                    }
+
+                    var nextItemUid = entityGroup.EntityGroupItemLst.Count;
+                    var label = calendarUser.NameInCalendar;
+                    if (string.IsNullOrEmpty(label))
+                    {
+                        label = $"Empty company {nextItemUid}";
+                    }
+                    core.EntityItemUpdate(entityGroup.Id, $"{label}", "",
+                        nextItemUid.ToString(),0);
+                    //if (item != null)
+                    //{
+                    //    entityGroup = core.EntityGroupRead(caseManagementSetting.RelatedEntityGroupId.ToString());
+                    //    if (entityGroup != null)
+                    //    {
+                    //        foreach (var entityItem in entityGroup.EntityGroupItemLst)
+                    //        {
+                    //            if (entityItem.MicrotingUUID == item.MicrotingUUID)
+                    //            {
+                    //                calendarUser.RelatedEntityId = entityItem.Id;
+                    //            }
+                    //        }
+                    //    }
+                    //}
+                    //_dbContext.SaveChanges();
+                }
+
                 return new OperationResult(true,
                     CustomersPnLocaleHelper.GetString("CalendarUserUpdatedSuccessfully"));
             }

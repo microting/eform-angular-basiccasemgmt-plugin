@@ -22,8 +22,8 @@ namespace CaseManagement.Pn.Controllers
 
         public CaseManagementSettingsController()
         {
-            _dbContext = CaseManagementPnDbContext.Create();
-            _logger = LogManager.GetCurrentClassLogger();
+                _dbContext = CaseManagementPnDbContext.Create();
+                _logger = LogManager.GetCurrentClassLogger();
         }
         
         [HttpGet]
@@ -35,13 +35,24 @@ namespace CaseManagement.Pn.Controllers
             {
                 var result = new CaseManagementPnSettingsModel();
                 var customerSettings = _dbContext.CaseManagementSettings.FirstOrDefault();
-                if (customerSettings?.SelectedTemplateId != null)
+                if (customerSettings?.SelectedTemplateId != null && customerSettings?.RelatedEntityGroupId != null)
                 {
                     result.SelectedTemplateId = (int) customerSettings.SelectedTemplateId;
                     result.SelectedTemplateName =customerSettings.SelectedTemplateName;
+                    result.RelatedEntityGroupId = customerSettings.RelatedEntityGroupId;
+                    var core = _coreHelper.GetCore();
+                    var entityGroup = core.EntityGroupRead(customerSettings.RelatedEntityGroupId.ToString());
+                    if (entityGroup == null)
+                    {
+                        return new OperationDataResult<CaseManagementPnSettingsModel>(false, "Entity group not found");
+                    }
+
+                    result.RelatedEntityGroupName = entityGroup.Name;
+
                 }
                 else
                 {
+                    result.RelatedEntityGroupId = null;
                     result.SelectedTemplateId = null;
                 }
                 return new OperationDataResult<CaseManagementPnSettingsModel>(true, result);
@@ -67,16 +78,18 @@ namespace CaseManagement.Pn.Controllers
                 {
                     caseManagementSettings = new CaseManagementSetting()
                     {
-                        SelectedTemplateId = caseManagementSettingsModel.SelectedTemplateId
+                        SelectedTemplateId = caseManagementSettingsModel.SelectedTemplateId,
+                        RelatedEntityGroupId = caseManagementSettingsModel.RelatedEntityGroupId
                     };
                     _dbContext.CaseManagementSettings.Add(caseManagementSettings);
                 }
                 else
                 {
                     caseManagementSettings.SelectedTemplateId = caseManagementSettingsModel.SelectedTemplateId;
+                    caseManagementSettings.RelatedEntityGroupId = caseManagementSettingsModel.RelatedEntityGroupId;
                 }
 
-                if (caseManagementSettingsModel.SelectedTemplateId != null)
+                if (caseManagementSettingsModel.SelectedTemplateId != null && caseManagementSettingsModel.RelatedEntityGroupId != null)
                 {
                     var core = _coreHelper.GetCore();
                     var template = core.TemplateRead((int) caseManagementSettingsModel.SelectedTemplateId);

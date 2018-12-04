@@ -28,6 +28,27 @@
       </div>
     </div>
   </div>
+  <div class="row mt-4">
+    <div class="col-md-12 col-xs-12 control-block">
+      <subheader-pn [title]="'Settings' | translate" [heandingSizeRem]="1">
+      </subheader-pn>
+      <div class="container-fluid" >
+        <div class="row mt-2">
+          <div class="col-md-6">
+            <ng-select [items]="advEntitySelectableGroupListModel.entityGroups"
+                       bindLabel="name"
+                       [placeholder]="settingsModel.relatedEntityGroupName || ('Selected list' | translate)"
+                       bindValue="microtingUUID"
+                       [typeahead]="typeahead"
+                       (change)="onSelectedChangedEntity($event)">
+            </ng-select>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
 </div>
 
 <spinner-pn [spinnerVisibility]="spinnerStatus"></spinner-pn>

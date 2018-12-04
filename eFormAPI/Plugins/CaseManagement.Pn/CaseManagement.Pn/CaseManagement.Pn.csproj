@@ -52,6 +52,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="EPPlus, Version=4.5.2.1, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.4.5.2.1\lib\net40\EPPlus.dll</HintPath>
+    </Reference>
     <Reference Include="Google.Protobuf, Version=3.5.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.Protobuf.3.5.1\lib\net45\Google.Protobuf.dll</HintPath>
     </Reference>
@@ -130,14 +133,19 @@
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
-    <Reference Include="Microting.eForm, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microting.eForm.3.0.28\lib\netstandard2.0\Microting.eForm.dll</HintPath>
+    <Reference Include="Microting.eForm, Version=3.0.93.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microting.eForm.3.0.93\lib\net45\Microting.eForm.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Microting.eFormApi.BasePn, Version=1.1.27.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microting.eFormApi.BasePn.1.1.27\lib\net461\Microting.eFormApi.BasePn.dll</HintPath>
+    <Reference Include="Microting.eFormApi.BasePn, Version=1.1.48.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microting.eFormApi.BasePn.1.1.48\lib\net461\Microting.eFormApi.BasePn.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="MySql.Data, Version=8.0.12.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\MySql.Data.8.0.12\lib\net452\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data.Entity.EF6, Version=6.9.12.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.Entity.6.9.12\lib\net45\MySql.Data.Entity.EF6.dll</HintPath>
     </Reference>
     <Reference Include="MySql.Data.EntityFrameworkCore, Version=8.0.12.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\MySql.Data.EntityFrameworkCore.8.0.12\lib\net452\MySql.Data.EntityFrameworkCore.dll</HintPath>
@@ -151,6 +159,7 @@
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="Rebus, Version=4.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Rebus.4.2.1\lib\net45\Rebus.dll</HintPath>
     </Reference>
@@ -207,6 +216,7 @@
     </Reference>
     <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Web" />
@@ -261,6 +271,14 @@
     <Compile Include="Migrations\201809251735208_Init.Designer.cs">
       <DependentUpon>201809251735208_Init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810030806231_AddingRelatedEntityGroupIdToSettings.cs" />
+    <Compile Include="Migrations\201810030806231_AddingRelatedEntityGroupIdToSettings.Designer.cs">
+      <DependentUpon>201810030806231_AddingRelatedEntityGroupIdToSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810041102362_AddingRelatedEntityIdToCalendarUser.cs" />
+    <Compile Include="Migrations\201810041102362_AddingRelatedEntityIdToCalendarUser.Designer.cs">
+      <DependentUpon>201810041102362_AddingRelatedEntityIdToCalendarUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\PnMigrationConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\CaseManagementPnResources.Designer.cs">
@@ -273,19 +291,27 @@
     <EmbeddedResource Include="Migrations\201809251735208_Init.resx">
       <DependentUpon>201809251735208_Init.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810030806231_AddingRelatedEntityGroupIdToSettings.resx">
+      <DependentUpon>201810030806231_AddingRelatedEntityGroupIdToSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810041102362_AddingRelatedEntityIdToCalendarUser.resx">
+      <DependentUpon>201810041102362_AddingRelatedEntityIdToCalendarUser.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\CaseManagementPnResources.da.resx" />
     <EmbeddedResource Include="Properties\CaseManagementPnResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>CaseManagementPnResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\AWSSDK.SQS.3.3.3.14\analyzers\dotnet\cs\AWSSDK.SQS.CodeAnalysis.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="JasperExporter.jar" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

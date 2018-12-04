@@ -6,5 +6,6 @@ namespace CaseManagement.Pn.Infrastructure.Data.Entities
     {
         public int? SelectedTemplateId { get; set; }
         public string SelectedTemplateName { get; set; }
+        public int? RelatedEntityGroupId { get; set; }
     }
 }

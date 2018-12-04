@@ -5,6 +5,8 @@ import {TemplateListModel, TemplateRequestModel} from 'src/app/common/models/efo
 import {EFormService} from 'src/app/common/services/eform';
 import {CaseManagementPnSettingsModel} from '../../../models';
 import {CaseManagementPnService} from '../../../services';
+import {AdvEntitySelectableGroupListModel, AdvEntitySelectableGroupListRequestModel} from '../../../../../../common/models/advanced';
+import {EntitySelectService} from '../../../../../../common/services/advanced';
 
 @Component({
   selector: 'app-case-management-pn-settings',
@@ -17,10 +19,14 @@ export class CaseManagementPnSettingsComponent implements OnInit {
   settingsModel: CaseManagementPnSettingsModel = new CaseManagementPnSettingsModel();
   templateRequestModel: TemplateRequestModel = new TemplateRequestModel();
   templatesModel: TemplateListModel = new TemplateListModel();
+  advEntitySelectableGroupListModel: AdvEntitySelectableGroupListModel = new AdvEntitySelectableGroupListModel();
+  advEntitySelectableGroupListRequestModel: AdvEntitySelectableGroupListRequestModel
+    = new AdvEntitySelectableGroupListRequestModel();
   constructor(private activateRoute: ActivatedRoute,
               private eFormService: EFormService,
               private caseManagementService: CaseManagementPnService,
-              private cd: ChangeDetectorRef) {
+              private cd: ChangeDetectorRef,
+              private entitySelectService: EntitySelectService) {
     this.typeahead
       .pipe(
         debounceTime(200),
@@ -37,6 +43,7 @@ export class CaseManagementPnSettingsComponent implements OnInit {
 
   ngOnInit() {
     this.getSettings();
+    this.getEntitySelectableGroupList();
   }
 
   getSettings() {
@@ -57,8 +64,18 @@ export class CaseManagementPnSettingsComponent implements OnInit {
       } this.spinnerStatus = false;
     });
   }
-
+  getEntitySelectableGroupList() {
+    this.spinnerStatus = true;
+    this.entitySelectService.getEntitySelectableGroupList(this.advEntitySelectableGroupListRequestModel).subscribe((data) => {
+      if (data && data.model) {
+        this.advEntitySelectableGroupListModel = data.model;
+      } this.spinnerStatus = false;
+    });
+  }
   onSelectedChanged(e: any) {
     this.settingsModel.selectedTemplateId = e.id;
+  }
+  onSelectedChangedEntity(ev: any) {
+    this.settingsModel.relatedEntityGroupId = ev.microtingUUID;
   }
 }
