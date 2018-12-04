@@ -191,22 +191,6 @@
       </tbody>
     </table>
   </div>
-  <div class="row justify-content-between mr-2 ml-2">
-    <div class="col-md-1">
-      <page-size-pn
-        [pageSize]="localPageSettings.pageSize"
-        (onPageSizeChanged)="localPageSettings.pageSize = $event; casesRequestModel.pageIndex = 1;
-        updateLocalPageSettings()">
-      </page-size-pn>
-    </div>
-    <div class="col-md-4 ml-auto d-flex justify-content-end p-2">
-      <pagination-pn *ngIf="caseListModel.numOfElements > casesRequestModel.pageSize"
-                        [limit]="casesRequestModel.pageSize"
-                        [size]="caseListModel.numOfElements"
-                        [offset]="casesRequestModel.offset"
-                        (onPageChanged)="changePage($event)"></pagination-pn>
-    </div>
-  </div>
 </div>
 
 <spinner-pn [spinnerVisibility]="spinnerStatus"></spinner-pn>
