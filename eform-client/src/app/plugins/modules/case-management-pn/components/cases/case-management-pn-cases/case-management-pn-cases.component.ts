@@ -105,6 +105,7 @@ export class CaseManagementPnCasesComponent implements OnInit {
     this.casesRequestModel.sort = this.localPageSettings.sort;
     this.casesRequestModel.isSortDsc = this.localPageSettings.isSortDsc;
     this.casesRequestModel.templateId = this.settingsModel.selectedTemplateId;
+    this.casesRequestModel.pageSize = this.localPageSettings.pageSize;
     this.casesService.getCases(this.casesRequestModel).subscribe(operation => {
       if (operation && operation.success) {
         this.caseListModel = operation.model;
