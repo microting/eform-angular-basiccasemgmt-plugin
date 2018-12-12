@@ -1,0 +1,9 @@
+[
+  {
+    "Key": "CustomerCreated",
+    "LocalizedValue" : {
+      "da": "Kunden er oprettet",
+      "en-US": "Customer has been created"
+    }
+  }
+]
