@@ -1,9 +1,86 @@
-[
+﻿[
   {
-    "Key": "CustomerCreated",
-    "LocalizedValue" : {
-      "da": "Kunden er oprettet",
-      "en-US": "Customer has been created"
+    "Key": "CalendarUserDeletedSuccessfully",
+    "LocalizedValue": {
+      "da": "Kalenderbrugeren er slettet korrekt",
+      "en-US": "Calendar user deleted successfully"
+    }
+  },
+  {
+    "Key": "CalendarUserHasBeenCreated",
+    "LocalizedValue": {
+      "da": "Kalenderbrugeren er blevet oprettet",
+      "en-US": "Calendar user has been created"
+    }
+  },
+  {
+    "Key": "CalendarUserNotFound",
+    "LocalizedValue": {
+      "da": "Kalenderbruger ikke fundet",
+      "en-US": "Calendar user not found"
+    }
+  },
+  {
+    "Key": "CalendarUserUpdatedSuccessfully",
+    "LocalizedValue": {
+      "da": "Kalenderbrugeren opdateres med succes",
+      "en-US": "Calendar user updated successfully"
+    }
+  },
+  {
+    "Key": "ErrorObtainingCalendarInfo",
+    "LocalizedValue": {
+      "da": "Fejl under hentning af kalenderinfo",
+      "en-US": "Error while obtaining calendar info"
+    }
+  },
+  {
+    "Key": "ErrorWhileCreatingCalendarUser",
+    "LocalizedValue": {
+      "da": "Fejl under oprettelse af kalenderbruger",
+      "en-US": "Error while creating calendar user"
+    }
+  },
+  {
+    "Key": "ErrorWhileDeletingCalendarUser",
+    "LocalizedValue": {
+      "da": "Fejl under sletning af kalenderbruger",
+      "en-US": "Error while deleting calendar user"
+    }
+  },
+  {
+    "Key": "ErrorWhileObtainingCalendarUserInfo",
+    "LocalizedValue": {
+      "da": "Fejl under opnåelse af kalenderbrugeroplysninger",
+      "en-US": "Error while obtaining calendar user info"
+    }
+  },
+  {
+    "Key": "ErrorWhileObtainingCaseManagementSettings",
+    "LocalizedValue": {
+      "da": "Fejl under indhentning af case management indstillinger",
+      "en-US": "Error while obtaining case management settings"
+    }
+  },
+  {
+    "Key": "ErrorWhileUpdatingCalendarUser",
+    "LocalizedValue": {
+      "da": "Fejl under opdatering af kalenderbruger",
+      "en-US": "Error while updating calendar user"
+    }
+  },
+  {
+    "Key": "ErrorWhileUpdatingCaseManagementSettings",
+    "LocalizedValue": {
+      "da": "Fejl under opdatering af case management indstillinger",
+      "en-US": "Error while updating case management settings"
+    }
+  },
+  {
+    "Key": "SettingsHasBeenUpdatedSuccessfully",
+    "LocalizedValue": {
+      "da": "Indstillingerne er blevet opdateret med succes",
+      "en-US": "Settings has been updated successfully"
     }
   }
 ]
