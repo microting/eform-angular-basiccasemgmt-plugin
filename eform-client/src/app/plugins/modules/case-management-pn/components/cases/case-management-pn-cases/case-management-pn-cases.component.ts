@@ -140,4 +140,17 @@ export class CaseManagementPnCasesComponent implements OnInit {
     window.open('/api/template-files/download-case-pdf/' +
       this.settingsModel.selectedTemplateId + '?caseId=' + caseId, '_blank');
   }
+
+    changePage(e: any) {
+        if (e || e === 0) {
+            this.casesRequestModel.offset = e;
+            if (e === 0) {
+                this.casesRequestModel.pageIndex = 0;
+            } else {
+                this.casesRequestModel.pageIndex
+                    = Math.floor(e / this.casesRequestModel.pageSize);
+            }
+            this.loadAllCases();
+        }
+    }
 }
