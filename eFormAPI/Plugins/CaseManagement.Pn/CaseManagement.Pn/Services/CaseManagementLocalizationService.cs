@@ -10,8 +10,7 @@ namespace CaseManagement.Pn.Services
  
         public CaseManagementLocalizationService(IStringLocalizerFactory factory)
         {
-            _localizer = factory.Create("CaseManagementResources",
-                Assembly.GetEntryAssembly().FullName);
+            _localizer = factory.Create(typeof(EformCaseManagementPlugin));
         }
  
         public string GetString(string key)

@@ -3,6 +3,14 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\localization.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\localization.json" />
+  </ItemGroup>
   
     <ItemGroup>
     <PackageReference Include="Automapper" Version="6.1.0" />
