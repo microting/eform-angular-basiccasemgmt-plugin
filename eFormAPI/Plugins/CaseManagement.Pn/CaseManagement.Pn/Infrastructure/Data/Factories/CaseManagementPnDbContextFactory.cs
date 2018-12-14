@@ -1,23 +1,32 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
 namespace CaseManagement.Pn.Infrastructure.Data.Factories
 {
-    public class CaseManagementPnDbContextFactory : IDesignTimeDbContextFactory<CaseManagementPnDbContext>
+    public class CaseManagementPnDbContextFactory : IDesignTimeDbContextFactory<CaseManagementPnDbAnySql>
     {
-        public CaseManagementPnDbContext CreateDbContext(string[] args)
+        public CaseManagementPnDbAnySql CreateDbContext(string[] args)
         {
-            var optionsBuilder = new DbContextOptionsBuilder<CaseManagementPnDbContext>();
+            DbContextOptionsBuilder optionsBuilder = new DbContextOptionsBuilder<CaseManagementPnDbAnySql>();
             if (args.Any())
             {
-                optionsBuilder.UseSqlServer(args.FirstOrDefault());
+                if (args.FirstOrDefault().ToLower().Contains("convert zero datetime"))
+                {
+                    optionsBuilder.UseMySql(args.FirstOrDefault());
+                }
+                else
+                {
+                    optionsBuilder.UseSqlServer(args.FirstOrDefault());
+                }
             }
             else
             {
-                optionsBuilder.UseSqlServer("...");
+                throw new ArgumentNullException("Connection string not present");
             }
-            return new CaseManagementPnDbContext(optionsBuilder.Options);
+            optionsBuilder.UseLazyLoadingProxies(true);
+            return new CaseManagementPnDbAnySql(optionsBuilder.Options);
         }
     }
 }

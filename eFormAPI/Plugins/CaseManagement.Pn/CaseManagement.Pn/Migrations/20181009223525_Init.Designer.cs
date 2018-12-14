@@ -9,23 +9,43 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CaseManagement.Pn.Migrations
 {
-    [DbContext(typeof(CaseManagementPnDbContext))]
+    [DbContext(typeof(CaseManagementPnDbAnySql))]
     [Migration("20181009223525_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
+            string autoIDGenStrategy = "SqlServer:ValueGenerationStrategy";
+            object autoIDGenStrategyValue = SqlServerValueGenerationStrategy.IdentityColumn;
+            if (DbConfig.IsMySQL)
+            {
+                autoIDGenStrategy = "MySql:ValueGenerationStrategy";
+                autoIDGenStrategyValue = MySqlValueGenerationStrategy.IdentityColumn;
+            }
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation(autoIDGenStrategy, autoIDGenStrategyValue);
 
             modelBuilder.Entity("CaseManagement.Pn.Infrastructure.Data.Entities.CalendarUser", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Created_at");
+
+                    b.Property<DateTime>("Updated_at");
+
+                    b.Property<int>("Created_By_User_Id");
+
+                    b.Property<int>("Updated_By_User_Id");
+
+                    b.Property<int>("Version");
+
+                    b.Property<string>("Workflow_state")
+                       .HasMaxLength(255);
 
                     b.Property<string>("Color");
 
