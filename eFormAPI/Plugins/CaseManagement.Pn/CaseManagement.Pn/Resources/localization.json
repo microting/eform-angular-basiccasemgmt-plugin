@@ -1,23 +1,30 @@
 ﻿[
   {
-    "Key": "CalendarUserDeletedSuccessfully",
+    "Key": "CaseManagement",
     "LocalizedValue": {
-      "da": "Kalenderbrugeren er slettet korrekt",
-      "en-US": "Calendar user deleted successfully"
+      "da": "Sagsbehandling",
+      "en-US": "Case Management"
     }
   },
   {
-    "Key": "CalendarUserHasBeenCreated",
+    "Key": "Calendar",
     "LocalizedValue": {
-      "da": "Kalenderbrugeren er blevet oprettet",
-      "en-US": "Calendar user has been created"
+      "da": "Kalender",
+      "en-US": "Calendar"
     }
   },
   {
-    "Key": "CalendarUserNotFound",
+    "Key": "Cases",
     "LocalizedValue": {
-      "da": "Kalenderbruger ikke fundet",
-      "en-US": "Calendar user not found"
+      "da": "Sager",
+      "en-US": "Cases"
+    }
+  },
+  {
+    "Key": "Settings",
+    "LocalizedValue": {
+      "da": "Indstillinger",
+      "en-US": "Settings"
     }
   },
   {

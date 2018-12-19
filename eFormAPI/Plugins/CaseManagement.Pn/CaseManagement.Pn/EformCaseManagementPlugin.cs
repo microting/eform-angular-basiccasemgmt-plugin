@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Reflection;
 using CaseManagement.Pn.Abstractions;
 using CaseManagement.Pn.Infrastructure.Data;
@@ -48,34 +49,34 @@ namespace CaseManagement.Pn
 
         public MenuModel HeaderMenu(IServiceProvider serviceProvider)
         {
-            var localizationService = (ICaseManagementLocalizationService) serviceProvider
-                .GetService(typeof(CaseManagementLocalizationService));
+            var localizationService = serviceProvider
+                .GetService<ICaseManagementLocalizationService>();
 
             var result = new MenuModel();
             result.LeftMenu.Add(new MenuItemModel()
             {
-                Name = "Case Management",
+                Name = localizationService.GetString("CaseManagement"),
                 E2EId = "case-management-pn",
                 Link = "",
                 MenuItems = new List<MenuItemModel>()
                 {
                     new MenuItemModel()
                     {
-                        Name = "Calendar",
+                        Name = localizationService.GetString("Calendar"),
                         E2EId = "case-management-pn-calendar",
                         Link = "/plugins/case-management-pn/calendar",
                         Position = 0,
                     },
                     new MenuItemModel()
                     {
-                        Name = "Cases",
+                        Name = localizationService.GetString("Cases"),
                         E2EId = "case-management-pn-cases",
                         Link = "/plugins/case-management-pn/cases",
                         Position = 1,
                     },
                     new MenuItemModel()
                     {
-                        Name = "Settings",
+                        Name = localizationService.GetString("Settings"),
                         E2EId = "case-management-pn-settings",
                         Link = "/plugins/case-management-pn/settings",
                         Position = 2,

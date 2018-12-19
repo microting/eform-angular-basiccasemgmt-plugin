@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using CaseManagement.Pn.Abstractions;
 using Microsoft.Extensions.Localization;
+using Microting.eFormApi.BasePn.Localization.Abstractions;
 
 namespace CaseManagement.Pn.Services
 {
@@ -8,7 +9,7 @@ namespace CaseManagement.Pn.Services
     {
         private readonly IStringLocalizer _localizer;
  
-        public CaseManagementLocalizationService(IStringLocalizerFactory factory)
+        public CaseManagementLocalizationService(IEformLocalizerFactory factory)
         {
             _localizer = factory.Create(typeof(EformCaseManagementPlugin));
         }
