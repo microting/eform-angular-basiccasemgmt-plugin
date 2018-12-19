@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 using CaseManagement.Pn.Abstractions;
 using CaseManagement.Pn.Infrastructure.Data;
@@ -45,8 +46,11 @@ namespace CaseManagement.Pn
         {
         }
 
-        public MenuModel HeaderMenu()
+        public MenuModel HeaderMenu(IServiceProvider serviceProvider)
         {
+            var localizationService = (ICaseManagementLocalizationService) serviceProvider
+                .GetService(typeof(CaseManagementLocalizationService));
+
             var result = new MenuModel();
             result.LeftMenu.Add(new MenuItemModel()
             {
