@@ -9,7 +9,7 @@ namespace CaseManagement.Pn.Infrastructure.Data.Factories
     {
         public CaseManagementPnDbAnySql CreateDbContext(string[] args)
         {
-            DbContextOptionsBuilder optionsBuilder = new DbContextOptionsBuilder<CaseManagementPnDbAnySql>();
+            var optionsBuilder = new DbContextOptionsBuilder<CaseManagementPnDbAnySql>();
             if (args.Any())
             {
                 if (args.FirstOrDefault().ToLower().Contains("convert zero datetime"))

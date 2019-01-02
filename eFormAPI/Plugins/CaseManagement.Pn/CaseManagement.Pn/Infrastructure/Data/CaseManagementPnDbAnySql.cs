@@ -7,7 +7,7 @@ namespace CaseManagement.Pn.Infrastructure.Data
     {
         public CaseManagementPnDbAnySql() { }
 
-        public CaseManagementPnDbAnySql(DbContextOptions options) : base(options)
+        public CaseManagementPnDbAnySql(DbContextOptions<CaseManagementPnDbAnySql> options) : base(options)
         {
 
         }

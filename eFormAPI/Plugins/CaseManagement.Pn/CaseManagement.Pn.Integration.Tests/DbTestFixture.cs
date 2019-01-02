@@ -29,7 +29,7 @@ namespace CaseManagement.Pn.Integration.Tests
         public void GetContext(string connectionStr)
         {
 
-            DbContextOptionsBuilder dbContextOptionsBuilder = new DbContextOptionsBuilder();
+            var dbContextOptionsBuilder = new DbContextOptionsBuilder();
 
             if (ConnectionString.ToLower().Contains("convert zero datetime"))
             {
@@ -40,8 +40,8 @@ namespace CaseManagement.Pn.Integration.Tests
                 dbContextOptionsBuilder.UseSqlServer(connectionStr);
             }
             dbContextOptionsBuilder.UseLazyLoadingProxies(true);
-            DbContext = new CaseManagementPnDbAnySql(dbContextOptionsBuilder.Options);
-
+            //DbContext = new CaseManagementPnDbAnySql(dbContextOptionsBuilder.Options);
+            // TODO Fix this and use Factory
             DbContext.Database.Migrate();
             DbContext.Database.EnsureCreated();
             //return db;
