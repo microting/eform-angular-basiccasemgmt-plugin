@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Reflection;
 using CaseManagement.Pn.Abstractions;
 using CaseManagement.Pn.Infrastructure.Data;
@@ -16,9 +15,10 @@ namespace CaseManagement.Pn
 {
     public class EformCaseManagementPlugin : IEformPlugin
     {
-        public string GetName() => "Microting Case Management plugin";
-        public string ConnectionStringName() => "EFormCaseManagementPnConnection";
-        public string PluginPath() => PluginAssembly().Location;
+
+        public string Name => "Microting Case Management plugin";
+        public string PluginId => "EFormCaseManagementPn";
+        public string PluginPath => PluginAssembly().Location;
 
         public Assembly PluginAssembly()
         {

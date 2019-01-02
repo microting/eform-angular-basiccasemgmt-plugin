@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using CaseManagement.Pn.Abstractions;
+﻿using CaseManagement.Pn.Abstractions;
 using Microsoft.Extensions.Localization;
 using Microting.eFormApi.BasePn.Localization.Abstractions;
 
