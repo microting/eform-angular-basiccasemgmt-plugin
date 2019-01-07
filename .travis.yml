@@ -1,7 +1,10 @@
+dist: xenial
 language: csharp
 solution: CaseManagement.Pn.sln
 mono: none
 dotnet: 2.2
+services:
+  - mysql
 script:
   - dotnet restore eFormAPI/Plugins/CaseManagement.Pn/CaseManagement.Pn.sln
   - dotnet build eFormAPI/Plugins/CaseManagement.Pn/CaseManagement.Pn.sln
