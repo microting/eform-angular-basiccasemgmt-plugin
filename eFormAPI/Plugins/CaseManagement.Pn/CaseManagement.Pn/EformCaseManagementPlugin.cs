@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 using CaseManagement.Pn.Abstractions;
 using CaseManagement.Pn.Infrastructure.Data;
@@ -14,9 +15,10 @@ namespace CaseManagement.Pn
 {
     public class EformCaseManagementPlugin : IEformPlugin
     {
-        public string GetName() => "Microting Case Management plugin";
-        public string ConnectionStringName() => "EFormCaseManagementPnConnection";
-        public string PluginPath() => PluginAssembly().Location;
+
+        public string Name => "Microting Case Management plugin";
+        public string PluginId => "EFormCaseManagementPn";
+        public string PluginPath => PluginAssembly().Location;
 
         public Assembly PluginAssembly()
         {
@@ -45,33 +47,36 @@ namespace CaseManagement.Pn
         {
         }
 
-        public MenuModel HeaderMenu()
+        public MenuModel HeaderMenu(IServiceProvider serviceProvider)
         {
+            var localizationService = serviceProvider
+                .GetService<ICaseManagementLocalizationService>();
+
             var result = new MenuModel();
             result.LeftMenu.Add(new MenuItemModel()
             {
-                Name = "Case Management",
+                Name = localizationService.GetString("CaseManagement"),
                 E2EId = "case-management-pn",
                 Link = "",
                 MenuItems = new List<MenuItemModel>()
                 {
                     new MenuItemModel()
                     {
-                        Name = "Calendar",
+                        Name = localizationService.GetString("Calendar"),
                         E2EId = "case-management-pn-calendar",
                         Link = "/plugins/case-management-pn/calendar",
                         Position = 0,
                     },
                     new MenuItemModel()
                     {
-                        Name = "Cases",
+                        Name = localizationService.GetString("Cases"),
                         E2EId = "case-management-pn-cases",
                         Link = "/plugins/case-management-pn/cases",
                         Position = 1,
                     },
                     new MenuItemModel()
                     {
-                        Name = "Settings",
+                        Name = localizationService.GetString("Settings"),
                         E2EId = "case-management-pn-settings",
                         Link = "/plugins/case-management-pn/settings",
                         Position = 2,
