@@ -31,11 +31,10 @@ namespace CaseManagement.Pn.Integration.Tests
         {
 
             CaseManagementPnDbContextFactory contextFactory = new CaseManagementPnDbContextFactory();
-            using (CaseManagementPnDbAnySql context = contextFactory.CreateDbContext(new[] {connectionStr}))
-            {
-                context.Database.Migrate();
-                context.Database.EnsureCreated();
-            }
+            DbContext = contextFactory.CreateDbContext(new[] {connectionStr});
+            
+            DbContext.Database.Migrate();
+            DbContext.Database.EnsureCreated();                
 
         }
 
