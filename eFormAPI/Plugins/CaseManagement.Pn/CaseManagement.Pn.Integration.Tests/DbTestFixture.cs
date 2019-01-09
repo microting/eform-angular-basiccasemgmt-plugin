@@ -6,6 +6,7 @@ using System.Text;
 using NUnit.Framework;
 using CaseManagement.Pn.Infrastructure.Data;
 using System.Runtime.InteropServices;
+using CaseManagement.Pn.Infrastructure.Data.Factories;
 
 namespace CaseManagement.Pn.Integration.Tests
 {
@@ -29,36 +30,26 @@ namespace CaseManagement.Pn.Integration.Tests
         public void GetContext(string connectionStr)
         {
 
-            var dbContextOptionsBuilder = new DbContextOptionsBuilder();
-
-            if (ConnectionString.ToLower().Contains("convert zero datetime"))
+            CaseManagementPnDbContextFactory contextFactory = new CaseManagementPnDbContextFactory();
+            using (CaseManagementPnDbAnySql context = contextFactory.CreateDbContext(new[] {connectionStr}))
             {
-                dbContextOptionsBuilder.UseMySql(connectionStr);
+                context.Database.Migrate();
+                context.Database.EnsureCreated();
             }
-            else
-            {
-                dbContextOptionsBuilder.UseSqlServer(connectionStr);
-            }
-            dbContextOptionsBuilder.UseLazyLoadingProxies(true);
-            //DbContext = new CaseManagementPnDbAnySql(dbContextOptionsBuilder.Options);
-            // TODO Fix this and use Factory
-            DbContext.Database.Migrate();
-            DbContext.Database.EnsureCreated();
-            //return db;
 
         }
 
         [SetUp]
         public void Setup()
         {
-            //if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            //{
-            //    ConnectionString = @"data source=(LocalDb)\SharedInstance;Initial catalog=case-mamangement-pn-tests;Integrated Security=True";
-            //}
-            //else
-            //{
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                ConnectionString = @"data source=(LocalDb)\SharedInstance;Initial catalog=case-mamangement-pn-tests;Integrated Security=True";
+            }
+            else
+            {
                 ConnectionString = @"Server = localhost; port = 3306; Database = case-mamangement-pn-tests; user = root; Convert Zero Datetime = true;";
-            //}
+            }
 
 
             GetContext(ConnectionString);

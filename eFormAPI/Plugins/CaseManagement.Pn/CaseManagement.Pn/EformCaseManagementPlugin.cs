@@ -35,8 +35,16 @@ namespace CaseManagement.Pn
 
         public void ConfigureDbContext(IServiceCollection services, string connectionString)
         {
-            services.AddDbContext<CaseManagementPnDbAnySql>(o => o.UseSqlServer(connectionString,
-                b => b.MigrationsAssembly(PluginAssembly().FullName)));
+            if (connectionString.ToLower().Contains("convert zero datetime"))
+            {                
+                services.AddDbContext<CaseManagementPnDbAnySql>(o => o.UseMySql(connectionString,
+                    b => b.MigrationsAssembly(PluginAssembly().FullName)));
+            }
+            else
+            {                
+                services.AddDbContext<CaseManagementPnDbAnySql>(o => o.UseSqlServer(connectionString,
+                    b => b.MigrationsAssembly(PluginAssembly().FullName)));
+            }
 
             var contextFactory = new CaseManagementPnDbContextFactory();
             var context = contextFactory.CreateDbContext(new[] {connectionString});
