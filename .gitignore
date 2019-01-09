@@ -329,7 +329,11 @@ ASALocalRun/
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
 
-eFormAPI/eFormAPI/Plugins/Customers/
+eFormAPI/eFormAPI/Plugins/CaseManagement/
 
 eFormAPI/eFormAPI/Plugins/CaseManagement/
 eFormAPI/Plugins/CaseManagement.Pn/CaseManagement.Pn/JasperExporter.jar
+
+eFormAPI/eFormAPI.Web/Plugins/CaseManagement/netcoreapp2.1/*
+
+eFormAPI/eFormAPI\.Web/Plugins/CaseManagement/netcoreapp2\.2/
