@@ -13,6 +13,7 @@ script:
   - cd eform-client && npm install
   - cd ../..
   - git clone --depth=50 --branch=master https://github.com/microting/eform-angular-frontend.git microting/eform-angular-frontend
+  - ls -lah microting/eform-angular-basiccasemgmt-plugin
   - cp -av microting/eform-angular-basiccasemgmt-plugin/eform-client/src/app/plugins/modules/case-management-pn microting/eform-angular-frontend/eform-client/src/app/plugins/modules/case-management-pn
   - cp -av microting/eform-angular-basiccasemgmt-plugin/eform-client/e2e/Tests/case-management-settings microting/eform-angular-frontend/eform-client/e2e/Tests/case-management-settings
   - cp -av microting/eform-angular-basiccasemgmt-plugin/eform-client/wdio-headless-plugin-step2.conf.js microting/eform-angular-frontend/eform-client/wdio-headless-plugin-step2.conf.js
