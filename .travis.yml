@@ -10,8 +10,8 @@ script:
   - dotnet build eFormAPI/Plugins/CaseManagement.Pn/CaseManagement.Pn.sln
   - dotnet test -v n eFormAPI/Plugins/CaseManagement.Pn/CaseManagement.Pn.Integration.Tests/CaseManagement.Pn.Integration.Tests.csproj
   - dotnet test -v n eFormAPI/Plugins/CaseManagement.Pn/CaseManagement.Pn.Tests/CaseManagement.Pn.Tests.csproj
-  - cd eform-client && npm install
   - cd ../..
+  - ls -lah microting
   - git clone --depth=50 --branch=master https://github.com/microting/eform-angular-frontend.git microting/eform-angular-frontend
   - ls -lah microting/eform-angular-basiccasemgmt-plugin
   - cp -av microting/eform-angular-basiccasemgmt-plugin/eform-client/src/app/plugins/modules/case-management-pn microting/eform-angular-frontend/eform-client/src/app/plugins/modules/case-management-pn
