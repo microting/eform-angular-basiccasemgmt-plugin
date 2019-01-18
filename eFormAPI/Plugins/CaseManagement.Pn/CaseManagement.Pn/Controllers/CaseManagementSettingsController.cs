@@ -28,7 +28,7 @@ namespace CaseManagement.Pn.Controllers
         [HttpPost]
         [Authorize(Roles = EformRole.Admin)]
         [Route("api/case-management-pn/settings")]
-        public OperationResult UpdateSettings(CaseManagementPnSettingsModel caseManagementSettingsModel)
+        public OperationResult UpdateSettings([FromBody] CaseManagementPnSettingsModel caseManagementSettingsModel)
         {
             return _caseManagementSettingsService.UpdateSettings(caseManagementSettingsModel);
         }
