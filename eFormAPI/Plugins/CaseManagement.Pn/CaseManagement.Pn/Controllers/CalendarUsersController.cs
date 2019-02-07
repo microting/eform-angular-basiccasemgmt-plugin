@@ -1,4 +1,5 @@
-﻿using CaseManagement.Pn.Abstractions;
+﻿using System.Threading.Tasks;
+using CaseManagement.Pn.Abstractions;
 using CaseManagement.Pn.Infrastructure.Models.Calendar;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,30 +19,30 @@ namespace CaseManagement.Pn.Controllers
 
         [HttpPost]
         [Route("api/case-management-pn/calendar/get-all")]
-        public OperationDataResult<CalendarUsersModel> GetCalendarUsers(CalendarUsersRequestModel requestModel)
+        public async Task<OperationDataResult<CalendarUsersModel>> GetCalendarUsers(CalendarUsersRequestModel requestModel)
         {
-            return _calendarUsersService.GetCalendarUsers(requestModel);
+            return await _calendarUsersService.GetCalendarUsers(requestModel);
         }
 
         [HttpPost]
         [Route("api/case-management-pn/calendar")]
-        public OperationResult CreateCalendarUser(CalendarUserModel requestModel)
+        public async Task<OperationResult> CreateCalendarUser(CalendarUserModel requestModel)
         {
-            return _calendarUsersService.CreateCalendarUser(requestModel);
+            return await _calendarUsersService.CreateCalendarUser(requestModel);
         }
 
         [HttpPost]
         [Route("api/case-management-pn/calendar/update")]
-        public OperationResult UpdateCalendarUser(CalendarUserModel requestModel)
+        public async Task<OperationResult> UpdateCalendarUser(CalendarUserModel requestModel)
         {
-            return _calendarUsersService.UpdateCalendarUser(requestModel);
+            return await _calendarUsersService.UpdateCalendarUser(requestModel);
         }
 
         [HttpGet]
         [Route("api/case-management-pn/calendar/delete/{id}")]
-        public OperationResult DeleteCalendarUser(int id)
+        public async Task<OperationResult> DeleteCalendarUser(int id)
         {
-            return _calendarUsersService.DeleteCalendarUser(id);
+            return await _calendarUsersService.DeleteCalendarUser(id);
         }
     }
 }

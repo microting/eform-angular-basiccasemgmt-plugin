@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using CaseManagement.Pn.Infrastructure.Data;
 using CaseManagement.Pn.Infrastructure.Data.Entities;
 
@@ -20,7 +21,7 @@ namespace CaseManagement.Pn.Infrastructure.Models.Calendar
         public string NameInCalendar { get; set; }
         public string Color { get; set; }
 
-        public void Save(CaseManagementPnDbAnySql _dbContext)
+        public async Task Save(CaseManagementPnDbAnySql _dbContext)
         {
             CalendarUser calendarUser = new CalendarUser();
             calendarUser.Color = Color;
@@ -28,13 +29,13 @@ namespace CaseManagement.Pn.Infrastructure.Models.Calendar
             calendarUser.NameInCalendar = NameInCalendar;
             calendarUser.SiteId = SiteId;
             _dbContext.CalendarUsers.Add(calendarUser);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
 
             //_dbContext.CalendarUsersVersion.Add(MapCalendarUserVersion(_dbContext, calendarUser));
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
         }
 
-        public void Update(CaseManagementPnDbAnySql _dbContext)
+        public async Task Update(CaseManagementPnDbAnySql _dbContext)
         {
             CalendarUser calendarUser = _dbContext.CalendarUsers.FirstOrDefault(x => x.Id == Id);
 
@@ -55,11 +56,11 @@ namespace CaseManagement.Pn.Infrastructure.Models.Calendar
                 calendarUser.Version += 1;
 
                 //_dbContext.CalendarUsersVersion.Add(MapCalendarUserVersion(_dbContext, calendarUser));
-                _dbContext.SaveChanges();
+                await _dbContext.SaveChangesAsync();
             }
         }
 
-        public void Delete(CaseManagementPnDbAnySql _dbContext)
+        public async Task Delete(CaseManagementPnDbAnySql _dbContext)
         {
             CalendarUser calendarUser = _dbContext.CalendarUsers.FirstOrDefault(x => x.Id == Id);
 
@@ -77,7 +78,7 @@ namespace CaseManagement.Pn.Infrastructure.Models.Calendar
                 calendarUser.Version += 1;
 
                 //_dbContext.CalendarUsersVersion.Add(MapCalendarUserVersion(_dbContext, calendarUser));
-                _dbContext.SaveChanges();
+                await _dbContext.SaveChangesAsync();
             }
         }
     }

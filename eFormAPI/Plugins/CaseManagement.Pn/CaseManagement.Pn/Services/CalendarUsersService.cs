@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using CaseManagement.Pn.Abstractions;
 using CaseManagement.Pn.Infrastructure.Data;
 using CaseManagement.Pn.Infrastructure.Data.Entities;
@@ -34,7 +35,7 @@ namespace CaseManagement.Pn.Services
             _caseManagementLocalizationService = caseManagementLocalizationService;
         }
 
-        public OperationDataResult<CalendarUsersModel> GetCalendarUsers(CalendarUsersRequestModel requestModel)
+        public async Task<OperationDataResult<CalendarUsersModel>> GetCalendarUsers(CalendarUsersRequestModel requestModel)
         {
             try
             {
@@ -99,7 +100,7 @@ namespace CaseManagement.Pn.Services
             }
         }
 
-        public OperationResult CreateCalendarUser(CalendarUserModel calendarUserModel)
+        public async Task<OperationResult> CreateCalendarUser(CalendarUserModel calendarUserModel)
         {
             try
             {
@@ -111,7 +112,8 @@ namespace CaseManagement.Pn.Services
                     IsVisibleInCalendar = calendarUserModel.IsVisibleInCalendar,
                 };
                 _dbContext.CalendarUsers.Add(calendarUser);
-                _dbContext.SaveChanges();
+                await _dbContext.SaveChangesAsync();
+//                await calendarUserModel.Save(_dbContext); //TODO
                 CaseManagementSetting caseManagementSetting = _dbContext.CaseManagementSettings.FirstOrDefault();
                 if (caseManagementSetting?.RelatedEntityGroupId != null)
                 {
@@ -146,7 +148,7 @@ namespace CaseManagement.Pn.Services
                         }
                     }
 
-                    _dbContext.SaveChanges();
+                    await _dbContext.SaveChangesAsync();
                 }
 
                 return new OperationResult(true,
@@ -161,7 +163,7 @@ namespace CaseManagement.Pn.Services
             }
         }
 
-        public OperationResult UpdateCalendarUser(CalendarUserModel requestModel)
+        public async Task<OperationResult> UpdateCalendarUser(CalendarUserModel requestModel)
         {
             try
             {
@@ -176,7 +178,8 @@ namespace CaseManagement.Pn.Services
                 calendarUser.Color = requestModel.Color;
                 calendarUser.IsVisibleInCalendar = requestModel.IsVisibleInCalendar;
                 calendarUser.NameInCalendar = requestModel.NameInCalendar;
-                _dbContext.SaveChanges();
+//                await requestModel.Update(_dbContext); //TODO 
+                await _dbContext.SaveChangesAsync();
                 CaseManagementSetting caseManagementSetting = _dbContext.CaseManagementSettings.FirstOrDefault();
                 if (caseManagementSetting?.RelatedEntityGroupId != null)
                 {
@@ -188,7 +191,7 @@ namespace CaseManagement.Pn.Services
                     }
 
                     int nextItemUid = entityGroup.EntityGroupItemLst.Count;
-                    string label = calendarUser.NameInCalendar;
+                    string label = requestModel.NameInCalendar;
                     if (string.IsNullOrEmpty(label))
                     {
                         label = $"Empty company {nextItemUid}";
@@ -225,21 +228,26 @@ namespace CaseManagement.Pn.Services
             }
         }
 
-        public OperationResult DeleteCalendarUser(int id)
+        public async Task<OperationResult> DeleteCalendarUser(int id)
         {
             try
             {
-                CalendarUser calendarUser = _dbContext.CalendarUsers.FirstOrDefault(x => x.Id == id);
-                if (calendarUser == null)
-                {
-                    return new OperationResult(false,
-                        _caseManagementLocalizationService.GetString("CalendarUserNotFound"));
-                }
+                CalendarUserModel deleteModel = new CalendarUserModel();
+                deleteModel.Id = id;
+                await deleteModel.Delete(_dbContext);
+                return new OperationResult(true);
 
-                _dbContext.CalendarUsers.Remove(calendarUser);
-                _dbContext.SaveChanges();
-                return new OperationResult(true,
-                    _caseManagementLocalizationService.GetString("CalendarUserDeletedSuccessfully"));
+//                CalendarUser calendarUser = _dbContext.CalendarUsers.FirstOrDefault(x => x.Id == id);
+//                if (calendarUser == null)
+//                {
+//                    return new OperationResult(false,
+//                        _caseManagementLocalizationService.GetString("CalendarUserNotFound"));
+//                }
+//
+//                _dbContext.CalendarUsers.Remove(calendarUser);
+//                _dbContext.SaveChanges();
+//                return new OperationResult(true,
+//                    _caseManagementLocalizationService.GetString("CalendarUserDeletedSuccessfully"));
             }
             catch (Exception e)
             {
