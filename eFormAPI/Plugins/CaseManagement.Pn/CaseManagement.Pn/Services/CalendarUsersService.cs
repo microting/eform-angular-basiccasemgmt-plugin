@@ -61,6 +61,7 @@ namespace CaseManagement.Pn.Services
                 }
 
                 calendarUsersQuery = calendarUsersQuery
+                    .Where(x => x.Workflow_state != Constants.WorkflowStates.Removed)
                     .Skip(requestModel.Offset)
                     .Take(requestModel.PageSize);
 
