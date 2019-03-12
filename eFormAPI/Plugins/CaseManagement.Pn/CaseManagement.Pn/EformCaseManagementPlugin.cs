@@ -7,6 +7,7 @@ using CaseManagement.Pn.Infrastructure.Data.Factories;
 using CaseManagement.Pn.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microting.eFormApi.BasePn;
 using Microting.eFormApi.BasePn.Infrastructure.Models.Application;
@@ -15,7 +16,6 @@ namespace CaseManagement.Pn
 {
     public class EformCaseManagementPlugin : IEformPlugin
     {
-
         public string Name => "Microting Case Management plugin";
         public string PluginId => "EFormCaseManagementPn";
         public string PluginPath => PluginAssembly().Location;
@@ -31,6 +31,10 @@ namespace CaseManagement.Pn
             services.AddScoped<ICalendarService, CalendarService>();
             services.AddScoped<ICalendarUsersService, CalendarUsersService>();
             services.AddScoped<ICaseManagementSettingsService, CaseManagementSettingsService>();
+        }
+
+        public void AddPluginConfig(IConfigurationBuilder builder, string connectionString)
+        {
         }
 
         public void ConfigureDbContext(IServiceCollection services, string connectionString)
@@ -99,6 +103,12 @@ namespace CaseManagement.Pn
         }
 
         public void SeedDatabase(string connectionString)
+        {
+        }
+
+        public void ConfigureOptionsServices(
+            IServiceCollection services,
+            IConfiguration configuration)
         {
         }
     }

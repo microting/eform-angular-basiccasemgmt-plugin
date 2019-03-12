@@ -1,9 +1,12 @@
 ﻿using CaseManagement.Pn.Infrastructure.Data.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microting.eFormApi.BasePn.Abstractions;
+using Microting.eFormApi.BasePn.Infrastructure.Database.Entities;
+using Microting.eFormApi.BasePn.Infrastructure.Database.Extensions;
 
 namespace CaseManagement.Pn.Infrastructure.Data
 {
-    public class CaseManagementPnDbAnySql : DbContext
+    public class CaseManagementPnDbAnySql : DbContext, IPluginDbContext
     {
         public CaseManagementPnDbAnySql() { }
 
@@ -14,6 +17,10 @@ namespace CaseManagement.Pn.Infrastructure.Data
         public DbSet<CaseManagementSetting> CaseManagementSettings { get; set; }
         public DbSet<CalendarUser> CalendarUsers { get; set; }
 
+        // plugin configuration
+        public DbSet<PluginConfigurationValue> PluginConfigurationValues { get; set; }
+        public DbSet<PluginConfigurationVersion> PluginConfigurationVersions { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -21,6 +28,8 @@ namespace CaseManagement.Pn.Infrastructure.Data
             modelBuilder.Entity<CalendarUser>()
                 .HasIndex(x => x.SiteId)
                 .IsUnique();
+
+            modelBuilder.AddPluginSettingsRules();
         }
     }
 }
