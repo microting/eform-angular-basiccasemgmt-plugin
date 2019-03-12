@@ -2,10 +2,11 @@
 using System.Linq;
 using CaseManagement.Pn.Infrastructure.Data;
 using CaseManagement.Pn.Infrastructure.Data.Entities;
+using Microting.eFormApi.BasePn.Abstractions;
 
 namespace CaseManagement.Pn.Infrastructure.Models.Calendar
 {
-    public class CalendarUserModel : IModel
+    public class CalendarUserModel : IDataAccessObject<CaseManagementPnDbAnySql>
     {
         public int Id { get; set; }
         public DateTime? CreatedAt { get; set; }
@@ -32,6 +33,11 @@ namespace CaseManagement.Pn.Infrastructure.Models.Calendar
 
             //_dbContext.CalendarUsersVersion.Add(MapCalendarUserVersion(_dbContext, calendarUser));
             _dbContext.SaveChanges();
+        }
+
+        public void Create(CaseManagementPnDbAnySql dbContext)
+        {
+            throw new NotImplementedException();
         }
 
         public void Update(CaseManagementPnDbAnySql _dbContext)
