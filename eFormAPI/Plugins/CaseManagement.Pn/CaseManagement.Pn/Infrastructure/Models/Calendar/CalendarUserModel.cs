@@ -7,7 +7,7 @@ using Microting.eFormApi.BasePn.Abstractions;
 
 namespace CaseManagement.Pn.Infrastructure.Models.Calendar
 {
-    public class CalendarUserModel : IDataAccessObject<CaseManagementPnDbAnySql>
+    public class CalendarUserModel : IModel
     {
         public int Id { get; set; }
         public DateTime? CreatedAt { get; set; }
@@ -32,16 +32,11 @@ namespace CaseManagement.Pn.Infrastructure.Models.Calendar
             _dbContext.CalendarUsers.Add(calendarUser);
             await _dbContext.SaveChangesAsync();
 
-            //_dbContext.CalendarUsersVersion.Add(MapCalendarUserVersion(_dbContext, calendarUser));
+            _dbContext.CalendarUserVersions.Add(MapVersions(_dbContext, calendarUser));
             await _dbContext.SaveChangesAsync();
         }
 
-        public void Create(CaseManagementPnDbAnySql dbContext)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(CaseManagementPnDbAnySql _dbContext)
+        public async Task Update(CaseManagementPnDbAnySql _dbContext)
         {
             CalendarUser calendarUser = _dbContext.CalendarUsers.FirstOrDefault(x => x.Id == Id);
 
@@ -61,8 +56,8 @@ namespace CaseManagement.Pn.Infrastructure.Models.Calendar
                 calendarUser.Updated_at = DateTime.Now;
                 calendarUser.Version += 1;
 
-                //_dbContext.CalendarUsersVersion.Add(MapCalendarUserVersion(_dbContext, calendarUser));
-                await _dbContext.SaveChangesAsync();
+                _dbContext.CalendarUserVersions.Add(MapVersions(_dbContext, calendarUser));
+              await  _dbContext.SaveChangesAsync();
             }
         }
 
@@ -83,9 +78,31 @@ namespace CaseManagement.Pn.Infrastructure.Models.Calendar
                 calendarUser.Updated_By_User_Id = UpdatedByUserId;
                 calendarUser.Version += 1;
 
-                //_dbContext.CalendarUsersVersion.Add(MapCalendarUserVersion(_dbContext, calendarUser));
-                await _dbContext.SaveChangesAsync();
+                _dbContext.CalendarUserVersions.Add(MapVersions(_dbContext, calendarUser));
+              await  _dbContext.SaveChangesAsync();
             }
+        }
+
+        public CalendarUserVersions MapVersions(CaseManagementPnDbAnySql _dbContext, CalendarUser calendarUser)
+        {
+            CalendarUserVersions calendarUserVersions = new CalendarUserVersions();
+            calendarUserVersions.Color = calendarUser.Color;
+            calendarUserVersions.SiteId = calendarUser.SiteId;
+            //Todo in entiy
+//            calendarUserVersions.LastName = calendarUser.LastName;
+            calendarUserVersions.NameInCalendar = calendarUser.NameInCalendar;
+            calendarUserVersions.IsVisibleInCalendar = calendarUser.IsVisibleInCalendar;
+            calendarUserVersions.RelatedEntityId = calendarUser.RelatedEntityId;
+            calendarUserVersions.CreatedAt = calendarUser.CreatedAt;
+            calendarUserVersions.Version = calendarUser.Version;
+            calendarUserVersions.UpdatedAt = calendarUser.UpdatedAt;
+            calendarUserVersions.WorkflowState = calendarUser.WorkflowState;
+            calendarUserVersions.CreatedByUserId = calendarUser.CreatedByUserId;
+            calendarUserVersions.UpdatedByUserId = calendarUser.UpdatedByUserId;
+
+            calendarUserVersions.CalendarUserId = calendarUser.Id;
+            
+            return calendarUserVersions;
         }
     }
 }

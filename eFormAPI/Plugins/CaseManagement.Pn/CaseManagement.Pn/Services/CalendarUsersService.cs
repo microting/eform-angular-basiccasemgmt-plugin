@@ -235,7 +235,7 @@ namespace CaseManagement.Pn.Services
             {
                 CalendarUserModel deleteModel = new CalendarUserModel();
                 deleteModel.Id = id;
-                await deleteModel.Delete(_dbContext);
+                deleteModel.Delete(_dbContext);
                 return new OperationResult(true);
 
 //                CalendarUser calendarUser = _dbContext.CalendarUsers.FirstOrDefault(x => x.Id == id);
