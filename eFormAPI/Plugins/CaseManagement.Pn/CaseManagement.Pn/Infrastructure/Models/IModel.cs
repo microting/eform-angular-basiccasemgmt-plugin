@@ -8,11 +8,11 @@ namespace CaseManagement.Pn.Infrastructure.Models
 {
     interface IModel
     {
-        Task Save(CaseManagementPnDbAnySql _dbContext);
+        Task Save(CaseManagementPnDbContext _dbContext);
 
-        Task Update(CaseManagementPnDbAnySql _dbContext);
+        Task Update(CaseManagementPnDbContext _dbContext);
 
-        Task Delete(CaseManagementPnDbAnySql _dbContext);
+        Task Delete(CaseManagementPnDbContext _dbContext);
 
     }
 }

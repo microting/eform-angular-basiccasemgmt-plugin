@@ -41,12 +41,12 @@ namespace CaseManagement.Pn
         {
             if (connectionString.ToLower().Contains("convert zero datetime"))
             {                
-                services.AddDbContext<CaseManagementPnDbAnySql>(o => o.UseMySql(connectionString,
+                services.AddDbContext<CaseManagementPnDbContext>(o => o.UseMySql(connectionString,
                     b => b.MigrationsAssembly(PluginAssembly().FullName)));
             }
             else
             {                
-                services.AddDbContext<CaseManagementPnDbAnySql>(o => o.UseSqlServer(connectionString,
+                services.AddDbContext<CaseManagementPnDbContext>(o => o.UseSqlServer(connectionString,
                     b => b.MigrationsAssembly(PluginAssembly().FullName)));
             }
 

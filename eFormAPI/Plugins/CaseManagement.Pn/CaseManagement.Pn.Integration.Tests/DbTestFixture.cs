@@ -14,7 +14,7 @@ namespace CaseManagement.Pn.Integration.Tests
     public abstract class DbTestFixture
     {
 
-        protected CaseManagementPnDbAnySql DbContext;
+        protected CaseManagementPnDbContext DbContext;
         protected string ConnectionString;
 
 

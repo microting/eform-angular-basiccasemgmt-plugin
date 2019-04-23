@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Design;
 
 namespace CaseManagement.Pn.Infrastructure.Data.Factories
 {
-    public class CaseManagementPnDbContextFactory : IDesignTimeDbContextFactory<CaseManagementPnDbAnySql>
+    public class CaseManagementPnDbContextFactory : IDesignTimeDbContextFactory<CaseManagementPnDbContext>
     {
-        public CaseManagementPnDbAnySql CreateDbContext(string[] args)
+        public CaseManagementPnDbContext CreateDbContext(string[] args)
         {
-            var optionsBuilder = new DbContextOptionsBuilder<CaseManagementPnDbAnySql>();
+            var optionsBuilder = new DbContextOptionsBuilder<CaseManagementPnDbContext>();
             if (args.Any())
             {
                 if (args.FirstOrDefault().ToLower().Contains("convert zero datetime"))
@@ -26,7 +26,7 @@ namespace CaseManagement.Pn.Infrastructure.Data.Factories
                 throw new ArgumentNullException("Connection string not present");
             }
             optionsBuilder.UseLazyLoadingProxies(true);
-            return new CaseManagementPnDbAnySql(optionsBuilder.Options);
+            return new CaseManagementPnDbContext(optionsBuilder.Options);
         }
     }
 }

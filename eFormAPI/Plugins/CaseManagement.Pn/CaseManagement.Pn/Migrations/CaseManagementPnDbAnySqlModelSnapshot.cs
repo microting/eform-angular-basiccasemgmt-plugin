@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace CaseManagement.Pn.Migrations
 {
-    [DbContext(typeof(CaseManagementPnDbAnySql))]
+    [DbContext(typeof(CaseManagementPnDbContext))]
     partial class CaseManagementPnDbAnySqlModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

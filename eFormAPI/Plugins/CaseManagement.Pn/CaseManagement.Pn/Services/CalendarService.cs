@@ -15,12 +15,12 @@ namespace CaseManagement.Pn.Services
    public class CalendarService : ICalendarService
     {
         private readonly ILogger<CalendarService> _logger;
-        private readonly CaseManagementPnDbAnySql _dbContext;
+        private readonly CaseManagementPnDbContext _dbContext;
         private readonly ICaseManagementLocalizationService _caseManagementLocalizationService;
         private readonly IEFormCoreService _coreHelper;
 
         public CalendarService(ILogger<CalendarService> logger, 
-            CaseManagementPnDbAnySql dbContext, 
+            CaseManagementPnDbContext dbContext, 
             IEFormCoreService coreHelper, 
             ICaseManagementLocalizationService caseManagementLocalizationService)
         {

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CaseManagement.Pn.Migrations
 {
-    [DbContext(typeof(CaseManagementPnDbAnySql))]
+    [DbContext(typeof(CaseManagementPnDbContext))]
     [Migration("20190312103246_AddPluginSettingsTables")]
     partial class AddPluginSettingsTables
     {

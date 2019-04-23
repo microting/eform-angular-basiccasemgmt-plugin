@@ -22,7 +22,7 @@ namespace CaseManagement.Pn.Infrastructure.Models.Calendar
         public string NameInCalendar { get; set; }
         public string Color { get; set; }
 
-        public async Task Save(CaseManagementPnDbAnySql _dbContext)
+        public async Task Save(CaseManagementPnDbContext _dbContext)
         {
             CalendarUser calendarUser = new CalendarUser();
             calendarUser.Color = Color;
@@ -36,7 +36,7 @@ namespace CaseManagement.Pn.Infrastructure.Models.Calendar
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task Update(CaseManagementPnDbAnySql _dbContext)
+        public async Task Update(CaseManagementPnDbContext _dbContext)
         {
             CalendarUser calendarUser = _dbContext.CalendarUsers.FirstOrDefault(x => x.Id == Id);
 
@@ -61,7 +61,7 @@ namespace CaseManagement.Pn.Infrastructure.Models.Calendar
             }
         }
 
-        public async Task Delete(CaseManagementPnDbAnySql _dbContext)
+        public async Task Delete(CaseManagementPnDbContext _dbContext)
         {
             CalendarUser calendarUser = _dbContext.CalendarUsers.FirstOrDefault(x => x.Id == Id);
 
@@ -83,7 +83,7 @@ namespace CaseManagement.Pn.Infrastructure.Models.Calendar
             }
         }
 
-        public CalendarUserVersions MapVersions(CaseManagementPnDbAnySql _dbContext, CalendarUser calendarUser)
+        public CalendarUserVersions MapVersions(CaseManagementPnDbContext _dbContext, CalendarUser calendarUser)
         {
             CalendarUserVersions calendarUserVersions = new CalendarUserVersions();
             calendarUserVersions.Color = calendarUser.Color;

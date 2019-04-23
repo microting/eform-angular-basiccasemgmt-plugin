@@ -17,11 +17,11 @@ namespace CaseManagement.Pn.Services
     {
         private readonly ILogger<CaseManagementSettingsService> _logger;
         private readonly ICaseManagementLocalizationService _caseManagementLocalizationService;
-        private readonly CaseManagementPnDbAnySql _dbContext;
+        private readonly CaseManagementPnDbContext _dbContext;
         private readonly IEFormCoreService _coreHelper;
 
         public CaseManagementSettingsService(ILogger<CaseManagementSettingsService> logger, 
-            CaseManagementPnDbAnySql dbContext, 
+            CaseManagementPnDbContext dbContext, 
             IEFormCoreService coreHelper, 
             ICaseManagementLocalizationService caseManagementLocalizationService)
         {

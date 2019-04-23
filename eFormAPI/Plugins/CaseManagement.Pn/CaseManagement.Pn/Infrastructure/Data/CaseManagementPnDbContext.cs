@@ -6,11 +6,11 @@ using Microting.eFormApi.BasePn.Infrastructure.Database.Extensions;
 
 namespace CaseManagement.Pn.Infrastructure.Data
 {
-    public class CaseManagementPnDbAnySql : DbContext, IPluginDbContext
+    public class CaseManagementPnDbContext : DbContext, IPluginDbContext
     {
-        public CaseManagementPnDbAnySql() { }
+        public CaseManagementPnDbContext() { }
 
-        public CaseManagementPnDbAnySql(DbContextOptions<CaseManagementPnDbAnySql> options) : base(options)
+        public CaseManagementPnDbContext(DbContextOptions<CaseManagementPnDbContext> options) : base(options)
         {
 
         }
