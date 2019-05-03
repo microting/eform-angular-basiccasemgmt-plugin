@@ -4,21 +4,27 @@ using System.Reflection;
 using CaseManagement.Pn.Abstractions;
 using CaseManagement.Pn.Infrastructure.Data;
 using CaseManagement.Pn.Infrastructure.Data.Factories;
+using CaseManagement.Pn.Infrastructure.Data.Seed;
+using CaseManagement.Pn.Infrastructure.Data.Seed.Data;
+using CaseManagement.Pn.Infrastructure.Models;
 using CaseManagement.Pn.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microting.eFormApi.BasePn;
+using Microting.eFormApi.BasePn.Infrastructure.Database.Extensions;
 using Microting.eFormApi.BasePn.Infrastructure.Models.Application;
+using Microting.eFormApi.BasePn.Infrastructure.Settings;
 
 namespace CaseManagement.Pn
 {
     public class EformCaseManagementPlugin : IEformPlugin
     {
         public string Name => "Microting Case Management plugin";
-        public string PluginId => "EFormCaseManagementPn";
+        public string PluginId => "eform-angular-casemanagement-plugin";
         public string PluginPath => PluginAssembly().Location;
+        private string _connectionString;
 
         public Assembly PluginAssembly()
         {
@@ -35,10 +41,24 @@ namespace CaseManagement.Pn
 
         public void AddPluginConfig(IConfigurationBuilder builder, string connectionString)
         {
+            var seedData = new CaseManagementConfigurationSeedData();
+            var contextFactory = new CaseManagementPnDbContextFactory();
+            builder.AddPluginConfiguration(
+                connectionString,
+                seedData,
+                contextFactory);
         }
 
+        public void ConfigureOptionsServices(
+            IServiceCollection services,
+            IConfiguration configuration)
+        {
+            services.ConfigurePluginDbOptions<CaseManagementBaseSettings>(
+                configuration.GetSection("CaseManagementBaseSettings"));
+        }
         public void ConfigureDbContext(IServiceCollection services, string connectionString)
         {
+            _connectionString = connectionString;
             if (connectionString.ToLower().Contains("convert zero datetime"))
             {                
                 services.AddDbContext<CaseManagementPnDbContext>(o => o.UseMySql(connectionString,
@@ -53,10 +73,13 @@ namespace CaseManagement.Pn
             var contextFactory = new CaseManagementPnDbContextFactory();
             var context = contextFactory.CreateDbContext(new[] {connectionString});
             context.Database.Migrate();
+            
+            SeedDatabase(connectionString);
         }
 
         public void Configure(IApplicationBuilder appBuilder)
         {
+            var serviceProvider = appBuilder.ApplicationServices;
         }
 
         public MenuModel HeaderMenu(IServiceProvider serviceProvider)
@@ -104,12 +127,12 @@ namespace CaseManagement.Pn
 
         public void SeedDatabase(string connectionString)
         {
+            var contextFactory = new CaseManagementPnDbContextFactory();
+            using (var context = contextFactory.CreateDbContext(new []{connectionString}))
+            {
+                CaseManagementPluginSeed.SeedData(context);
+            }
         }
 
-        public void ConfigureOptionsServices(
-            IServiceCollection services,
-            IConfiguration configuration)
-        {
-        }
     }
 }
