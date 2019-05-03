@@ -70,7 +70,7 @@ namespace CaseManagement.Pn.Integration.Tests
 
             calendarUserModel.Id = calendarUser.Id;
 
-            calendarUserModel.Update(DbContext);
+           await calendarUserModel.Update(DbContext);
 
             CalendarUser dbCalendarUser = DbContext.CalendarUsers.AsNoTracking().First();
             List<CalendarUser> userList = DbContext.CalendarUsers.AsNoTracking().ToList();
@@ -114,7 +114,7 @@ namespace CaseManagement.Pn.Integration.Tests
 
             calendarUserModel.Id = calendarUser.Id;
 
-            calendarUserModel.Delete(DbContext);
+           await calendarUserModel.Delete(DbContext);
 
             CalendarUser dbCalendarUser = DbContext.CalendarUsers.AsNoTracking().First();
             List<CalendarUser> userList = DbContext.CalendarUsers.AsNoTracking().ToList();
