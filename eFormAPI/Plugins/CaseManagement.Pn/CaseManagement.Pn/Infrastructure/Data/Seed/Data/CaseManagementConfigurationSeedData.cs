@@ -39,7 +39,7 @@ namespace CaseManagement.Pn.Infrastructure.Data.Seed.Data
             },
             new PluginConfigurationValue()
             {
-                Name = "CaseManagementBaseSettings:RelatedEntityGroup",
+                Name = "CaseManagementBaseSettings:RelatedEntityGroupId",
                 Value = "..."
             }
             

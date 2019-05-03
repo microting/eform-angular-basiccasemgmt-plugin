@@ -25,6 +25,8 @@ namespace CaseManagement.Pn.Infrastructure.Data.Factories
             {
                 throw new ArgumentNullException("Connection string not present");
             }
+//            optionsBuilder.UseSqlServer(@"Data Source=.\SQLEXPRESS;Initial Catalog=555_RentableItems;Integrated Security=True;");
+//            dotnet ef migrations add InitialCreate --project CaseManagement.Pn --startup-project DBMigrator
             optionsBuilder.UseLazyLoadingProxies(true);
             return new CaseManagementPnDbContext(optionsBuilder.Options);
         }

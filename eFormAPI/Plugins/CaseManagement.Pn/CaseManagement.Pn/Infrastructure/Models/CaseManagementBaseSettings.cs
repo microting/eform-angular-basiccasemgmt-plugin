@@ -8,6 +8,6 @@ namespace CaseManagement.Pn.Infrastructure.Models
         public string MaxParallelism { get; set; }
         public int NumberOfWorkers { get; set; }
         public int SelectedTemplateId { get; set; }
-        public string RelatedEntityGroup { get; set; }
+        public int RelatedEntityGroupId { get; set; }
     }
 }

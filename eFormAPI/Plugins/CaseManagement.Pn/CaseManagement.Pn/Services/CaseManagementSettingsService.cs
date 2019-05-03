@@ -1,14 +1,21 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using CaseManagement.Pn.Abstractions;
 using CaseManagement.Pn.Infrastructure.Data;
 using CaseManagement.Pn.Infrastructure.Data.Entities;
 using CaseManagement.Pn.Infrastructure.Models;
 using eFormCore;
 using eFormData;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microting.eFormApi.BasePn.Abstractions;
+using Microting.eFormApi.BasePn.Infrastructure.Database.Entities;
+using Microting.eFormApi.BasePn.Infrastructure.Helpers.PluginDbOptions;
 using Microting.eFormApi.BasePn.Infrastructure.Models.API;
 
 namespace CaseManagement.Pn.Services
@@ -19,56 +26,75 @@ namespace CaseManagement.Pn.Services
         private readonly ICaseManagementLocalizationService _caseManagementLocalizationService;
         private readonly CaseManagementPnDbContext _dbContext;
         private readonly IEFormCoreService _coreHelper;
+        private readonly IPluginDbOptions<CaseManagementBaseSettings> _options;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
         public CaseManagementSettingsService(ILogger<CaseManagementSettingsService> logger, 
             CaseManagementPnDbContext dbContext, 
             IEFormCoreService coreHelper, 
-            ICaseManagementLocalizationService caseManagementLocalizationService)
+            IPluginDbOptions<CaseManagementBaseSettings> options,
+            ICaseManagementLocalizationService caseManagementLocalizationService,    
+            IHttpContextAccessor httpContextAccessor)
+
         {
             _logger = logger;
             _dbContext = dbContext;
             _coreHelper = coreHelper;
             _caseManagementLocalizationService = caseManagementLocalizationService;
+            _options = options;
+            _httpContextAccessor = httpContextAccessor;
         }
 
-        public OperationDataResult<CaseManagementPnSettingsModel> GetSettings()
+        public async Task<OperationDataResult<CaseManagementBaseSettings>> GetSettings()
         {
             try
             {
-                CaseManagementPnSettingsModel result = new CaseManagementPnSettingsModel();
-                CaseManagementSetting customerSettings = _dbContext.CaseManagementSettings.FirstOrDefault();
-                if (customerSettings?.SelectedTemplateId != null && customerSettings?.RelatedEntityGroupId != null)
+                var option = _options.Value;
+                if (option.SdkConnectionString == "...")
                 {
-                    result.SelectedTemplateId = (int) customerSettings.SelectedTemplateId;
-                    result.SelectedTemplateName = customerSettings.SelectedTemplateName;
-                    result.RelatedEntityGroupId = customerSettings.RelatedEntityGroupId;
-                    Core core = _coreHelper.GetCore();
-                    EntityGroup entityGroup = core.EntityGroupRead(customerSettings.RelatedEntityGroupId.ToString());
-                    if (entityGroup == null)
-                    {
-                        return new OperationDataResult<CaseManagementPnSettingsModel>(false, "Entity group not found");
-                    }
+                    string connectionString = _dbContext.Database.GetDbConnection().ConnectionString;
 
-                    result.RelatedEntityGroupName = entityGroup.Name;
-                }
-                else
-                {
-                    result.RelatedEntityGroupId = null;
-                    result.SelectedTemplateId = null;
-                }
+                    string dbNameSection = Regex.Match(connectionString, @"(Database=(...)_eform-angular-\w*-plugin;)").Groups[0].Value;
+                    string dbPrefix = Regex.Match(connectionString, @"Database=(\d*)_").Groups[1].Value;
+                    string sdk = $"Database={dbPrefix}_SDK;";
+                    connectionString = connectionString.Replace(dbNameSection, sdk);
+                    await _options.UpdateDb(settings => { settings.SdkConnectionString = connectionString;}, _dbContext, UserId);
 
-                return new OperationDataResult<CaseManagementPnSettingsModel>(true, result);
+                }
+//                CaseManagementPnSettingsModel result = new CaseManagementPnSettingsModel();
+//                CaseManagementSetting customerSettings = _dbContext.CaseManagementSettings.FirstOrDefault();
+//                if (customerSettings?.SelectedTemplateId != null && customerSettings?.RelatedEntityGroupId != null)
+//                {
+//                    result.SelectedTemplateId = (int) customerSettings.SelectedTemplateId;
+//                    result.SelectedTemplateName = customerSettings.SelectedTemplateName;
+//                    result.RelatedEntityGroupId = customerSettings.RelatedEntityGroupId;
+//                    Core core = _coreHelper.GetCore();
+//                    EntityGroup entityGroup = core.EntityGroupRead(customerSettings.RelatedEntityGroupId.ToString());
+//                    if (entityGroup == null)
+//                    {
+//                        return new OperationDataResult<CaseManagementPnSettingsModel>(false, "Entity group not found");
+//                    }
+//
+//                    result.RelatedEntityGroupName = entityGroup.Name;
+//                }
+//                else
+//                {
+//                    result.RelatedEntityGroupId = null;
+//                    result.SelectedTemplateId = null;
+//                }
+
+                return new OperationDataResult<CaseManagementBaseSettings>(true, option);
             }
             catch (Exception e)
             {
                 Trace.TraceError(e.Message);
                 _logger.LogError(e.Message);
-                return new OperationDataResult<CaseManagementPnSettingsModel>(false,
+                return new OperationDataResult<CaseManagementBaseSettings>(false,
                     _caseManagementLocalizationService.GetString("ErrorWhileObtainingCaseManagementSettings"));
             }
         }
 
-        public OperationResult UpdateSettings(CaseManagementPnSettingsModel caseManagementSettingsModel)
+        public async Task<OperationResult> UpdateSettings(CaseManagementBaseSettings caseManagementSettingsModel)
         {
             try
             {
@@ -76,31 +102,42 @@ namespace CaseManagement.Pn.Services
                 {
                     return new OperationResult(true);
                 }
-                CaseManagementSetting caseManagementSettings = _dbContext.CaseManagementSettings.FirstOrDefault();
-                if (caseManagementSettings == null)
-                {
-                    caseManagementSettings = new CaseManagementSetting()
-                    {
-                        SelectedTemplateId = caseManagementSettingsModel.SelectedTemplateId,
-                        RelatedEntityGroupId = caseManagementSettingsModel.RelatedEntityGroupId
-                    };
-                    _dbContext.CaseManagementSettings.Add(caseManagementSettings);
-                }
-                else
-                {
-                    caseManagementSettings.SelectedTemplateId = caseManagementSettingsModel.SelectedTemplateId;
-                    caseManagementSettings.RelatedEntityGroupId = caseManagementSettingsModel.RelatedEntityGroupId;
-                }
 
-                if (caseManagementSettingsModel.SelectedTemplateId != null &&
-                    caseManagementSettingsModel.RelatedEntityGroupId != null)
+                await _options.UpdateDb(settings =>
                 {
-                    Core core = _coreHelper.GetCore();
-                    MainElement template = core.TemplateRead((int) caseManagementSettingsModel.SelectedTemplateId);
-                    caseManagementSettings.SelectedTemplateName = template.Label;
-                }
+                    settings.LogLevel = caseManagementSettingsModel.LogLevel;
+                    settings.LogLimit = caseManagementSettingsModel.LogLimit;
+                    settings.MaxParallelism = caseManagementSettingsModel.MaxParallelism;
+                    settings.NumberOfWorkers = caseManagementSettingsModel.NumberOfWorkers;
+                    settings.SelectedTemplateId = caseManagementSettingsModel.SelectedTemplateId;
+                    settings.SdkConnectionString = caseManagementSettingsModel.SdkConnectionString;
+                    settings.RelatedEntityGroupId = caseManagementSettingsModel.RelatedEntityGroupId;
+                }, _dbContext, UserId);
+                //                PluginConfigurationValue caseManagementSettings = _dbContext.PluginConfigurationValues.FirstOrDefault();
+//                if (caseManagementSettings == null)
+//                {
+//                    caseManagementSettings = new PluginConfigurationValue()
+//                    {
+//                        Name = caseManagementSettingsModel.SelectedTemplateId,
+//                        Value = caseManagementSettingsModel.RelatedEntityGroupId
+//                    };
+//                    _dbContext.CaseManagementSettings.Add(caseManagementSettings);
+//                }
+//                else
+//                {
+//                    caseManagementSettings.SelectedTemplateId = caseManagementSettingsModel.SelectedTemplateId;
+//                    caseManagementSettings.RelatedEntityGroupId = caseManagementSettingsModel.RelatedEntityGroupId;
+//                }
+//
+//                if (caseManagementSettingsModel.SelectedTemplateId != null &&
+//                    caseManagementSettingsModel.RelatedEntityGroupId != null)
+//                {
+//                    Core core = _coreHelper.GetCore();
+//                    MainElement template = core.TemplateRead((int) caseManagementSettingsModel.SelectedTemplateId);
+//                    caseManagementSettings.SelectedTemplateName = template.Label;
+//                }
 
-                _dbContext.SaveChanges();
+//                _dbContext.SaveChanges();
                 return new OperationResult(true,
                     _caseManagementLocalizationService.GetString("SettingsHasBeenUpdatedSuccessfully"));
             }
@@ -110,6 +147,14 @@ namespace CaseManagement.Pn.Services
                 _logger.LogError(e.Message);
                 return new OperationResult(false,
                     _caseManagementLocalizationService.GetString("ErrorWhileUpdatingCaseManagementSettings"));
+            }
+        }
+        public int UserId
+        {
+            get
+            {
+                var value = _httpContextAccessor?.HttpContext.User?.FindFirstValue(ClaimTypes.NameIdentifier);
+                return value == null ? 0 : int.Parse(value);
             }
         }
     }

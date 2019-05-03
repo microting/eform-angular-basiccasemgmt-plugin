@@ -42,7 +42,7 @@ namespace CaseManagement.Pn.Infrastructure.Models.Calendar
 
             if (calendarUser == null)
             {
-                throw new NullReferenceException($"Could not fint Calendar User with id {Id}");
+                throw new NullReferenceException($"Could not find Calendar User with id {Id}");
             }
 
             calendarUser.Color = Color;
@@ -52,8 +52,8 @@ namespace CaseManagement.Pn.Infrastructure.Models.Calendar
             
             if (_dbContext.ChangeTracker.HasChanges())
             {
-                calendarUser.Updated_By_User_Id = UpdatedByUserId;
-                calendarUser.Updated_at = DateTime.Now;
+                calendarUser.UpdatedByUserId = UpdatedByUserId;
+                calendarUser.UpdatedAt = DateTime.Now;
                 calendarUser.Version += 1;
 
                 _dbContext.CalendarUserVersions.Add(MapVersions(_dbContext, calendarUser));
@@ -67,15 +67,15 @@ namespace CaseManagement.Pn.Infrastructure.Models.Calendar
 
             if (calendarUser == null)
             {
-                throw new NullReferenceException($"Could not fint Calendar User with id {Id}");
+                throw new NullReferenceException($"Could not find Calendar User with id {Id}");
             }
 
-            calendarUser.Workflow_state = eFormShared.Constants.WorkflowStates.Removed;
+            calendarUser.WorkflowState = eFormShared.Constants.WorkflowStates.Removed;
 
             if (_dbContext.ChangeTracker.HasChanges())
             {
-                calendarUser.Updated_at = DateTime.Now;
-                calendarUser.Updated_By_User_Id = UpdatedByUserId;
+                calendarUser.UpdatedAt = DateTime.Now;
+                calendarUser.UpdatedByUserId = UpdatedByUserId;
                 calendarUser.Version += 1;
 
                 _dbContext.CalendarUserVersions.Add(MapVersions(_dbContext, calendarUser));
@@ -88,8 +88,8 @@ namespace CaseManagement.Pn.Infrastructure.Models.Calendar
             CalendarUserVersions calendarUserVersions = new CalendarUserVersions();
             calendarUserVersions.Color = calendarUser.Color;
             calendarUserVersions.SiteId = calendarUser.SiteId;
-            //Todo in entiy
-//            calendarUserVersions.LastName = calendarUser.LastName;
+            calendarUserVersions.FirstName = calendarUser.FirstName;
+            calendarUserVersions.LastName = calendarUser.LastName;
             calendarUserVersions.NameInCalendar = calendarUser.NameInCalendar;
             calendarUserVersions.IsVisibleInCalendar = calendarUser.IsVisibleInCalendar;
             calendarUserVersions.RelatedEntityId = calendarUser.RelatedEntityId;

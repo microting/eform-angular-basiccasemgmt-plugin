@@ -7,12 +7,14 @@ using CaseManagement.Pn.Abstractions;
 using CaseManagement.Pn.Infrastructure.Data;
 using CaseManagement.Pn.Infrastructure.Data.Entities;
 using CaseManagement.Pn.Infrastructure.Extensions;
+using CaseManagement.Pn.Infrastructure.Models;
 using CaseManagement.Pn.Infrastructure.Models.Calendar;
 using eFormCore;
 using eFormData;
 using eFormShared;
 using Microsoft.Extensions.Logging;
 using Microting.eFormApi.BasePn.Abstractions;
+using Microting.eFormApi.BasePn.Infrastructure.Database.Entities;
 using Microting.eFormApi.BasePn.Infrastructure.Models.API;
 
 namespace CaseManagement.Pn.Services
@@ -61,7 +63,7 @@ namespace CaseManagement.Pn.Services
                 }
 
                 calendarUsersQuery = calendarUsersQuery
-                    .Where(x => x.Workflow_state != Constants.WorkflowStates.Removed)
+                    .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                     .Skip(requestModel.Offset)
                     .Take(requestModel.PageSize);
 
@@ -115,11 +117,14 @@ namespace CaseManagement.Pn.Services
                 _dbContext.CalendarUsers.Add(calendarUser);
                 await _dbContext.SaveChangesAsync();
 //                await calendarUserModel.Save(_dbContext); //TODO
-                CaseManagementSetting caseManagementSetting = _dbContext.CaseManagementSettings.FirstOrDefault();
-                if (caseManagementSetting?.RelatedEntityGroupId != null)
+                PluginConfigurationValue caseManagementSetting =
+                    _dbContext.PluginConfigurationValues.SingleOrDefault(x =>
+                        x.Name == "CaseManagementBaseSettings:RelatedEntityGroupId");
+                
+                if (caseManagementSetting != null)
                 {
                     Core core = _coreHelper.GetCore();
-                    EntityGroup entityGroup = core.EntityGroupRead(caseManagementSetting.RelatedEntityGroupId.ToString());
+                    EntityGroup entityGroup = core.EntityGroupRead(caseManagementSetting.Value);
                     if (entityGroup == null)
                     {
                         return new OperationResult(false, "Entity group not found");
@@ -136,7 +141,7 @@ namespace CaseManagement.Pn.Services
                         nextItemUid.ToString());
                     if (item != null)
                     {
-                        entityGroup = core.EntityGroupRead(caseManagementSetting.RelatedEntityGroupId.ToString());
+                        entityGroup = core.EntityGroupRead(caseManagementSetting.Value);
                         if (entityGroup != null)
                         {
                             foreach (EntityItem entityItem in entityGroup.EntityGroupItemLst)
@@ -181,11 +186,12 @@ namespace CaseManagement.Pn.Services
                 calendarUser.NameInCalendar = requestModel.NameInCalendar;
 //                await requestModel.Update(_dbContext); //TODO 
                 await _dbContext.SaveChangesAsync();
-                CaseManagementSetting caseManagementSetting = _dbContext.CaseManagementSettings.FirstOrDefault();
-                if (caseManagementSetting?.RelatedEntityGroupId != null)
+                PluginConfigurationValue caseManagementSetting = _dbContext.PluginConfigurationValues.SingleOrDefault(x =>
+                    x.Name == "CaseManagementBaseSettings:RelatedEntityGroupId");
+                if (caseManagementSetting != null)
                 {
                     Core core = _coreHelper.GetCore();
-                    EntityGroup entityGroup = core.EntityGroupRead(caseManagementSetting.RelatedEntityGroupId.ToString());
+                    EntityGroup entityGroup = core.EntityGroupRead(caseManagementSetting.Value);
                     if (entityGroup == null)
                     {
                         return new OperationResult(false, "Entity group not found");

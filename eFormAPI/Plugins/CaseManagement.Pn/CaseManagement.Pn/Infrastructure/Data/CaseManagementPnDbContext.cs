@@ -14,7 +14,6 @@ namespace CaseManagement.Pn.Infrastructure.Data
         {
 
         }
-        public DbSet<CaseManagementSetting> CaseManagementSettings { get; set; }
         public DbSet<CalendarUser> CalendarUsers { get; set; }
         public DbSet<CalendarUserVersions> CalendarUserVersions { get; set; }
 

@@ -1,4 +1,5 @@
-﻿using CaseManagement.Pn.Abstractions;
+﻿using System.Threading.Tasks;
+using CaseManagement.Pn.Abstractions;
 using CaseManagement.Pn.Infrastructure.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -20,17 +21,17 @@ namespace CaseManagement.Pn.Controllers
         [HttpGet]
         [Authorize(Roles = EformRole.Admin)]
         [Route("api/case-management-pn/settings")]
-        public OperationDataResult<CaseManagementPnSettingsModel> GetSettings()
+        public async Task<OperationDataResult<CaseManagementBaseSettings>> GetSettings()
         {
-            return _caseManagementSettingsService.GetSettings();
+            return await _caseManagementSettingsService.GetSettings();
         }
 
         [HttpPost]
         [Authorize(Roles = EformRole.Admin)]
         [Route("api/case-management-pn/settings")]
-        public OperationResult UpdateSettings([FromBody] CaseManagementPnSettingsModel caseManagementSettingsModel)
+        public async Task<OperationResult> UpdateSettings([FromBody] CaseManagementBaseSettings caseManagementSettingsModel)
         {
-            return _caseManagementSettingsService.UpdateSettings(caseManagementSettingsModel);
+            return await _caseManagementSettingsService.UpdateSettings(caseManagementSettingsModel);
         }
     }
 }

@@ -99,7 +99,7 @@ namespace CaseManagement.Pn.Integration.Tests
             calendarUser.IsVisibleInCalendar = rnd.Next(100) < 50;
             calendarUser.NameInCalendar = Guid.NewGuid().ToString();
             calendarUser.SiteId = rnd.Next(1, 255);
-            calendarUser.Workflow_state = eFormShared.Constants.WorkflowStates.Created;
+            calendarUser.WorkflowState = eFormShared.Constants.WorkflowStates.Created;
             DbContext.CalendarUsers.Add(calendarUser);
             await DbContext.SaveChangesAsync();
             //CalendarUserVersion calendarUserVer = new CalendarUserVersion();
@@ -129,7 +129,7 @@ namespace CaseManagement.Pn.Integration.Tests
             Assert.AreEqual(calendarUserModel.IsVisibleInCalendar, dbCalendarUser.IsVisibleInCalendar);
             Assert.AreEqual(calendarUserModel.NameInCalendar, dbCalendarUser.NameInCalendar);
             Assert.AreEqual(calendarUserModel.SiteId, dbCalendarUser.SiteId);
-            Assert.AreEqual(eFormShared.Constants.WorkflowStates.Removed, dbCalendarUser.Workflow_state);
+            Assert.AreEqual(eFormShared.Constants.WorkflowStates.Removed, dbCalendarUser.WorkflowState);
 
         }
     }
