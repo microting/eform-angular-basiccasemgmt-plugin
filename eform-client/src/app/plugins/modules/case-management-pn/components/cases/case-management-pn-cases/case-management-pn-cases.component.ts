@@ -2,7 +2,6 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import {ToastrService} from 'ngx-toastr';
-import {ApplicationPages} from 'src/app/common/enums';
 import {CaseListModel, CaseModel, CasesRequestModel} from 'src/app/common/models/cases';
 import {TemplateDto} from 'src/app/common/models/dto';
 import {TemplateRequestModel} from 'src/app/common/models/eforms';
