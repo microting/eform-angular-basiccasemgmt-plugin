@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using CaseManagement.Pn.Abstractions;
@@ -107,16 +108,27 @@ namespace CaseManagement.Pn.Services
         {
             try
             {
-                CalendarUser calendarUser = new CalendarUser()
+//                CalendarUser calendarUser = new CalendarUser();
+//                {
+//                    SiteId = calendarUserModel.SiteId,
+//                    NameInCalendar = calendarUserModel.NameInCalendar,
+//                    Color = calendarUserModel.Color,
+//                    IsVisibleInCalendar = calendarUserModel.IsVisibleInCalendar,
+//                };
+//                _dbContext.CalendarUsers.Add(calendarUser);
+//                await _dbContext.SaveChangesAsync();
+                CalendarUser existingCalendarUser =
+                    _dbContext.CalendarUsers.SingleOrDefault(x => x.SiteId == calendarUserModel.SiteId);
+                if (existingCalendarUser.WorkflowState == Constants.WorkflowStates.Removed)
                 {
-                    SiteId = calendarUserModel.SiteId,
-                    NameInCalendar = calendarUserModel.NameInCalendar,
-                    Color = calendarUserModel.Color,
-                    IsVisibleInCalendar = calendarUserModel.IsVisibleInCalendar,
-                };
-                _dbContext.CalendarUsers.Add(calendarUser);
-                await _dbContext.SaveChangesAsync();
-//                await calendarUserModel.Save(_dbContext); //TODO
+                    calendarUserModel.Id = existingCalendarUser.Id;
+                    calendarUserModel.WorkflowState = Constants.WorkflowStates.Created;
+                    await calendarUserModel.Update(_dbContext);
+                }
+                else
+                {
+                    await calendarUserModel.Create(_dbContext);   
+                } 
                 PluginConfigurationValue caseManagementSetting =
                     _dbContext.PluginConfigurationValues.SingleOrDefault(x =>
                         x.Name == "CaseManagementBaseSettings:RelatedEntityGroupId");
@@ -131,7 +143,7 @@ namespace CaseManagement.Pn.Services
                     }
 
                     int nextItemUid = entityGroup.EntityGroupItemLst.Count;
-                    string label = calendarUser.NameInCalendar;
+                    string label = calendarUserModel.NameInCalendar;
                     if (string.IsNullOrEmpty(label))
                     {
                         label = $"Empty company {nextItemUid}";
@@ -148,7 +160,7 @@ namespace CaseManagement.Pn.Services
                             {
                                 if (entityItem.MicrotingUUID == item.MicrotingUUID)
                                 {
-                                    calendarUser.RelatedEntityId = entityItem.Id;
+                                    calendarUserModel.RelatedEntityId = entityItem.Id;
                                 }
                             }
                         }
@@ -173,19 +185,19 @@ namespace CaseManagement.Pn.Services
         {
             try
             {
-                CalendarUser calendarUser = _dbContext.CalendarUsers.FirstOrDefault(x => x.Id == requestModel.Id);
-                if (calendarUser == null)
-                {
-                    return new OperationResult(false,
-                        _caseManagementLocalizationService.GetString("CalendarUserNotFound"));
-                }
-
-                calendarUser.SiteId = requestModel.SiteId;
-                calendarUser.Color = requestModel.Color;
-                calendarUser.IsVisibleInCalendar = requestModel.IsVisibleInCalendar;
-                calendarUser.NameInCalendar = requestModel.NameInCalendar;
-//                await requestModel.Update(_dbContext); //TODO 
-                await _dbContext.SaveChangesAsync();
+//                CalendarUser calendarUser = _dbContext.CalendarUsers.FirstOrDefault(x => x.Id == requestModel.Id);
+//                if (calendarUser == null)
+//                {
+//                    return new OperationResult(false,
+//                        _caseManagementLocalizationService.GetString("CalendarUserNotFound"));
+//                }
+//
+//                calendarUser.SiteId = requestModel.SiteId;
+//                calendarUser.Color = requestModel.Color;
+//                calendarUser.IsVisibleInCalendar = requestModel.IsVisibleInCalendar;
+//                calendarUser.NameInCalendar = requestModel.NameInCalendar;
+                await requestModel.Update(_dbContext); //TODO 
+//                await _dbContext.SaveChangesAsync();
                 PluginConfigurationValue caseManagementSetting = _dbContext.PluginConfigurationValues.SingleOrDefault(x =>
                     x.Name == "CaseManagementBaseSettings:RelatedEntityGroupId");
                 if (caseManagementSetting != null)
@@ -241,7 +253,7 @@ namespace CaseManagement.Pn.Services
             {
                 CalendarUserModel deleteModel = new CalendarUserModel();
                 deleteModel.Id = id;
-                deleteModel.Delete(_dbContext);
+                await deleteModel.Delete(_dbContext);
                 return new OperationResult(true);
 
 //                CalendarUser calendarUser = _dbContext.CalendarUsers.FirstOrDefault(x => x.Id == id);

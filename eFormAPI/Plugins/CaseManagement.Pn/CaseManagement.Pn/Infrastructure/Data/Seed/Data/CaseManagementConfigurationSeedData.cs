@@ -35,12 +35,12 @@ namespace CaseManagement.Pn.Infrastructure.Data.Seed.Data
             new PluginConfigurationValue()
             {
                 Name = "CaseManagementBaseSettings:SelectedTemplateId",
-                Value = "..."
+                Value = "0"
             },
             new PluginConfigurationValue()
             {
                 Name = "CaseManagementBaseSettings:RelatedEntityGroupId",
-                Value = "..."
+                Value = "0"
             }
             
         };

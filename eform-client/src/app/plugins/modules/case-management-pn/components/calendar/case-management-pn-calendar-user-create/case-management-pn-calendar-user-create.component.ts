@@ -27,6 +27,7 @@ export class CaseManagementPnCalendarUserCreateComponent implements OnInit {
 
   createCalendarUser() {
     this.spinnerStatus = true;
+    debugger;
     this.calendarService.createCalendarUser(this.newCalendarUser).subscribe(operation => {
       if (operation && operation.success) {
         this.onUserCreated.emit();

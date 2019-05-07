@@ -1,7 +1,7 @@
 import {ChangeDetectorRef, Component, EventEmitter, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {debounceTime, switchMap} from 'rxjs/operators';
-  import {TemplateListModel, TemplateRequestModel} from 'src/app/common/models/eforms';
+import {TemplateListModel, TemplateRequestModel} from 'src/app/common/models/eforms';
 import {EFormService} from 'src/app/common/services/eform';
 import {CaseManagementPnSettingsModel} from '../../../models';
 import {CaseManagementPnService} from '../../../services';
@@ -48,6 +48,7 @@ export class CaseManagementPnSettingsComponent implements OnInit {
 
   getSettings() {
     this.spinnerStatus = true;
+    debugger;
     this.caseManagementService.getSettings().subscribe((data) => {
       if (data && data.success) {
         this.settingsModel = data.model;

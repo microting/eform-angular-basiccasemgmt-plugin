@@ -61,6 +61,7 @@ namespace CaseManagement.Pn.Services
                     await _options.UpdateDb(settings => { settings.SdkConnectionString = connectionString;}, _dbContext, UserId);
 
                 }
+
 //                CaseManagementPnSettingsModel result = new CaseManagementPnSettingsModel();
 //                CaseManagementSetting customerSettings = _dbContext.CaseManagementSettings.FirstOrDefault();
 //                if (customerSettings?.SelectedTemplateId != null && customerSettings?.RelatedEntityGroupId != null)

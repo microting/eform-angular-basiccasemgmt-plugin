@@ -1,8 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.IO;
+using System.Threading.Tasks;
 using CaseManagement.Pn.Abstractions;
 using CaseManagement.Pn.Infrastructure.Models.Calendar;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microting.eFormApi.BasePn.Infrastructure.Models.API;
 
 namespace CaseManagement.Pn.Controllers
@@ -23,17 +26,18 @@ namespace CaseManagement.Pn.Controllers
         {
             return await _calendarUsersService.GetCalendarUsers(requestModel);
         }
-
         [HttpPost]
+        [AllowAnonymous]
+        [DebuggingFilter]
         [Route("api/case-management-pn/calendar")]
-        public async Task<OperationResult> CreateCalendarUser(CalendarUserModel requestModel)
+        public async Task<OperationResult> CreateCalendarUser([FromBody] CalendarUserModel requestModel)
         {
             return await _calendarUsersService.CreateCalendarUser(requestModel);
         }
 
         [HttpPost]
         [Route("api/case-management-pn/calendar/update")]
-        public async Task<OperationResult> UpdateCalendarUser(CalendarUserModel requestModel)
+        public async Task<OperationResult> UpdateCalendarUser([FromBody] CalendarUserModel requestModel)
         {
             return await _calendarUsersService.UpdateCalendarUser(requestModel);
         }
@@ -43,6 +47,27 @@ namespace CaseManagement.Pn.Controllers
         public async Task<OperationResult> DeleteCalendarUser(int id)
         {
             return await _calendarUsersService.DeleteCalendarUser(id);
+        }           
+        
+    }
+    public class DebuggingFilter : ActionFilterAttribute
+    {
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            if (filterContext.HttpContext.Request.Method != "POST")
+            {
+                return;
+            }
+            
+            filterContext.HttpContext.Request.Body.Seek(0, SeekOrigin.Begin);
+
+            string text = new StreamReader(filterContext.HttpContext.Request.Body).ReadToEndAsync().Result;
+
+            filterContext.HttpContext.Request.Body.Seek(0, SeekOrigin.Begin);
+            
+            Console.WriteLine(text);
+
+            base.OnActionExecuting(filterContext);
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CaseManagement.Pn.Infrastructure.Data;
 using CaseManagement.Pn.Infrastructure.Data.Entities;
+using eFormSqlController;
 using Microting.eFormApi.BasePn.Abstractions;
 
 namespace CaseManagement.Pn.Infrastructure.Models.Calendar
@@ -21,14 +22,18 @@ namespace CaseManagement.Pn.Infrastructure.Models.Calendar
         public bool IsVisibleInCalendar { get; set; }
         public string NameInCalendar { get; set; }
         public string Color { get; set; }
+        public int RelatedEntityId { get; set; }
 
-        public async Task Save(CaseManagementPnDbContext _dbContext)
+        public async Task Create(CaseManagementPnDbContext _dbContext)
         {
             CalendarUser calendarUser = new CalendarUser();
             calendarUser.Color = Color;
             calendarUser.IsVisibleInCalendar = IsVisibleInCalendar;
             calendarUser.NameInCalendar = NameInCalendar;
             calendarUser.SiteId = SiteId;
+            calendarUser.RelatedEntityId = RelatedEntityId;
+            calendarUser.Version = 1;
+            calendarUser.CreatedAt = DateTime.Now;
             _dbContext.CalendarUsers.Add(calendarUser);
             await _dbContext.SaveChangesAsync();
 
@@ -49,6 +54,7 @@ namespace CaseManagement.Pn.Infrastructure.Models.Calendar
             calendarUser.IsVisibleInCalendar = IsVisibleInCalendar;
             calendarUser.NameInCalendar = NameInCalendar;
             calendarUser.SiteId = SiteId;
+            calendarUser.WorkflowState = WorkflowState;
             
             if (_dbContext.ChangeTracker.HasChanges())
             {

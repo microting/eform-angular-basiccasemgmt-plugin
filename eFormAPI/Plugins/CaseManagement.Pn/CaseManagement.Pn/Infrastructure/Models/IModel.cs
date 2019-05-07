@@ -8,7 +8,7 @@ namespace CaseManagement.Pn.Infrastructure.Models
 {
     interface IModel
     {
-        Task Save(CaseManagementPnDbContext _dbContext);
+        Task Create(CaseManagementPnDbContext _dbContext);
 
         Task Update(CaseManagementPnDbContext _dbContext);
 
