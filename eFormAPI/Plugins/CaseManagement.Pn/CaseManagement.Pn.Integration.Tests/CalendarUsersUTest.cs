@@ -26,7 +26,7 @@ namespace CaseManagement.Pn.Integration.Tests
             calendarUserModel.SiteId = rnd.Next(1, 255);
             
             // Act
-            await calendarUserModel.Create(DbContext);
+            await calendarUserModel.Save(DbContext);
 
             CalendarUser dbCalendarUser = DbContext.CalendarUsers.AsNoTracking().First();
             List<CalendarUser> userList = DbContext.CalendarUsers.AsNoTracking().ToList();

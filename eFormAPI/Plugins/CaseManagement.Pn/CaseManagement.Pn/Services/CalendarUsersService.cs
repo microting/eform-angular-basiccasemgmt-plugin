@@ -17,6 +17,7 @@ using Microsoft.Extensions.Logging;
 using Microting.eFormApi.BasePn.Abstractions;
 using Microting.eFormApi.BasePn.Infrastructure.Database.Entities;
 using Microting.eFormApi.BasePn.Infrastructure.Models.API;
+using OpenStack.NetCoreSwiftClient.Extensions;
 
 namespace CaseManagement.Pn.Services
 {
@@ -119,15 +120,17 @@ namespace CaseManagement.Pn.Services
 //                await _dbContext.SaveChangesAsync();
                 CalendarUser existingCalendarUser =
                     _dbContext.CalendarUsers.SingleOrDefault(x => x.SiteId == calendarUserModel.SiteId);
-                if (existingCalendarUser.WorkflowState == Constants.WorkflowStates.Removed)
+                if (existingCalendarUser == null)
+                {
+                    await calendarUserModel.Create(_dbContext);   
+
+                }
+                else
                 {
                     calendarUserModel.Id = existingCalendarUser.Id;
                     calendarUserModel.WorkflowState = Constants.WorkflowStates.Created;
                     await calendarUserModel.Update(_dbContext);
-                }
-                else
-                {
-                    await calendarUserModel.Create(_dbContext);   
+                    
                 } 
                 PluginConfigurationValue caseManagementSetting =
                     _dbContext.PluginConfigurationValues.SingleOrDefault(x =>
