@@ -3,8 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CaseManagement.Pn.Infrastructure.Data;
 using CaseManagement.Pn.Infrastructure.Data.Entities;
-using eFormSqlController;
-using Microting.eFormApi.BasePn.Abstractions;
+using Microting.eForm.Infrastructure.Constants;
 
 namespace CaseManagement.Pn.Infrastructure.Models.Calendar
 {
@@ -76,7 +75,7 @@ namespace CaseManagement.Pn.Infrastructure.Models.Calendar
                 throw new NullReferenceException($"Could not find Calendar User with id {Id}");
             }
 
-            calendarUser.WorkflowState = eFormShared.Constants.WorkflowStates.Removed;
+            calendarUser.WorkflowState = Constants.WorkflowStates.Removed;
 
             if (_dbContext.ChangeTracker.HasChanges())
             {

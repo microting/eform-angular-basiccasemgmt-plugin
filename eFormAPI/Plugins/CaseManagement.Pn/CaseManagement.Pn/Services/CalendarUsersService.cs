@@ -1,23 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using CaseManagement.Pn.Abstractions;
 using CaseManagement.Pn.Infrastructure.Data;
 using CaseManagement.Pn.Infrastructure.Data.Entities;
 using CaseManagement.Pn.Infrastructure.Extensions;
-using CaseManagement.Pn.Infrastructure.Models;
 using CaseManagement.Pn.Infrastructure.Models.Calendar;
 using eFormCore;
-using eFormData;
-using eFormShared;
 using Microsoft.Extensions.Logging;
+using Microting.eForm.Dto;
+using Microting.eForm.Infrastructure.Constants;
+using Microting.eForm.Infrastructure.Models;
 using Microting.eFormApi.BasePn.Abstractions;
 using Microting.eFormApi.BasePn.Infrastructure.Database.Entities;
 using Microting.eFormApi.BasePn.Infrastructure.Models.API;
-using OpenStack.NetCoreSwiftClient.Extensions;
 
 namespace CaseManagement.Pn.Services
 {
