@@ -47,7 +47,7 @@ export class CaseManagementPnCalendarUsersComponent implements OnInit {
 
   loadAllSimpleSites() {
     this.spinnerStatus = true;
-    this.deviceUsersService.getAllSimpleSites().subscribe(operation => {
+    this.deviceUsersService.getAllDeviceUsers().subscribe(operation => {
       if (operation && operation.success) {
         this.sitesDto = operation.model.map(function(x) {
           x.fullName = x.firstName + ' ' + x.lastName;
