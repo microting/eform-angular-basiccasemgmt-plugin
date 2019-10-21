@@ -29,6 +29,23 @@ namespace CaseManagement.Pn.Infrastructure.Data.Seed
                     dbContext.SaveChanges();
                 }
             }
+
+            // Seed plugin permissions
+            var newPermissions = CaseManagementPermissionsSeedData.Data
+                .Where(p => dbContext.PluginPermissions.All(x => x.ClaimName != p.ClaimName))
+                .Select(p => new PluginPermission
+                {
+                    PermissionName = p.PermissionName,
+                    ClaimName = p.ClaimName,
+                    CreatedAt = DateTime.UtcNow,
+                    Version = 1,
+                    WorkflowState = Constants.WorkflowStates.Created,
+                    CreatedByUserId = 1
+                }
+                );
+            dbContext.PluginPermissions.AddRange(newPermissions);
+
+            dbContext.SaveChanges();
         }
     }
 }

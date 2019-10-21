@@ -2,6 +2,7 @@
 using System.IO;
 using System.Threading.Tasks;
 using CaseManagement.Pn.Abstractions;
+using CaseManagement.Pn.Infrastructure.Const;
 using CaseManagement.Pn.Infrastructure.Models.Calendar;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -26,10 +27,10 @@ namespace CaseManagement.Pn.Controllers
         {
             return await _calendarUsersService.GetCalendarUsers(requestModel);
         }
+
         [HttpPost]
-        [AllowAnonymous]
-        [DebuggingFilter]
         [Route("api/case-management-pn/calendar")]
+        [Authorize(Policy = CaseManagementClaims.CreateCalendarUsers)]
         public async Task<OperationResult> CreateCalendarUser([FromBody] CalendarUserModel requestModel)
         {
             return await _calendarUsersService.CreateCalendarUser(requestModel);

@@ -1,6 +1,6 @@
 <subheader-pn [title]="'Calendar Users' | translate">
   <div class="p-3">
-    <button
+    <button *ngIf="pluginClaimsHelper.check(caseManagementPnClaims.createCalendarUsers)"
       class="btn btn-success"
       mdbTooltip="{{'Create new calendar user' | translate}}"
       (click)="openCreateCalendarUserModal()">{{ 'New User' | translate }}</button>

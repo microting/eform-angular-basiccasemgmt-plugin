@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {AdminGuard, AuthGuard} from 'src/app/common/guards';
+import {AdminGuard, AuthGuard, PermissionGuard} from 'src/app/common/guards';
 
 import {
   CaseManagementPnCalendarComponent,
@@ -8,11 +8,14 @@ import {
   CaseManagementPnCasesComponent, CaseManagementPnSettingsComponent
 } from './components';
 import {CaseManagementPnLayoutComponent} from './layouts';
+import {CaseManagementPnClaims} from './enums';
 
 export const routes: Routes = [
   {
     path: '',
     component: CaseManagementPnLayoutComponent,
+    canActivate: [PermissionGuard],
+    data: {requiredPermission: CaseManagementPnClaims.accessCaseManagementPlugin},
     children: [
       {
         path: 'calendar',
