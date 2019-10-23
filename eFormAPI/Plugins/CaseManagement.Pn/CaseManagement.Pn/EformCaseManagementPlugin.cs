@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using CaseManagement.Pn.Abstractions;
+using CaseManagement.Pn.Infrastructure.Const;
 using CaseManagement.Pn.Infrastructure.Data;
 using CaseManagement.Pn.Infrastructure.Data.Factories;
 using CaseManagement.Pn.Infrastructure.Data.Seed;
@@ -14,6 +15,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microting.eFormApi.BasePn;
 using Microting.eFormApi.BasePn.Infrastructure.Database.Extensions;
+using Microting.eFormApi.BasePn.Infrastructure.Helpers;
 using Microting.eFormApi.BasePn.Infrastructure.Models.Application;
 using Microting.eFormApi.BasePn.Infrastructure.Settings;
 
@@ -24,6 +26,8 @@ namespace CaseManagement.Pn
         public string Name => "Microting Case Management plugin";
         public string PluginId => "eform-angular-basiccasemgmt-plugin";
         public string PluginPath => PluginAssembly().Location;
+        public string PluginBaseUrl => "case-management-pn";
+
         private string _connectionString;
 
         public Assembly PluginAssembly()
@@ -93,6 +97,7 @@ namespace CaseManagement.Pn
                 Name = localizationService.GetString("CaseManagement"),
                 E2EId = "case-management-pn",
                 Link = "",
+                Guards = new List<string>() { CaseManagementClaims.AccessCaseManagementPlugin },
                 MenuItems = new List<MenuItemModel>()
                 {
                     new MenuItemModel()
@@ -108,18 +113,7 @@ namespace CaseManagement.Pn
                         E2EId = "case-management-pn-cases",
                         Link = "/plugins/case-management-pn/cases",
                         Position = 1,
-                    },
-                    new MenuItemModel()
-                    {
-                        Name = localizationService.GetString("Settings"),
-                        E2EId = "case-management-pn-settings",
-                        Link = "/plugins/case-management-pn/settings",
-                        Position = 2,
-                        Guards = new List<string>()
-                        {
-                            "admin"
-                        }
-                    },
+                    }
                 } 
             });
             return result;
@@ -134,5 +128,12 @@ namespace CaseManagement.Pn
             }
         }
 
+        public PluginPermissionsManager GetPermissionsManager(string connectionString)
+        {
+            var contextFactory = new CaseManagementPnDbContextFactory();
+            var context = contextFactory.CreateDbContext(new[] { connectionString });
+
+            return new PluginPermissionsManager(context);
+        }
     }
 }

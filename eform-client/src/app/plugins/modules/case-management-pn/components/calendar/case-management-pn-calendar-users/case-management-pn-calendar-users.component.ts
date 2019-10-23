@@ -4,6 +4,8 @@ import {SiteDto} from 'src/app/common/models/dto';
 import {DeviceUserService} from 'src/app/common/services/device-users';
 import {CalendarUserModel, CalendarUsersModel, CalendarUsersRequestModel} from '../../../models/calendar/users';
 import {CaseManagementPnCalendarService} from '../../../services';
+import {PluginClaimsHelper} from '../../../../../../common/helpers';
+import {CaseManagementPnClaims} from '../../../enums';
 
 @Component({
   selector: 'app-case-management-pn-calendar-users',
@@ -19,6 +21,14 @@ export class CaseManagementPnCalendarUsersComponent implements OnInit {
   calendarUsersRequestModel: CalendarUsersRequestModel = new CalendarUsersRequestModel();
   spinnerStatus = false;
   sitesDto: Array<SiteDto>;
+
+  get pluginClaimsHelper() {
+    return PluginClaimsHelper;
+  }
+
+  get caseManagementPnClaims() {
+    return CaseManagementPnClaims;
+  }
 
   constructor(
     private deviceUsersService: DeviceUserService,
@@ -47,7 +57,7 @@ export class CaseManagementPnCalendarUsersComponent implements OnInit {
 
   loadAllSimpleSites() {
     this.spinnerStatus = true;
-    this.deviceUsersService.getAllSimpleSites().subscribe(operation => {
+    this.deviceUsersService.getAllDeviceUsers().subscribe(operation => {
       if (operation && operation.success) {
         this.sitesDto = operation.model.map(function(x) {
           x.fullName = x.firstName + ' ' + x.lastName;

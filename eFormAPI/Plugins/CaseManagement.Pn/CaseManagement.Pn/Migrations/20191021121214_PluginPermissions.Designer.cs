@@ -4,34 +4,28 @@ using CaseManagement.Pn.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CaseManagement.Pn.Migrations
 {
     [DbContext(typeof(CaseManagementPnDbContext))]
-    partial class CaseManagementPnDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191021121214_PluginPermissions")]
+    partial class PluginPermissions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            string autoIDGenStrategy = "SqlServer:ValueGenerationStrategy";
-            object autoIDGenStrategyValue = SqlServerValueGenerationStrategy.IdentityColumn;
-            if (DbConfig.IsMySQL)
-            {
-                autoIDGenStrategy = "MySql:ValueGenerationStrategy";
-                autoIDGenStrategyValue = MySqlValueGenerationStrategy.IdentityColumn;
-            }
-
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation(autoIDGenStrategy, autoIDGenStrategyValue);
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("CaseManagement.Pn.Infrastructure.Data.Entities.CalendarUser", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasAnnotation(autoIDGenStrategy, autoIDGenStrategyValue);
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Color");
 
@@ -72,7 +66,7 @@ namespace CaseManagement.Pn.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasAnnotation(autoIDGenStrategy, autoIDGenStrategyValue);
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("CalendarUserId");
 
@@ -112,7 +106,7 @@ namespace CaseManagement.Pn.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasAnnotation(autoIDGenStrategy, autoIDGenStrategyValue);
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("CreatedAt");
 
@@ -140,7 +134,7 @@ namespace CaseManagement.Pn.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasAnnotation(autoIDGenStrategy, autoIDGenStrategyValue);
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("CreatedAt");
 
@@ -168,7 +162,7 @@ namespace CaseManagement.Pn.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasAnnotation(autoIDGenStrategy, autoIDGenStrategyValue);
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("CreatedAt");
 
@@ -198,7 +192,7 @@ namespace CaseManagement.Pn.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasAnnotation(autoIDGenStrategy, autoIDGenStrategyValue);
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ClaimName");
 

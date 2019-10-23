@@ -9,6 +9,8 @@ namespace CaseManagement.Pn.Infrastructure.Data.Factories
     {
         public CaseManagementPnDbContext CreateDbContext(string[] args)
         {
+            //args = new[]
+            //    {"data source=.\\sqlexpress;database=appointments-plugin;integrated security=true"};
             var optionsBuilder = new DbContextOptionsBuilder<CaseManagementPnDbContext>();
             if (args.Any())
             {
