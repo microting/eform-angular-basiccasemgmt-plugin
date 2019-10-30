@@ -22,6 +22,7 @@ namespace CaseManagement.Pn.Infrastructure.Data
         public DbSet<PluginConfigurationValueVersion> PluginConfigurationValueVersions { get; set; }
         public DbSet<PluginPermission> PluginPermissions { get; set; }
         public DbSet<PluginGroupPermission> PluginGroupPermissions { get; set; }
+        public DbSet<PluginGroupPermissionVersion> PluginGroupPermissionVersions { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -31,6 +32,12 @@ namespace CaseManagement.Pn.Infrastructure.Data
             modelBuilder.Entity<CalendarUser>()
                 .HasIndex(x => x.SiteId)
                 .IsUnique();
+
+            modelBuilder.Entity<PluginGroupPermissionVersion>()
+                .HasOne(x => x.PluginGroupPermission)
+                .WithMany()
+                .HasForeignKey("FK_PluginGroupPermissionVersions_PluginGroupPermissionId")
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.AddPluginSettingsRules();
         }

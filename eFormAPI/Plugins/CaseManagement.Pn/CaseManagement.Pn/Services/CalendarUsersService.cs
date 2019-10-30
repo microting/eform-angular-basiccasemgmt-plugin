@@ -19,6 +19,8 @@ using Microting.eFormApi.BasePn.Infrastructure.Models.API;
 
 namespace CaseManagement.Pn.Services
 {
+    using Microsoft.EntityFrameworkCore;
+
     public class CalendarUsersService : ICalendarUsersService
     {
         private readonly ILogger<CalendarUsersService> _logger;
@@ -68,7 +70,7 @@ namespace CaseManagement.Pn.Services
                     .Take(requestModel.PageSize);
 
                 List<CalendarUser> calendarUsers = calendarUsersQuery.ToList();
-                calendarUsersModel.Total = _dbContext.CalendarUsers.Count();
+                calendarUsersModel.Total = await _dbContext.CalendarUsers.CountAsync();
                 Core core = _coreHelper.GetCore();
                 calendarUsers.ForEach(calendarUser =>
                 {

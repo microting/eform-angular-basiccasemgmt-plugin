@@ -10,7 +10,9 @@ namespace CaseManagement.Pn.Infrastructure.Data.Factories
         public CaseManagementPnDbContext CreateDbContext(string[] args)
         {
             //args = new[]
-            //    {"data source=.\\sqlexpress;database=appointments-plugin;integrated security=true"};
+            //    {"host=localhost;Database=case-pl;Uid=root;Pwd=111111;port=3306;Convert Zero Datetime = true;SslMode=none;PersistSecurityInfo=true;"};
+            //args = new[]
+            //    {"Data Source=.\\SQLEXPRESS;Database=case-pl;Integrated Security=True"};
             var optionsBuilder = new DbContextOptionsBuilder<CaseManagementPnDbContext>();
             if (args.Any())
             {
@@ -26,10 +28,10 @@ namespace CaseManagement.Pn.Infrastructure.Data.Factories
             else
             {
                 throw new ArgumentNullException("Connection string not present");
-            }
-//            optionsBuilder.UseSqlServer(@"Data Source=.\SQLEXPRESS;Initial Catalog=555_RentableItems;Integrated Security=True;");
-//            dotnet ef migrations add InitialCreate --project CaseManagement.Pn --startup-project DBMigrator
-            optionsBuilder.UseLazyLoadingProxies(true);
+            } 
+            // optionsBuilder.UseSqlServer(@"Data Source=.\SQLEXPRESS;Initial Catalog=555_RentableItems;Integrated Security=True;");
+            // dotnet ef migrations add InitialCreate --project CaseManagement.Pn --startup-project DBMigrator
+            optionsBuilder.UseLazyLoadingProxies();
             return new CaseManagementPnDbContext(optionsBuilder.Options);
         }
     }
