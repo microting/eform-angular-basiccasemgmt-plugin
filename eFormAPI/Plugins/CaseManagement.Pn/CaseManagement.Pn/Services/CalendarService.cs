@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
+using System.Threading.Tasks;
 using CaseManagement.Pn.Abstractions;
 using CaseManagement.Pn.Infrastructure.Data;
 using CaseManagement.Pn.Infrastructure.Models.Calendar;
@@ -30,13 +31,13 @@ namespace CaseManagement.Pn.Services
             _caseManagementLocalizationService = caseManagementLocalizationService;
         }
 
-        public OperationDataResult<List<CalendarEventModel>> GetCalendarEvents(CalendarEventsRequestModel requestModel)
+        public async Task<OperationDataResult<List<CalendarEventModel>>> GetCalendarEvents(CalendarEventsRequestModel requestModel)
         {
             try
             {
                 var calendarEventModels = new List<CalendarEventModel>();
                 var core = _coreHelper.GetCore();
-                var cases = core.CaseReadAll(requestModel.TemplateId, requestModel.StartDate, requestModel.EndDate);
+                var cases = await core.Result.CaseReadAll(requestModel.TemplateId, requestModel.StartDate, requestModel.EndDate);
                 var casesSiteIds = cases.Where(x => x.SiteId != null)
                     .Select(x => x.SiteId)
                     .GroupBy(x => x)
