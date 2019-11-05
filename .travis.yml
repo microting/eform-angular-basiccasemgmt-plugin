@@ -38,7 +38,6 @@ script:
   - cp -av microting/eform-angular-basiccasemgmt-plugin/eform-client/wdio-headless-plugin-step2.conf.js microting/eform-angular-frontend/eform-client/wdio-headless-plugin-step2.conf.js
   - cp -av microting/eform-angular-basecustomer-plugin/eform-client/src/app/plugins/modules/customers-pn microting/eform-angular-frontend/eform-client/src/app/plugins/modules/customers-pn
   - cd microting/eform-angular-frontend
-  - cd microting/eform-angular-frontend
   - dotnet restore -v q eFormAPI/eFormAPI.sln > dotnet_log 2>&1 &
   - dotnet build eFormAPI/eFormAPI.sln > dotnet_log 2>&1 &
   - cd ../..
