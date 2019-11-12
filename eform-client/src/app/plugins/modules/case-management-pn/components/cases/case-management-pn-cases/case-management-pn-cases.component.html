@@ -205,12 +205,19 @@
                 edit
               </i>
             </button>
-            <button class="btn btn-success btn-icon mb-2"
-                    (click)="downloadPDF(caseModel.id)"
+
+            </button>
+            <button class="btn btn-success btn-icon mb-2" *ngIf="checkEformPermissions(userClaimsEnum.caseGetPdf) && (currentTemplate.jasperExportEnabled || currentTemplate.docxExportEnabled)"
+                    (click)="downloadFile(caseModel.id, 'pdf')"
                     mdbTooltip="{{ 'Download PDF' | translate }}">
-              <i class="material-icons">
-                picture_as_pdf
-              </i>
+              <fa-icon icon="file-pdf" size="lg" [fixedWidth]="true"></fa-icon>
+
+            </button>
+            <button class="btn btn-success btn-icon mb-2" *ngIf="checkEformPermissions(userClaimsEnum.caseGetPdf) && currentTemplate.docxExportEnabled"
+                    (click)="downloadFile(caseModel.id, 'docx')"
+                    mdbTooltip="{{ 'Download Docx' | translate }}">
+              <fa-icon icon="file-word" size="lg" [fixedWidth]="true"></fa-icon>
+
             </button>
             <button class="btn btn-danger btn-icon mb-2 "
                     mdbTooltip="{{ 'Delete Case' | translate }}"
