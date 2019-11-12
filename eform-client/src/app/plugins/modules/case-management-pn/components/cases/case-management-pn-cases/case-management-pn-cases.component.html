@@ -42,27 +42,17 @@
             (click)="sortTable('done_at')"
             rowspan="1" colspan="1">
           <div class="d-flex align-items-center justify-content-center">
-            {{ 'eForm finished at' | translate }}
+            {{ 'Finished at' | translate }}
             <i class="material-icons text-black-50" *ngIf="localPageSettings.sort != 'done_at'">unfold_more</i>
             <i class="material-icons" *ngIf="localPageSettings.sort == 'done_at' && !localPageSettings.isSortDsc">expand_less</i>
             <i class="material-icons" *ngIf="localPageSettings.sort == 'done_at' && localPageSettings.isSortDsc">expand_more</i>
           </div>
         </th>
         <th class="table-header-sortable"
-            (click)="sortTable('created_at')"
-            rowspan="1" colspan="1">
-          <div class="d-flex align-items-center justify-content-center">
-            {{ 'Data accessible at' | translate }}
-            <i class="material-icons text-black-50" *ngIf="localPageSettings.sort != 'created_at'">unfold_more</i>
-            <i class="material-icons" *ngIf="localPageSettings.sort == 'created_at' && !localPageSettings.isSortDsc">expand_less</i>
-            <i class="material-icons" *ngIf="localPageSettings.sort == 'created_at' && localPageSettings.isSortDsc">expand_more</i>
-          </div>
-        </th>
-        <th class="table-header-sortable"
             (click)="sortTable('worker_name')"
             rowspan="1" colspan="1">
           <div class="d-flex align-items-center justify-content-center">
-            {{ 'eForm done by' | translate }}
+            {{ 'Done by' | translate }}
             <i class="material-icons text-black-50" *ngIf="localPageSettings.sort != 'worker_name'">unfold_more</i>
             <i class="material-icons" *ngIf="localPageSettings.sort == 'worker_name' && !localPageSettings.isSortDsc">expand_less</i>
             <i class="material-icons" *ngIf="localPageSettings.sort == 'worker_name' && localPageSettings.isSortDsc">expand_more</i>
@@ -166,16 +156,15 @@
         <tr *ngIf="!caseModel.fieldValue3.includes('...')">
         <td scope="row">{{caseModel.id}}</td>
         <td> {{caseModel.doneAt | date:'dd.MM.y HH:mm:ss'}}</td>
-        <td> {{caseModel.createdAt | date:'dd.MM.y HH:mm:ss'}}</td>
         <td> {{caseModel.workerName}}</td>
+          <td *ngIf="currentTemplate.field3" class="text-center"> <!-- This is located first to conform to the new order of fields without refactoring all code. -->
+            {{caseModel.fieldValue3}}
+          </td>
         <td *ngIf="currentTemplate.field1" class="text-center">
           {{caseModel.fieldValue1}}
         </td>
         <td *ngIf="currentTemplate.field2" class="text-center">
           {{caseModel.fieldValue2}}
-        </td>
-        <td *ngIf="currentTemplate.field3" class="text-center">
-          {{caseModel.fieldValue3}}
         </td>
         <td *ngIf="currentTemplate.field4" class="text-center">
           {{caseModel.fieldValue4}}
