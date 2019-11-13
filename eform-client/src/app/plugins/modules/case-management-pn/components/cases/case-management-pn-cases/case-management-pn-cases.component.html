@@ -194,8 +194,6 @@
                 edit
               </i>
             </button>
-
-            </button>
             <button class="btn btn-success btn-icon mb-2" *ngIf="checkEformPermissions(userClaimsEnum.caseGetPdf) && (currentTemplate.jasperExportEnabled || currentTemplate.docxExportEnabled)"
                     (click)="downloadFile(caseModel.id, 'pdf')"
                     mdbTooltip="{{ 'Download PDF' | translate }}">

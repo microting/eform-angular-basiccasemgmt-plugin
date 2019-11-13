@@ -12,6 +12,10 @@ import {EFormService} from 'src/app/common/services/eform';
 import {SharedPnService} from 'src/app/plugins/modules/shared/services';
 import {CaseManagementPnSettingsModel} from '../../../models';
 import {CaseManagementPnService} from '../../../services';
+import {saveAs} from 'file-saver';
+import {UserClaimsEnum} from '../../../../../../common/const';
+import {SecurityGroupEformsPermissionsService} from '../../../../../../common/services/security';
+import {EformPermissionsSimpleModel} from '../../../../../../common/models/security/group-permissions/eform';
 
 @Component({
   selector: 'app-case-management-pn-cases',
@@ -24,12 +28,15 @@ export class CaseManagementPnCasesComponent implements OnInit {
   casesRequestModel: CasesRequestModel = new CasesRequestModel();
   caseListModel: CaseListModel = new CaseListModel();
   currentTemplate: TemplateDto = new TemplateDto;
+  eformPermissionsSimpleModel: EformPermissionsSimpleModel = new EformPermissionsSimpleModel();
   vaelgKundeCase: CaseModel = new CaseModel();
   settingsModel: CaseManagementPnSettingsModel = new CaseManagementPnSettingsModel();
   localPageSettings: PageSettingsModel = new PageSettingsModel();
   spinnerStatus = false;
 
   get role() { return this.authService.currentRole; }
+  get userClaims() { return this.authService.userClaims; }
+  get userClaimsEnum() { return UserClaimsEnum; }
 
   constructor(private activateRoute: ActivatedRoute,
               private casesService: CasesService,
@@ -39,7 +46,8 @@ export class CaseManagementPnCasesComponent implements OnInit {
               private toastrService: ToastrService,
               private router: Router,
               private eFormService: EFormService,
-              private sharedPnService: SharedPnService) {
+              private sharedPnService: SharedPnService,
+              private securityGroupEformsService: SecurityGroupEformsPermissionsService) {
   }
 
   ngOnInit() {
@@ -124,7 +132,7 @@ export class CaseManagementPnCasesComponent implements OnInit {
   }
 
   loadVaelgKundeTemplate() {
-    let requestModel = new CasesRequestModel();
+    const requestModel = new CasesRequestModel();
     requestModel.nameFilter = '...';
     this.casesService.getCases(requestModel).subscribe(operation => {
       this.spinnerStatus = true;
@@ -135,9 +143,38 @@ export class CaseManagementPnCasesComponent implements OnInit {
     });
   }
 
-  downloadPDF(caseId: number) {
-    window.open('/api/template-files/download-case-pdf/' +
-      this.settingsModel.selectedTemplateId + '?caseId=' + caseId, '_blank');
+  downloadFile(caseId: number, fileType: string) {
+    this.spinnerStatus = true;
+    this.eFormService.downloadEformPDF(this.currentTemplate.id, caseId, fileType).subscribe(data => {
+      const blob = new Blob([data]);
+      saveAs(blob, `template_${this.currentTemplate.id}.${fileType}`);
+      this.spinnerStatus = false;
+    });
+  }
+
+  loadEformPermissions(templateId: number) {
+    if (this.securityGroupEformsService.mappedPermissions.length) {
+      this.eformPermissionsSimpleModel = this.securityGroupEformsService.mappedPermissions.find(x => x.templateId === templateId);
+    } else {
+      this.spinnerStatus = true;
+      this.securityGroupEformsService.getEformsSimplePermissions().subscribe((data => {
+        if (data && data.success) {
+          const foundTemplates = this.securityGroupEformsService.mapEformsSimplePermissions(data.model);
+          if (foundTemplates.length) {
+            this.eformPermissionsSimpleModel = foundTemplates.find(x => x.templateId === templateId);
+          }
+          this.spinnerStatus = false;
+        }
+      }));
+    }
+  }
+
+  checkEformPermissions(permissionIndex: number) {
+    if (this.eformPermissionsSimpleModel.templateId) {
+      return this.eformPermissionsSimpleModel.permissionsSimpleList.find(x => x === UserClaimsEnum[permissionIndex].toString());
+    } else {
+      return this.userClaims[UserClaimsEnum[permissionIndex].toString()];
+    }
   }
 
   changePage(e: any) {
