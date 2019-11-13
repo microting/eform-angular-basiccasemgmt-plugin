@@ -58,6 +58,16 @@
             <i class="material-icons" *ngIf="localPageSettings.sort == 'worker_name' && localPageSettings.isSortDsc">expand_more</i>
           </div>
         </th>
+        <th *ngIf="currentTemplate.field3" class="table-header-sortable"
+            (click)="sortTable('field3')"
+            rowspan="1" colspan="1">
+          <div class="d-flex align-items-center justify-content-center">
+            {{currentTemplate.field3.label}}
+            <i class="material-icons text-black-50" *ngIf="localPageSettings.sort != 'field3'">unfold_more</i>
+            <i class="material-icons" *ngIf="localPageSettings.sort == 'field3' && !localPageSettings.isSortDsc">expand_less</i>
+            <i class="material-icons" *ngIf="localPageSettings.sort == 'field3' && localPageSettings.isSortDsc">expand_more</i>
+          </div>
+        </th>
         <th *ngIf="currentTemplate.field1" class="table-header-sortable"
             (click)="sortTable('field1')"
             rowspan="1" colspan="1">
@@ -76,16 +86,6 @@
             <i class="material-icons text-black-50" *ngIf="localPageSettings.sort != 'field2'">unfold_more</i>
             <i class="material-icons" *ngIf="localPageSettings.sort == 'field2' && !localPageSettings.isSortDsc">expand_less</i>
             <i class="material-icons" *ngIf="localPageSettings.sort == 'field2' && localPageSettings.isSortDsc">expand_more</i>
-          </div>
-        </th>
-        <th *ngIf="currentTemplate.field3" class="table-header-sortable"
-            (click)="sortTable('field3')"
-            rowspan="1" colspan="1">
-          <div class="d-flex align-items-center justify-content-center">
-            {{currentTemplate.field3.label}}
-            <i class="material-icons text-black-50" *ngIf="localPageSettings.sort != 'field3'">unfold_more</i>
-            <i class="material-icons" *ngIf="localPageSettings.sort == 'field3' && !localPageSettings.isSortDsc">expand_less</i>
-            <i class="material-icons" *ngIf="localPageSettings.sort == 'field3' && localPageSettings.isSortDsc">expand_more</i>
           </div>
         </th>
         <th *ngIf="currentTemplate.field4" class="table-header-sortable"
