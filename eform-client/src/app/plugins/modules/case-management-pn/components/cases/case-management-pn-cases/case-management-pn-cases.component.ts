@@ -113,7 +113,7 @@ export class CaseManagementPnCasesComponent implements OnInit {
     this.casesRequestModel.isSortDsc = this.localPageSettings.isSortDsc;
     this.casesRequestModel.templateId = this.settingsModel.selectedTemplateId;
     this.casesRequestModel.pageSize = this.localPageSettings.pageSize;
-    this.casesService.getCases(this.casesRequestModel).subscribe(operation => {
+    this.caseManagementService.getCases(this.casesRequestModel).subscribe(operation => {
       if (operation && operation.success) {
         this.caseListModel = operation.model;
       }
@@ -134,7 +134,7 @@ export class CaseManagementPnCasesComponent implements OnInit {
   loadVaelgKundeTemplate() {
     const requestModel = new CasesRequestModel();
     requestModel.nameFilter = '...';
-    this.casesService.getCases(requestModel).subscribe(operation => {
+    this.caseManagementService.getCases(requestModel).subscribe(operation => {
       this.spinnerStatus = true;
       if (operation && operation.success && operation.model.cases[0]) {
         this.vaelgKundeCase = operation.model.cases[0];

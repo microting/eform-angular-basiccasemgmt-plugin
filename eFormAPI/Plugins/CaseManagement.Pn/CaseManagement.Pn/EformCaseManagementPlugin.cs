@@ -9,6 +9,8 @@ using CaseManagement.Pn.Infrastructure.Data.Seed;
 using CaseManagement.Pn.Infrastructure.Data.Seed.Data;
 using CaseManagement.Pn.Infrastructure.Models;
 using CaseManagement.Pn.Services;
+using eFormAPI.Web.Abstractions.Security;
+using eFormAPI.Web.Services.Security;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -41,6 +43,8 @@ namespace CaseManagement.Pn
             services.AddScoped<ICalendarService, CalendarService>();
             services.AddScoped<ICalendarUsersService, CalendarUsersService>();
             services.AddScoped<ICaseManagementSettingsService, CaseManagementSettingsService>();
+            services.AddScoped<ICaseManagementCasesService, CaseManagementCasesService>();
+//            services.AddScoped<IEformPermissionsService, EformPermissionsService>();
         }
 
         public void AddPluginConfig(IConfigurationBuilder builder, string connectionString)
