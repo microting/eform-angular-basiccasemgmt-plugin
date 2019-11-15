@@ -16,13 +16,13 @@ describe('Application settings page - site header section', function () {
         browser.waitForExist('#plugin-name', 50000);
         browser.pause(10000);
 
-        const plugin = pluginsPage.getFirstPluginRowObj();
+        let plugin = pluginsPage.getFirstPluginRowObj();
         expect(plugin.id).equal(1);
         expect(plugin.name).equal('Microting Customers plugin');
         expect(plugin.version).equal('1.0.0.0');
         expect(plugin.status, 'Plugin must be deactivated').equal('Deaktiveret');
 
-        const plugin = pluginsPage.getSecondPluginRowObj();
+        plugin = pluginsPage.getSecondPluginRowObj();
         expect(plugin.id).equal(1);
         expect(plugin.name).equal('Microting Case Management plugin');
         expect(plugin.version).equal('1.0.0.0');
@@ -43,7 +43,7 @@ describe('Application settings page - site header section', function () {
         browser.waitForExist('#plugin-name', 50000);
         browser.pause(10000);
 
-        const plugin = pluginsPage.getSecondPluginRowObj();
+        let plugin = pluginsPage.getSecondPluginRowObj();
         expect(plugin.id).equal(1);
         expect(plugin.name).equal('Microting Case Management plugin');
         expect(plugin.version).equal('1.0.0.0');
@@ -62,7 +62,7 @@ describe('Application settings page - site header section', function () {
         browser.waitForExist('#plugin-name', 50000);
         browser.pause(10000);
 
-        const plugin = pluginsPage.getFirstPluginRowObj();
+        plugin = pluginsPage.getFirstPluginRowObj();
         expect(plugin.id).equal(1);
         expect(plugin.name).equal('Microting Customers plugin');
         expect(plugin.version).equal('1.0.0.0');
