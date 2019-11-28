@@ -21,17 +21,16 @@ describe('Application settings page - site header section', function () {
         expect(plugin.name).equal('Microting Customers plugin');
         expect(plugin.version).equal('1.0.0.0');
 
-        plugin = pluginsPage.getSecondPluginRowObj();
-        expect(plugin.id).equal(1);
-        expect(plugin.name).equal('Microting Case Management plugin');
-        expect(plugin.version).equal('1.0.0.0');
+        let secondPlugin = pluginsPage.getSecondPluginRowObj();
+        expect(secondPlugin.id).equal(2);
+        expect(secondPlugin.name).equal('Microting Case Management plugin');
+        expect(secondPlugin.version).equal('1.0.0.0');
 
     });
     it('should activate the plugin', function () {
         pluginPage.pluginSettingsBtn.click();
-        browser.waitForVisible('#PluginDropDown', 40000);
-        pluginPage.selectValue('PluginDropDown', 'PluginDropDown', 'Aktiveret');
-        pluginPage.saveBtn.click();
+        browser.waitForVisible('#pluginOKBtn', 40000);
+        pluginPage.pluginOKBtn.click();
         browser.pause(50000); // We need to wait 50 seconds for the plugin to create db etc.
         browser.refresh();
 
