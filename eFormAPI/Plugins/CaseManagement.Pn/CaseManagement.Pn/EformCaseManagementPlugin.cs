@@ -9,8 +9,6 @@ using CaseManagement.Pn.Infrastructure.Data.Seed;
 using CaseManagement.Pn.Infrastructure.Data.Seed.Data;
 using CaseManagement.Pn.Infrastructure.Models;
 using CaseManagement.Pn.Services;
-using eFormAPI.Web.Abstractions.Security;
-using eFormAPI.Web.Services.Security;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

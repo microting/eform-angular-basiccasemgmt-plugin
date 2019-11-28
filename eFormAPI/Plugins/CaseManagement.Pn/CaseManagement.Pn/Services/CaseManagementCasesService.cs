@@ -25,9 +25,6 @@ SOFTWARE.
 using System;
 using System.Threading.Tasks;
 using CaseManagement.Pn.Abstractions;
-using eFormAPI.Web.Abstractions;
-using eFormAPI.Web.Infrastructure.Models.Cases.Request;
-using eFormAPI.Web.Infrastructure.Models.Cases.Response;
 using Microting.eForm.Infrastructure.Constants;
 using Microting.eFormApi.BasePn.Abstractions;
 using Microting.eFormApi.BasePn.Infrastructure.Models.API;
@@ -45,27 +42,28 @@ namespace CaseManagement.Pn.Services
             _coreHelper = coreHelper;
             _localizationService = localizationService;
         }
-        public async Task<OperationDataResult<CaseListModel>> Index(CaseRequestModel requestModel)
-        {
-            try
-            {
-                var core = await _coreHelper.GetCore();
-                var caseList = await core.CaseReadAll(requestModel.TemplateId, null, null,
-                    Constants.WorkflowStates.NotRemoved, requestModel.NameFilter,
-                    requestModel.IsSortDsc, requestModel.Sort, requestModel.PageIndex, requestModel.PageSize);
-                var model = new CaseListModel()
-                {
-                    NumOfElements = caseList.NumOfElements,
-                    PageNum = caseList.PageNum,
-                    Cases = caseList.Cases
-                };
-
-                return new OperationDataResult<CaseListModel>(true, model);
-            }
-            catch (Exception)
-            {
-                return new OperationDataResult<CaseListModel>(false, _localizationService.GetString("CaseLoadingFailed"));
-            }
-        }
+        
+//        public async Task<OperationDataResult<CaseListModel>> Index(CaseRequestModel requestModel)
+//        {
+//            try
+//            {
+//                var core = await _coreHelper.GetCore();
+//                var caseList = await core.CaseReadAll(requestModel.TemplateId, null, null,
+//                    Constants.WorkflowStates.NotRemoved, requestModel.NameFilter,
+//                    requestModel.IsSortDsc, requestModel.Sort, requestModel.PageIndex, requestModel.PageSize);
+//                var model = new CaseListModel()
+//                {
+//                    NumOfElements = caseList.NumOfElements,
+//                    PageNum = caseList.PageNum,
+//                    Cases = caseList.Cases
+//                };
+//
+//                return new OperationDataResult<CaseListModel>(true, model);
+//            }
+//            catch (Exception)
+//            {
+//                return new OperationDataResult<CaseListModel>(false, _localizationService.GetString("CaseLoadingFailed"));
+//            }
+//        }
     }
 }

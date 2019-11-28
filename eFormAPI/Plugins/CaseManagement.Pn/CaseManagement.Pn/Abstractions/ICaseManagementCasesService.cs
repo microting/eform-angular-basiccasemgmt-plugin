@@ -23,14 +23,12 @@ SOFTWARE.
 */
 
 using System.Threading.Tasks;
-using eFormAPI.Web.Infrastructure.Models.Cases.Request;
-using eFormAPI.Web.Infrastructure.Models.Cases.Response;
 using Microting.eFormApi.BasePn.Infrastructure.Models.API;
 
 namespace CaseManagement.Pn.Abstractions
 {
     public interface ICaseManagementCasesService
     {
-        Task<OperationDataResult<CaseListModel>> Index(CaseRequestModel requestModel);
+//        Task<OperationDataResult<CaseListModel>> Index(CaseRequestModel requestModel);
     }
 }
