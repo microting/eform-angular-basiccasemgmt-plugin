@@ -20,13 +20,11 @@ describe('Application settings page - site header section', function () {
         expect(plugin.id).equal(1);
         expect(plugin.name).equal('Microting Customers plugin');
         expect(plugin.version).equal('1.0.0.0');
-        expect(plugin.status, 'Plugin must be deactivated').equal('Deaktiveret');
 
         plugin = pluginsPage.getSecondPluginRowObj();
         expect(plugin.id).equal(1);
         expect(plugin.name).equal('Microting Case Management plugin');
         expect(plugin.version).equal('1.0.0.0');
-        expect(plugin.status).equal('Deaktiveret');
 
     });
     it('should activate the plugin', function () {
@@ -47,12 +45,10 @@ describe('Application settings page - site header section', function () {
         expect(plugin.id).equal(1);
         expect(plugin.name).equal('Microting Case Management plugin');
         expect(plugin.version).equal('1.0.0.0');
-        expect(plugin.status).equal('Aktiveret');
 
         pluginPage.pluginSettingsBtn.click();
-        browser.waitForVisible('#PluginDropDown', 40000);
-        pluginPage.selectValue('PluginDropDown', 'PluginDropDown', 'Aktiveret');
-        pluginPage.saveBtn.click();
+        browser.waitForVisible('#pluginOKBtn', 40000);
+        pluginPage.pluginOKBtn.click();
         browser.pause(50000); // We need to wait 50 seconds for the plugin to create db etc.
         browser.refresh();
 
@@ -66,7 +62,7 @@ describe('Application settings page - site header section', function () {
         expect(plugin.id).equal(1);
         expect(plugin.name).equal('Microting Customers plugin');
         expect(plugin.version).equal('1.0.0.0');
-        expect(plugin.status).equal('Aktiveret');
+        expect(plugin.settingsBtn.isVisible());
         expect(browser.element(`//*[contains(text(), 'Kunder')]`).isExisting()).equal(true);
     });
 });
