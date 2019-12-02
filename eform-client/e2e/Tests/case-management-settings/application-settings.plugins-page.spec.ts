@@ -41,8 +41,8 @@ describe('Application settings page - site header section', function () {
         browser.pause(10000);
 
         let plugin = pluginsPage.getSecondPluginRowObj();
-        expect(plugin.id).equal(1);
-        expect(plugin.name).equal('Microting Customers plugin');
+        expect(plugin.id).equal(2);
+        expect(plugin.name).equal('Microting Case Management plugin');
         expect(plugin.version).equal('1.0.0.0');
 
         pluginPage.pluginSettingsBtn.click();
@@ -58,8 +58,8 @@ describe('Application settings page - site header section', function () {
         browser.pause(10000);
 
         plugin = pluginsPage.getFirstPluginRowObj();
-        expect(plugin.id).equal(2);
-        expect(plugin.name).equal('Microting Customers Case Management plugin');
+        expect(plugin.id).equal(1);
+        expect(plugin.name).equal('Microting Customers plugin');
         expect(plugin.version).equal('1.0.0.0');
         expect(plugin.settingsBtn.isVisible());
         expect(browser.element(`//*[contains(text(), 'Kunder')]`).isExisting()).equal(true);
