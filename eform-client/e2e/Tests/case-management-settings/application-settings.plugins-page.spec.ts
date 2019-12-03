@@ -61,7 +61,6 @@ describe('Application settings page - site header section', function () {
         expect(plugin.id).equal(1);
         expect(plugin.name).equal('Microting Case Management plugin');
         expect(plugin.version).equal('1.0.0.0');
-        expect(plugin.settingsBtn.isVisible());
         expect(browser.element(`//*[contains(text(), 'Kunder')]`).isExisting()).equal(true);
     });
 });
