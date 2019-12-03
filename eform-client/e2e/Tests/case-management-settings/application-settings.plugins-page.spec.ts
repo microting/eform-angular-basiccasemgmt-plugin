@@ -28,7 +28,9 @@ describe('Application settings page - site header section', function () {
 
     });
     it('should activate the plugin', function () {
-        pluginPage.pluginSettingsBtn.click();
+        let plugin = pluginsPage.getFirstPluginRowObj();
+        // pluginPage.pluginSettingsBtn.click();
+        plugin.activateBtn.click();
         browser.waitForVisible('#pluginOKBtn', 40000);
         pluginPage.pluginOKBtn.click();
         browser.pause(50000); // We need to wait 50 seconds for the plugin to create db etc.
@@ -40,12 +42,13 @@ describe('Application settings page - site header section', function () {
         browser.waitForExist('#plugin-name', 50000);
         browser.pause(10000);
 
-        let plugin = pluginsPage.getSecondPluginRowObj();
-        expect(plugin.id).equal(2);
-        expect(plugin.name).equal('Microting Customers plugin');
-        expect(plugin.version).equal('1.0.0.0');
+        let secondPlugin = pluginsPage.getSecondPluginRowObj();
+        expect(secondPlugin.id).equal(2);
+        expect(secondPlugin.name).equal('Microting Customers plugin');
+        expect(secondPlugin.version).equal('1.0.0.0');
 
-        pluginPage.pluginSettingsBtn.click();
+        // pluginPage.pluginSettingsBtn.click();
+        secondPlugin.activateBtn.click();
         browser.waitForVisible('#pluginOKBtn', 40000);
         pluginPage.pluginOKBtn.click();
         browser.pause(50000); // We need to wait 50 seconds for the plugin to create db etc.
@@ -57,10 +60,10 @@ describe('Application settings page - site header section', function () {
         browser.waitForExist('#plugin-name', 50000);
         browser.pause(10000);
 
-        plugin = pluginsPage.getFirstPluginRowObj();
-        expect(plugin.id).equal(1);
-        expect(plugin.name).equal('Microting Case Management plugin');
-        expect(plugin.version).equal('1.0.0.0');
+        let pluginToFind = pluginsPage.getFirstPluginRowObj();
+        expect(pluginToFind.id).equal(1);
+        expect(pluginToFind.name).equal('Microting Case Management plugin');
+        expect(pluginToFind.version).equal('1.0.0.0');
         expect(browser.element(`//*[contains(text(), 'Sagsbehandling')]`).isExisting()).equal(true);
     });
 });

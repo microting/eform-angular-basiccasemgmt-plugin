@@ -25,6 +25,7 @@ class PluginRowObject {
             this.name = $$('#plugin-name')[rowNum - 1].getText();
             this.version = $$('#plugin-version')[rowNum - 1].getText();
             this.settingsBtn = $$('#plugin-settings-link')[rowNum - 1];
+            this.activateBtn = $$(`//*[@id= 'plugin-status']//button`)[rowNum - 1];
         }
     }
 
@@ -33,4 +34,5 @@ class PluginRowObject {
     version;
     status;
     settingsBtn;
+    activateBtn;
 }
