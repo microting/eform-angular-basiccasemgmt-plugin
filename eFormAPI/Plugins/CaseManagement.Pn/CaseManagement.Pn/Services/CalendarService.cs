@@ -31,7 +31,7 @@ namespace CaseManagement.Pn.Services
             _caseManagementLocalizationService = caseManagementLocalizationService;
         }
 
-        public async Task<OperationDataResult<List<CalendarEventModel>>> GetCalendarEvents(CalendarEventsRequestModel requestModel)
+        public async Task<OperationDataResult<List<CalendarEventModel>>> Index(CalendarEventsRequestModel requestModel)
         {
             try
             {

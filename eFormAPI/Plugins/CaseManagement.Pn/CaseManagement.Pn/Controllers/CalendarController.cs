@@ -20,9 +20,9 @@ namespace CaseManagement.Pn.Controllers
 
         [HttpPost]
         [Route("api/case-management-pn/calendar/events")]
-        public async Task<OperationDataResult<List<CalendarEventModel>>> GetCalendarEvents(CalendarEventsRequestModel requestModel)
+        public async Task<OperationDataResult<List<CalendarEventModel>>> Index(CalendarEventsRequestModel requestModel)
         {
-            return await _calendarService.GetCalendarEvents(requestModel);
+            return await _calendarService.Index(requestModel);
         }
     }
 }

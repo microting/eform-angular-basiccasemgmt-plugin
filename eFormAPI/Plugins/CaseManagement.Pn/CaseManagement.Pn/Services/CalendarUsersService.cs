@@ -38,7 +38,7 @@ namespace CaseManagement.Pn.Services
             _caseManagementLocalizationService = caseManagementLocalizationService;
         }
 
-        public async Task<OperationDataResult<CalendarUsersModel>> GetCalendarUsers(CalendarUsersRequestModel requestModel)
+        public async Task<OperationDataResult<CalendarUsersModel>> Index(CalendarUsersRequestModel requestModel)
         {
             try
             {
@@ -104,7 +104,7 @@ namespace CaseManagement.Pn.Services
             }
         }
 
-        public async Task<OperationResult> CreateCalendarUser(CalendarUserModel calendarUserModel)
+        public async Task<OperationResult> Create(CalendarUserModel calendarUserModel)
         {
             try
             {
@@ -183,7 +183,7 @@ namespace CaseManagement.Pn.Services
             }
         }
 
-        public async Task<OperationResult> UpdateCalendarUser(CalendarUserModel requestModel)
+        public async Task<OperationResult> Update(CalendarUserModel requestModel)
         {
             try
             {
@@ -249,7 +249,7 @@ namespace CaseManagement.Pn.Services
             }
         }
 
-        public async Task<OperationResult> DeleteCalendarUser(int id)
+        public async Task<OperationResult> Delete(int id)
         {
             try
             {

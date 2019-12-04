@@ -23,31 +23,31 @@ namespace CaseManagement.Pn.Controllers
 
         [HttpPost]
         [Route("api/case-management-pn/calendar/get-all")]
-        public async Task<OperationDataResult<CalendarUsersModel>> GetCalendarUsers(CalendarUsersRequestModel requestModel)
+        public async Task<OperationDataResult<CalendarUsersModel>> Index(CalendarUsersRequestModel requestModel)
         {
-            return await _calendarUsersService.GetCalendarUsers(requestModel);
+            return await _calendarUsersService.Index(requestModel);
         }
 
         [HttpPost]
         [Route("api/case-management-pn/calendar")]
         [Authorize(Policy = CaseManagementClaims.CreateCalendarUsers)]
-        public async Task<OperationResult> CreateCalendarUser([FromBody] CalendarUserModel requestModel)
+        public async Task<OperationResult> Create([FromBody] CalendarUserModel requestModel)
         {
-            return await _calendarUsersService.CreateCalendarUser(requestModel);
+            return await _calendarUsersService.Create(requestModel);
         }
 
         [HttpPost]
         [Route("api/case-management-pn/calendar/update")]
-        public async Task<OperationResult> UpdateCalendarUser([FromBody] CalendarUserModel requestModel)
+        public async Task<OperationResult> Update([FromBody] CalendarUserModel requestModel)
         {
-            return await _calendarUsersService.UpdateCalendarUser(requestModel);
+            return await _calendarUsersService.Update(requestModel);
         }
 
         [HttpGet]
         [Route("api/case-management-pn/calendar/delete/{id}")]
-        public async Task<OperationResult> DeleteCalendarUser(int id)
+        public async Task<OperationResult> Delete(int id)
         {
-            return await _calendarUsersService.DeleteCalendarUser(id);
+            return await _calendarUsersService.Delete(id);
         }           
         
     }

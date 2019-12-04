@@ -7,6 +7,6 @@ namespace CaseManagement.Pn.Abstractions
 {
     public interface ICalendarService
     {
-        Task<OperationDataResult<List<CalendarEventModel>>> GetCalendarEvents(CalendarEventsRequestModel requestModel);
+        Task<OperationDataResult<List<CalendarEventModel>>> Index(CalendarEventsRequestModel requestModel);
     }
 }
