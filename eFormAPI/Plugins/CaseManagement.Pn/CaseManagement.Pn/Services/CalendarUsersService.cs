@@ -83,7 +83,7 @@ namespace CaseManagement.Pn.Services
                     };
                     if (item.SiteId > 0)
                     {
-                        Site_Dto site = core.SiteRead(item.SiteId).Result;
+                        SiteDto site = core.SiteRead(item.SiteId).Result;
                         if (site != null)
                         {
                             item.FirstName = site.FirstName;
