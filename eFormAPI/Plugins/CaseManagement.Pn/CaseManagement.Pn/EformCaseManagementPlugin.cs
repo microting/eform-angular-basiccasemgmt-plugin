@@ -23,7 +23,7 @@ namespace CaseManagement.Pn
 {
     public class EformCaseManagementPlugin : IEformPlugin
     {
-        public string Name => "Microting Case Management plugin";
+        public string Name => "Microting Case Management Plugin";
         public string PluginId => "eform-angular-basiccasemgmt-plugin";
         public string PluginPath => PluginAssembly().Location;
         public string PluginBaseUrl => "case-management-pn";
