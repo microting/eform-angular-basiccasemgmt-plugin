@@ -48,7 +48,6 @@ export class CaseManagementPnSettingsComponent implements OnInit {
 
   getSettings() {
     this.spinnerStatus = true;
-    debugger;
     this.caseManagementService.getSettings().subscribe((data) => {
       if (data && data.success) {
         this.settingsModel = data.model;

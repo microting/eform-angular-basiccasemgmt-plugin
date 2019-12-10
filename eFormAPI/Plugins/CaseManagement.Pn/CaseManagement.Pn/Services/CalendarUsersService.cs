@@ -9,6 +9,7 @@ using CaseManagement.Pn.Infrastructure.Data.Entities;
 using CaseManagement.Pn.Infrastructure.Extensions;
 using CaseManagement.Pn.Infrastructure.Models.Calendar;
 using eFormCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microting.eForm.Dto;
 using Microting.eForm.Infrastructure.Constants;
@@ -39,7 +40,7 @@ namespace CaseManagement.Pn.Services
             _caseManagementLocalizationService = caseManagementLocalizationService;
         }
 
-        public async Task<OperationDataResult<CalendarUsersModel>> GetCalendarUsers(CalendarUsersRequestModel requestModel)
+        public async Task<OperationDataResult<CalendarUsersModel>> Index(CalendarUsersRequestModel requestModel)
         {
             try
             {
@@ -68,10 +69,10 @@ namespace CaseManagement.Pn.Services
                     .Where(x => x.WorkflowState != Constants.WorkflowStates.Removed)
                     .Skip(requestModel.Offset)
                     .Take(requestModel.PageSize);
-
-                List<CalendarUser> calendarUsers = calendarUsersQuery.ToList();
+                
+                List<CalendarUser> calendarUsers = await calendarUsersQuery.ToListAsync();
                 calendarUsersModel.Total = await _dbContext.CalendarUsers.CountAsync();
-                Core core = _coreHelper.GetCore();
+                Core core = await _coreHelper.GetCore();
                 calendarUsers.ForEach(calendarUser =>
                 {
                     CalendarUserModel item = new CalendarUserModel
@@ -84,7 +85,7 @@ namespace CaseManagement.Pn.Services
                     };
                     if (item.SiteId > 0)
                     {
-                        Site_Dto site = core.SiteRead(item.SiteId);
+                        SiteDto site = core.SiteRead(item.SiteId).Result;
                         if (site != null)
                         {
                             item.FirstName = site.FirstName;
@@ -105,7 +106,7 @@ namespace CaseManagement.Pn.Services
             }
         }
 
-        public async Task<OperationResult> CreateCalendarUser(CalendarUserModel calendarUserModel)
+        public async Task<OperationResult> Create(CalendarUserModel calendarUserModel)
         {
             try
             {
@@ -138,8 +139,8 @@ namespace CaseManagement.Pn.Services
                 
                 if (caseManagementSetting != null)
                 {
-                    Core core = _coreHelper.GetCore();
-                    EntityGroup entityGroup = core.EntityGroupRead(caseManagementSetting.Value);
+                    Core core =  await _coreHelper.GetCore();
+                    EntityGroup entityGroup = await core.EntityGroupRead(caseManagementSetting.Value);
                     if (entityGroup == null)
                     {
                         return new OperationResult(false, "Entity group not found");
@@ -152,11 +153,11 @@ namespace CaseManagement.Pn.Services
                         label = $"Empty company {nextItemUid}";
                     }
 
-                    EntityItem item = core.EntitySelectItemCreate(entityGroup.Id, $"{label}", 0,
+                    EntityItem item = await core.EntitySelectItemCreate(entityGroup.Id, $"{label}", 0,
                         nextItemUid.ToString());
                     if (item != null)
                     {
-                        entityGroup = core.EntityGroupRead(caseManagementSetting.Value);
+                        entityGroup = await core.EntityGroupRead(caseManagementSetting.Value);
                         if (entityGroup != null)
                         {
                             foreach (EntityItem entityItem in entityGroup.EntityGroupItemLst)
@@ -184,7 +185,7 @@ namespace CaseManagement.Pn.Services
             }
         }
 
-        public async Task<OperationResult> UpdateCalendarUser(CalendarUserModel requestModel)
+        public async Task<OperationResult> Update(CalendarUserModel requestModel)
         {
             try
             {
@@ -205,8 +206,8 @@ namespace CaseManagement.Pn.Services
                     x.Name == "CaseManagementBaseSettings:RelatedEntityGroupId");
                 if (caseManagementSetting != null)
                 {
-                    Core core = _coreHelper.GetCore();
-                    EntityGroup entityGroup = core.EntityGroupRead(caseManagementSetting.Value);
+                    Core core = await _coreHelper.GetCore();
+                    EntityGroup entityGroup = await core.EntityGroupRead(caseManagementSetting.Value);
                     if (entityGroup == null)
                     {
                         return new OperationResult(false, "Entity group not found");
@@ -219,7 +220,7 @@ namespace CaseManagement.Pn.Services
                         label = $"Empty company {nextItemUid}";
                     }
 
-                    core.EntityItemUpdate(entityGroup.Id, $"{label}", "",
+                    await core.EntityItemUpdate(entityGroup.Id, $"{label}", "",
                         nextItemUid.ToString(), 0);
                     //if (item != null)
                     //{
@@ -250,7 +251,7 @@ namespace CaseManagement.Pn.Services
             }
         }
 
-        public async Task<OperationResult> DeleteCalendarUser(int id)
+        public async Task<OperationResult> Delete(int id)
         {
             try
             {

@@ -41,6 +41,8 @@ namespace CaseManagement.Pn
             services.AddScoped<ICalendarService, CalendarService>();
             services.AddScoped<ICalendarUsersService, CalendarUsersService>();
             services.AddScoped<ICaseManagementSettingsService, CaseManagementSettingsService>();
+            services.AddScoped<ICaseManagementCasesService, CaseManagementCasesService>();
+//            services.AddScoped<IEformPermissionsService, EformPermissionsService>();
         }
 
         public void AddPluginConfig(IConfigurationBuilder builder, string connectionString)

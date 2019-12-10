@@ -6,9 +6,9 @@ namespace CaseManagement.Pn.Abstractions
 {
     public interface ICalendarUsersService
     {
-        Task<OperationResult> CreateCalendarUser(CalendarUserModel requestModel);
-        Task<OperationResult> DeleteCalendarUser(int id);
-        Task<OperationDataResult<CalendarUsersModel>> GetCalendarUsers(CalendarUsersRequestModel requestModel);
-        Task<OperationResult> UpdateCalendarUser(CalendarUserModel requestModel);
+        Task<OperationDataResult<CalendarUsersModel>> Index(CalendarUsersRequestModel requestModel);
+        Task<OperationResult> Create(CalendarUserModel requestModel);
+        Task<OperationResult> Update(CalendarUserModel requestModel);
+        Task<OperationResult> Delete(int id);
     }
 }

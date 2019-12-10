@@ -9,16 +9,16 @@ else
 fi
 export TAB=$'\t'
 if (( $plugin_count > 1 )); then
-	sed '/\/\/ INSERT ROUTES HERE/i ,{' src/app/plugins/plugins.routing.ts -i
+	sed '/\/\/ INSERT ROUTES HERE/i {' src/app/plugins/plugins.routing.ts -i
 	sed '/\/\/ INSERT ROUTES HERE/i path: "case-management-pn",' src/app/plugins/plugins.routing.ts -i
 	sed '/\/\/ INSERT ROUTES HERE/i canActivate: [AuthGuard],' src/app/plugins/plugins.routing.ts -i
 	sed '/\/\/ INSERT ROUTES HERE/i loadChildren: "./modules/case-management-pn/case-management-pn.module#CaseManagementPnModule"' src/app/plugins/plugins.routing.ts -i
-	sed '/\/\/ INSERT ROUTES HERE/i }' src/app/plugins/plugins.routing.ts -i
+	sed '/\/\/ INSERT ROUTES HERE/i },' src/app/plugins/plugins.routing.ts -i
 else
 	sed '/\/\/ INSERT ROUTES HERE/i {' src/app/plugins/plugins.routing.ts -i
 	sed '/\/\/ INSERT ROUTES HERE/i path: "case-management-pn",' src/app/plugins/plugins.routing.ts -i
 	sed '/\/\/ INSERT ROUTES HERE/i canActivate: [AuthGuard],' src/app/plugins/plugins.routing.ts -i
 	sed '/\/\/ INSERT ROUTES HERE/i loadChildren: "./modules/case-management-pn/case-management-pn.module#CaseManagementPnModule"' src/app/plugins/plugins.routing.ts -i
-	sed '/\/\/ INSERT ROUTES HERE/i }' src/app/plugins/plugins.routing.ts -i
+	sed '/\/\/ INSERT ROUTES HERE/i },' src/app/plugins/plugins.routing.ts -i
 fi
 

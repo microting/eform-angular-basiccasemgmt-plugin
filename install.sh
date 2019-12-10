@@ -7,6 +7,7 @@ if [ ! -d "/var/www/microting/eform-angular-basiccasemgmt-plugin" ]; then
 fi
 
 cd /var/www/microting/eform-angular-basiccasemgmt-plugin
+git pull
 su ubuntu -c \
 "dotnet restore eFormAPI/Plugins/CaseManagement.Pn/CaseManagement.Pn.sln"
 

@@ -21,6 +21,7 @@ import {
   CaseManagementPnCalendarUserDeleteComponent,
   CaseManagementPnSettingsComponent, CaseManagementPnCaseRemove
 } from './components';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 registerLocaleData(localeDa);
 
@@ -37,7 +38,8 @@ registerLocaleData(localeDa);
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory
-    })
+    }),
+    FontAwesomeModule
   ],
   declarations: [
     CaseManagementPnLayoutComponent,

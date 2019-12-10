@@ -4,13 +4,16 @@ using CaseManagement.Pn.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CaseManagement.Pn.Migrations
 {
     [DbContext(typeof(CaseManagementPnDbContext))]
-    partial class CaseManagementPnDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191105055626_AddingPluginPermissionVersions")]
+    partial class AddingPluginPermissionVersions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             string autoIDGenStrategy = "SqlServer:ValueGenerationStrategy";
@@ -204,8 +207,6 @@ namespace CaseManagement.Pn.Migrations
 
                     b.Property<int>("CreatedByUserId");
 
-                    b.Property<int?>("FK_PluginGroupPermissionVersions_PluginGroupPermissionId");
-
                     b.Property<int>("GroupId");
 
                     b.Property<bool>("IsEnabled");
@@ -228,7 +229,7 @@ namespace CaseManagement.Pn.Migrations
                     b.HasIndex("PermissionId");
 
                     b.HasIndex("PluginGroupPermissionId");
-                    
+
                     b.ToTable("PluginGroupPermissionVersions");
                 });
 

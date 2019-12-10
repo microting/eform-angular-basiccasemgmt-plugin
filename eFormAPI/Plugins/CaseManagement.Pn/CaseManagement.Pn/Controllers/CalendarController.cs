@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using CaseManagement.Pn.Abstractions;
 using CaseManagement.Pn.Infrastructure.Models.Calendar;
 using Microsoft.AspNetCore.Authorization;
@@ -19,9 +20,9 @@ namespace CaseManagement.Pn.Controllers
 
         [HttpPost]
         [Route("api/case-management-pn/calendar/events")]
-        public OperationDataResult<List<CalendarEventModel>> GetCalendarEvents(CalendarEventsRequestModel requestModel)
+        public async Task<OperationDataResult<List<CalendarEventModel>>> Index(CalendarEventsRequestModel requestModel)
         {
-            return _calendarService.GetCalendarEvents(requestModel);
+            return await _calendarService.Index(requestModel);
         }
     }
 }
