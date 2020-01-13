@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Reflection;
 using CaseManagement.Pn.Abstractions;
 using CaseManagement.Pn.Infrastructure.Const;
-using CaseManagement.Pn.Infrastructure.Data;
-using CaseManagement.Pn.Infrastructure.Data.Factories;
 using CaseManagement.Pn.Infrastructure.Data.Seed;
 using CaseManagement.Pn.Infrastructure.Data.Seed.Data;
 using CaseManagement.Pn.Infrastructure.Models;
@@ -18,6 +16,9 @@ using Microting.eFormApi.BasePn.Infrastructure.Database.Extensions;
 using Microting.eFormApi.BasePn.Infrastructure.Helpers;
 using Microting.eFormApi.BasePn.Infrastructure.Models.Application;
 using Microting.eFormApi.BasePn.Infrastructure.Settings;
+using Microting.eFormBasicCaseManagementBase.Infrastructure;
+using Microting.eFormBasicCaseManagementBase.Infrastructure.Data;
+using Microting.eFormBasicCaseManagementBase.Infrastructure.Data.Factories;
 
 namespace CaseManagement.Pn
 {
@@ -67,12 +68,12 @@ namespace CaseManagement.Pn
             _connectionString = connectionString;
             if (connectionString.ToLower().Contains("convert zero datetime"))
             {                
-                services.AddDbContext<CaseManagementPnDbContext>(o => o.UseMySql(connectionString,
+                services.AddDbContext<eFormCaseManagementPnDbContext>(o => o.UseMySql(connectionString,
                     b => b.MigrationsAssembly(PluginAssembly().FullName)));
             }
             else
             {                
-                services.AddDbContext<CaseManagementPnDbContext>(o => o.UseSqlServer(connectionString,
+                services.AddDbContext<eFormCaseManagementPnDbContext>(o => o.UseSqlServer(connectionString,
                     b => b.MigrationsAssembly(PluginAssembly().FullName)));
             }
 

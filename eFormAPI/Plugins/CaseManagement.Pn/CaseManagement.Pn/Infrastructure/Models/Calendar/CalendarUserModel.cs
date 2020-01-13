@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using CaseManagement.Pn.Infrastructure.Data;
-using CaseManagement.Pn.Infrastructure.Data.Entities;
 using Microting.eForm.Infrastructure.Constants;
+using Microting.eFormBasicCaseManagementBase.Infrastructure.Data;
+using Microting.eFormBasicCaseManagementBase.Infrastructure.Data.Entities;
 
 namespace CaseManagement.Pn.Infrastructure.Models.Calendar
 {
@@ -23,7 +23,7 @@ namespace CaseManagement.Pn.Infrastructure.Models.Calendar
         public string Color { get; set; }
         public int RelatedEntityId { get; set; }
 
-        public async Task Create(CaseManagementPnDbContext _dbContext)
+        public async Task Create(eFormCaseManagementPnDbContext _dbContext)
         {
             CalendarUser calendarUser = new CalendarUser();
             calendarUser.Color = Color;
@@ -40,7 +40,7 @@ namespace CaseManagement.Pn.Infrastructure.Models.Calendar
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task Update(CaseManagementPnDbContext _dbContext)
+        public async Task Update(eFormCaseManagementPnDbContext _dbContext)
         {
             CalendarUser calendarUser = _dbContext.CalendarUsers.FirstOrDefault(x => x.Id == Id);
 
@@ -66,7 +66,7 @@ namespace CaseManagement.Pn.Infrastructure.Models.Calendar
             }
         }
 
-        public async Task Delete(CaseManagementPnDbContext _dbContext)
+        public async Task Delete(eFormCaseManagementPnDbContext _dbContext)
         {
             CalendarUser calendarUser = _dbContext.CalendarUsers.FirstOrDefault(x => x.Id == Id);
 
@@ -88,7 +88,7 @@ namespace CaseManagement.Pn.Infrastructure.Models.Calendar
             }
         }
 
-        public CalendarUserVersions MapVersions(CaseManagementPnDbContext _dbContext, CalendarUser calendarUser)
+        public CalendarUserVersions MapVersions(eFormCaseManagementPnDbContext _dbContext, CalendarUser calendarUser)
         {
             CalendarUserVersions calendarUserVersions = new CalendarUserVersions();
             calendarUserVersions.Color = calendarUser.Color;

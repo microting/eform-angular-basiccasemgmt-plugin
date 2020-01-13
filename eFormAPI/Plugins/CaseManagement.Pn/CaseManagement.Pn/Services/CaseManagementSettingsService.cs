@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using Microting.eFormApi.BasePn.Abstractions;
 using Microting.eFormApi.BasePn.Infrastructure.Helpers.PluginDbOptions;
 using Microting.eFormApi.BasePn.Infrastructure.Models.API;
+using Microting.eFormBasicCaseManagementBase.Infrastructure.Data;
 
 namespace CaseManagement.Pn.Services
 {
@@ -19,13 +20,13 @@ namespace CaseManagement.Pn.Services
     {
         private readonly ILogger<CaseManagementSettingsService> _logger;
         private readonly ICaseManagementLocalizationService _caseManagementLocalizationService;
-        private readonly CaseManagementPnDbContext _dbContext;
+        private readonly eFormCaseManagementPnDbContext _dbContext;
         private readonly IEFormCoreService _coreHelper;
         private readonly IPluginDbOptions<CaseManagementBaseSettings> _options;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
         public CaseManagementSettingsService(ILogger<CaseManagementSettingsService> logger, 
-            CaseManagementPnDbContext dbContext, 
+            eFormCaseManagementPnDbContext dbContext, 
             IEFormCoreService coreHelper, 
             IPluginDbOptions<CaseManagementBaseSettings> options,
             ICaseManagementLocalizationService caseManagementLocalizationService,    

@@ -4,12 +4,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using CaseManagement.Pn.Abstractions;
-using CaseManagement.Pn.Infrastructure.Data;
-using CaseManagement.Pn.Infrastructure.Data.Entities;
 using CaseManagement.Pn.Infrastructure.Extensions;
 using CaseManagement.Pn.Infrastructure.Models.Calendar;
 using eFormCore;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microting.eForm.Dto;
 using Microting.eForm.Infrastructure.Constants;
@@ -17,6 +14,8 @@ using Microting.eForm.Infrastructure.Models;
 using Microting.eFormApi.BasePn.Abstractions;
 using Microting.eFormApi.BasePn.Infrastructure.Database.Entities;
 using Microting.eFormApi.BasePn.Infrastructure.Models.API;
+using Microting.eFormBasicCaseManagementBase.Infrastructure.Data;
+using Microting.eFormBasicCaseManagementBase.Infrastructure.Data.Entities;
 
 namespace CaseManagement.Pn.Services
 {
@@ -25,12 +24,12 @@ namespace CaseManagement.Pn.Services
     public class CalendarUsersService : ICalendarUsersService
     {
         private readonly ILogger<CalendarUsersService> _logger;
-        private readonly CaseManagementPnDbContext _dbContext;
+        private readonly eFormCaseManagementPnDbContext _dbContext;
         private readonly ICaseManagementLocalizationService _caseManagementLocalizationService;
         private readonly IEFormCoreService _coreHelper;
 
         public CalendarUsersService(ILogger<CalendarUsersService> logger,
-            CaseManagementPnDbContext dbContext,
+            eFormCaseManagementPnDbContext dbContext,
             IEFormCoreService coreHelper,
             ICaseManagementLocalizationService caseManagementLocalizationService)
         {

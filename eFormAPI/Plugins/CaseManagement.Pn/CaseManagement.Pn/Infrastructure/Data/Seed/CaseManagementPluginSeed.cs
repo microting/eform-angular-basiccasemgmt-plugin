@@ -3,12 +3,13 @@ using Microting.eFormApi.BasePn.Infrastructure.Database.Entities;
 using System;
 using System.Linq;
 using Microting.eForm.Infrastructure.Constants;
+using Microting.eFormBasicCaseManagementBase.Infrastructure.Data;
 
 namespace CaseManagement.Pn.Infrastructure.Data.Seed
 {
     public class CaseManagementPluginSeed
     {
-        public static void SeedData(CaseManagementPnDbContext dbContext)
+        public static void SeedData(eFormCaseManagementPnDbContext dbContext)
         {
             var seedData = new CaseManagementConfigurationSeedData();
             var configurationList = seedData.Data;

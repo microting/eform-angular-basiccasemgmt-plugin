@@ -10,18 +10,19 @@ using CaseManagement.Pn.Infrastructure.Models.Calendar;
 using Microsoft.Extensions.Logging;
 using Microting.eFormApi.BasePn.Abstractions;
 using Microting.eFormApi.BasePn.Infrastructure.Models.API;
+using Microting.eFormBasicCaseManagementBase.Infrastructure.Data;
 
 namespace CaseManagement.Pn.Services
 {
    public class CalendarService : ICalendarService
     {
         private readonly ILogger<CalendarService> _logger;
-        private readonly CaseManagementPnDbContext _dbContext;
+        private readonly eFormCaseManagementPnDbContext _dbContext;
         private readonly ICaseManagementLocalizationService _caseManagementLocalizationService;
         private readonly IEFormCoreService _coreHelper;
 
         public CalendarService(ILogger<CalendarService> logger, 
-            CaseManagementPnDbContext dbContext, 
+            eFormCaseManagementPnDbContext dbContext, 
             IEFormCoreService coreHelper, 
             ICaseManagementLocalizationService caseManagementLocalizationService)
         {
