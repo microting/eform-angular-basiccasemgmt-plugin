@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CaseManagement.Pn.Infrastructure.Data.Entities;
 using CaseManagement.Pn.Infrastructure.Models.Calendar;
 using Microsoft.EntityFrameworkCore;
 using Microting.eForm.Infrastructure.Constants;
+using Microting.eFormBasicCaseManagementBase.Infrastructure.Data.Entities;
 using NUnit.Framework;
 
 namespace CaseManagement.Pn.Integration.Tests

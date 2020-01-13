@@ -4,9 +4,9 @@ using System.IO;
 using System.Collections.Generic;
 using System.Text;
 using NUnit.Framework;
-using CaseManagement.Pn.Infrastructure.Data;
 using System.Runtime.InteropServices;
-using CaseManagement.Pn.Infrastructure.Data.Factories;
+using Microting.eFormBasicCaseManagementBase.Infrastructure.Data;
+using Microting.eFormBasicCaseManagementBase.Infrastructure.Data.Factories;
 
 namespace CaseManagement.Pn.Integration.Tests
 {
@@ -14,7 +14,7 @@ namespace CaseManagement.Pn.Integration.Tests
     public abstract class DbTestFixture
     {
 
-        protected CaseManagementPnDbContext DbContext;
+        protected eFormCaseManagementPnDbContext DbContext;
         protected string ConnectionString;
 
         //public RentableItemsPnDbAnySql db;
