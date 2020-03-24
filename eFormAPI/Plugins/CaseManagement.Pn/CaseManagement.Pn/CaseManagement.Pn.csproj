@@ -20,9 +20,9 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.2.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.6" />
-    <PackageReference Include="Microting.eForm" Version="3.1.60" />
+    <PackageReference Include="Microting.eForm" Version="3.1.61" />
     <PackageReference Include="McMaster.NETCore.Plugins" Version="0.2.1" />
-    <PackageReference Include="Microting.eFormApi.BasePn" Version="1.2.50" />
+    <PackageReference Include="Microting.eFormApi.BasePn" Version="1.2.51" />
     <PackageReference Include="Microting.eFormBasicCaseManagementBase" Version="1.0.0" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.2.6" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.2.0" />
