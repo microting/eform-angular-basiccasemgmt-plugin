@@ -19,7 +19,7 @@ rm -fR Documents/workspace/microting/eform-angular-basiccasemgmt-plugin/eform-cl
 
 # Test files cp
 
-cp -a Documents/workspace/microting/eform-angular-frontend/eform-client/e2e/Tests/case-managements-settings Documents/workspace/microting/eform-angular-basiccasemgmt-plugin/eform-client/e2e/Tests/case-managements-settings
+cp -a Documents/workspace/microting/eform-angular-frontend/eform-client/e2e/Tests/case-management-settings Documents/workspace/microting/eform-angular-basiccasemgmt-plugin/eform-client/e2e/Tests/case-management-settings
 cp -a Documents/workspace/microting/eform-angular-frontend/eform-client/e2e/Tests/case-management-general Documents/workspace/microting/eform-angular-basiccasemgmt-plugin/eform-client/e2e/Tests/case-management-general
 cp -a Documents/workspace/microting/eform-angular-frontend/eform-client/e2e/Page\ objects/case-management Documents/workspace/microting/eform-angular-basiccasemgmt-plugin/eform-client/e2e/Page\ objects/case-management
 cp -a Documents/workspace/microting/eform-angular-frontend/eform-client/wdio-plugin-step2.conf.js Documents/workspace/microting/eform-angular-basiccasemgmt-plugin/eform-client/wdio-headless-plugin-step2.conf.js
