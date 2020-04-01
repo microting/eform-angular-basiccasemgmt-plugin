@@ -31,8 +31,8 @@ script:
   - dotnet test -v n eFormAPI/Plugins/CaseManagement.Pn/CaseManagement.Pn.Tests/CaseManagement.Pn.Tests.csproj
   - cd ../..
   - ls -lah microting
-  - git clone --depth=50 --branch=stable https://github.com/microting/eform-angular-frontend.git microting/eform-angular-frontend
-  - git clone --depth=50 --branch=stable https://github.com/microting/eform-angular-basecustomer-plugin.git microting/eform-angular-basecustomer-plugin
+  - git clone --depth=50 --branch=$TRAVIS_BRANCH https://github.com/microting/eform-angular-frontend.git microting/eform-angular-frontend
+  - git clone --depth=50 --branch=$TRAVIS_BRANCH https://github.com/microting/eform-angular-basecustomer-plugin.git microting/eform-angular-basecustomer-plugin
   - cd microting/eform-angular-basecustomer-plugin
   - dotnet restore eFormAPI/Plugins/Customers.Pn/Customers.Pn.sln
   - dotnet build eFormAPI/Plugins/Customers.Pn/Customers.Pn.sln
