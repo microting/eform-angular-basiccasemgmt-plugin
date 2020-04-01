@@ -3,9 +3,13 @@ language: csharp
 solution: CaseManagement.Pn.sln
 mono: none
 dotnet: 2.2
+addons:
+  chrome: stable
 services:
   - mysql
-script:
+install:
+  - nvm install 11.0.0
+  - nvm use 11.0.0
   - pip install --user awscli
   - echo 'deb http://www.rabbitmq.com/debian/ testing main' | sudo tee /etc/apt/sources.list.d/rabbitmq.list
   - wget -O- https://www.rabbitmq.com/rabbitmq-release-signing-key.asc | sudo apt-key add -
@@ -21,7 +25,7 @@ script:
   - chmod +x rabbitmqadmin
   - ./rabbitmqadmin declare queue name=eformsdk-input durable=true
   - ./rabbitmqadmin declare queue name=eform-angular-basiccasemgmt-plugin durable=true
-  - dotnet restore eFormAPI/Plugins/CaseManagement.Pn/CaseManagement.Pn.sln
+script:
   - dotnet build eFormAPI/Plugins/CaseManagement.Pn/CaseManagement.Pn.sln
   - dotnet test -v n eFormAPI/Plugins/CaseManagement.Pn/CaseManagement.Pn.Integration.Tests/CaseManagement.Pn.Integration.Tests.csproj
   - dotnet test -v n eFormAPI/Plugins/CaseManagement.Pn/CaseManagement.Pn.Tests/CaseManagement.Pn.Tests.csproj
@@ -46,6 +50,7 @@ script:
   - cp -av microting/eform-angular-basiccasemgmt-plugin/eFormAPI/eFormAPI.Web/Plugins/CaseManagement microting/eform-angular-frontend/eFormAPI/eFormAPI.Web/Plugins/CaseManagement
   - cp -av microting/eform-angular-basecustomer-plugin/eFormAPI/eFormAPI.Web/Plugins/Customers microting/eform-angular-frontend/eFormAPI/eFormAPI.Web/Plugins/Customers
   - cd microting/eform-angular-frontend
+  - mkdir -p /home/travis/build/microting/eform-angular-frontend/eform-client/errorShots
   - cd eform-client && npm install
   - ../../eform-angular-basiccasemgmt-plugin/testinginstallpn.sh
   - ../../eform-angular-basecustomer-plugin/testinginstallpn.sh
