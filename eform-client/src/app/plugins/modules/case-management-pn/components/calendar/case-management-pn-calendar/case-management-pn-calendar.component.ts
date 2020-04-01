@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
-import {isSameDay, isSameMonth, parse} from 'date-fns';
+import {isSameDay, isSameMonth, toDate} from 'date-fns';
 import {ToastrService} from 'ngx-toastr';
 import {Subject} from 'rxjs';
 import {
@@ -105,8 +105,8 @@ export class CaseManagementPnCalendarComponent implements OnInit {
           for (let calendarEvent of data.model) {
             this.events.push(
               {
-                start: parse(calendarEvent.start),
-                end: parse(calendarEvent.end),
+                start: toDate(calendarEvent.start),
+                end: toDate(calendarEvent.end),
                 title: calendarEvent.title,
                 color: {
                   primary: calendarEvent.color,
