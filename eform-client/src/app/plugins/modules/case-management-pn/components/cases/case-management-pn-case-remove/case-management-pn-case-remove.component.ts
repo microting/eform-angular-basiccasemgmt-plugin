@@ -8,7 +8,7 @@ import {CasesService} from 'src/app/common/services/cases';
   styleUrls: ['./case-management-pn-case-remove.component.scss']
 })
 export class CaseManagementPnCaseRemove implements OnInit {
-  @ViewChild('frame') frame;
+  @ViewChild('frame', {static: false}) frame;
   @Input() templateId: number;
   @Output() onCaseDeleted: EventEmitter<void> = new EventEmitter<void>();
   selectedCaseModel: CaseModel = new CaseModel();

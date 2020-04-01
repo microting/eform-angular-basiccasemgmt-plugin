@@ -12,7 +12,7 @@ export class CaseManagementPnCalendarUserCreateComponent implements OnInit {
   @Input() deviceUsers: Array<SiteDto> = [];
   newCalendarUser: CalendarUserModel = new CalendarUserModel();
   @Output() onUserCreated: EventEmitter<void> = new EventEmitter<void>();
-  @ViewChild('frame') frame;
+  @ViewChild('frame', {static: false}) frame;
   spinnerStatus = false;
 
   constructor(private calendarService: CaseManagementPnCalendarService) { }

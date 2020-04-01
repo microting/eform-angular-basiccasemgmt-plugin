@@ -13,9 +13,9 @@ import {CaseManagementPnClaims} from '../../../enums';
   styleUrls: ['./case-management-pn-calendar-users.component.scss']
 })
 export class CaseManagementPnCalendarUsersComponent implements OnInit {
-  @ViewChild('editCalendarUserModal') editCalendarUserModal;
-  @ViewChild('deleteCalendarUserModal') deleteCalendarUserModal;
-  @ViewChild('createCalendarUserModal') createCalendarUserModal;
+  @ViewChild('editCalendarUserModal', {static: false}) editCalendarUserModal;
+  @ViewChild('deleteCalendarUserModal', {static: false}) deleteCalendarUserModal;
+  @ViewChild('createCalendarUserModal', {static: false}) createCalendarUserModal;
   selectedCalendarUser: CalendarUserModel = new CalendarUserModel();
   calendarUsers: CalendarUsersModel = new CalendarUsersModel();
   calendarUsersRequestModel: CalendarUsersRequestModel = new CalendarUsersRequestModel();

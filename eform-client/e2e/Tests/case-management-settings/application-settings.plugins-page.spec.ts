@@ -13,57 +13,57 @@ describe('Application settings page - site header section', function () {
         loginPage.login();
         myEformsPage.Navbar.advancedDropdown();
         myEformsPage.Navbar.clickonSubMenuItem('Plugins');
-        browser.waitForExist('#plugin-name', 50000);
-        browser.pause(10000);
+        $('#plugin-name').waitForDisplayed(50000);
+        $('#spinner-animation').waitForDisplayed(90000, true);
 
-        let plugin = pluginsPage.getFirstPluginRowObj();
+        const plugin = pluginsPage.getFirstPluginRowObj();
         expect(plugin.id).equal(1);
         expect(plugin.name).equal('Microting Case Management Plugin');
         expect(plugin.version).equal('1.0.0.0');
 
-        let secondPlugin = pluginsPage.getSecondPluginRowObj();
+        const secondPlugin = pluginsPage.getSecondPluginRowObj();
         expect(secondPlugin.id).equal(2);
         expect(secondPlugin.name).equal('Microting Customers Plugin');
         expect(secondPlugin.version).equal('1.0.0.0');
 
     });
     it('should activate the plugin', function () {
-        let plugin = pluginsPage.getFirstPluginRowObj();
+        const plugin = pluginsPage.getFirstPluginRowObj();
         // pluginPage.pluginSettingsBtn.click();
         plugin.activateBtn.click();
-        browser.waitForVisible('#pluginOKBtn', 40000);
+        $('#pluginOKBtn').waitForDisplayed(40000);
         pluginPage.pluginOKBtn.click();
         browser.pause(50000); // We need to wait 50 seconds for the plugin to create db etc.
-        browser.refresh();
+        loginPage.open('/');
 
         loginPage.login();
         myEformsPage.Navbar.advancedDropdown();
         myEformsPage.Navbar.clickonSubMenuItem('Plugins');
-        browser.waitForExist('#plugin-name', 50000);
-        browser.pause(10000);
+        $('#plugin-name').waitForDisplayed(50000);
+        $('#spinner-animation').waitForDisplayed(90000, true);
 
-        let secondPlugin = pluginsPage.getSecondPluginRowObj();
+        const secondPlugin = pluginsPage.getSecondPluginRowObj();
         expect(secondPlugin.id).equal(2);
         expect(secondPlugin.name).equal('Microting Customers Plugin');
         expect(secondPlugin.version).equal('1.0.0.0');
 
         // pluginPage.pluginSettingsBtn.click();
         secondPlugin.activateBtn.click();
-        browser.waitForVisible('#pluginOKBtn', 40000);
+        $('#pluginOKBtn').waitForDisplayed(40000);
         pluginPage.pluginOKBtn.click();
         browser.pause(50000); // We need to wait 50 seconds for the plugin to create db etc.
-        browser.refresh();
+        loginPage.open('/');
 
         loginPage.login();
         myEformsPage.Navbar.advancedDropdown();
         myEformsPage.Navbar.clickonSubMenuItem('Plugins');
-        browser.waitForExist('#plugin-name', 50000);
-        browser.pause(10000);
+        $('#plugin-name').waitForDisplayed(50000);
+        $('#spinner-animation').waitForDisplayed(90000, true);
 
-        let pluginToFind = pluginsPage.getFirstPluginRowObj();
+        const pluginToFind = pluginsPage.getFirstPluginRowObj();
         expect(pluginToFind.id).equal(1);
         expect(pluginToFind.name).equal('Microting Case Management Plugin');
         expect(pluginToFind.version).equal('1.0.0.0');
-        expect(browser.element(`//*[contains(text(), 'Sagsbehandling')]`).isExisting()).equal(true);
+        $(`//*[contains(text(), 'Sagsbehandling')]`).waitForDisplayed(20000);
     });
 });
