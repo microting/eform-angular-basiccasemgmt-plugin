@@ -16,8 +16,8 @@
   <div class="row pl-1">
     <div class="col-md-2">
       <div class="md-form">
-        <input mdbInputDirective
-               [mdbValidate]="false"
+        <input mdbInput
+
                (input)="onLabelInputChanged($event.target.value)"
                type="text" class="form-control" id="labelInput">
         <label for="labelInput">{{ 'Search' | translate }}</label>
@@ -186,7 +186,7 @@
         </td>
         <td>
           <div class="d-flex flex-row justify-content-center">
-            <button class="btn btn-success btn-icon mb-2"
+            <button mdbBtn class="btn-success btn-icon mb-2"
                     [routerLink]="['/cases/edit/' + caseModel.id + '/' + currentTemplate.id]"
                     [queryParams]="{'reverseRoute': '/plugins/case-management-pn/cases'}"
                     mdbTooltip="{{ 'Edit Case' | translate }}">
@@ -194,19 +194,19 @@
                 edit
               </i>
             </button>
-            <button class="btn btn-success btn-icon mb-2" *ngIf="checkEformPermissions(userClaimsEnum.caseGetPdf) && (currentTemplate.jasperExportEnabled || currentTemplate.docxExportEnabled)"
+            <button mdbBtn class="btn-success btn-icon mb-2" *ngIf="checkEformPermissions(userClaimsEnum.caseGetPdf) && (currentTemplate.jasperExportEnabled || currentTemplate.docxExportEnabled)"
                     (click)="downloadFile(caseModel.id, 'pdf')"
                     mdbTooltip="{{ 'Download PDF' | translate }}">
               <fa-icon icon="file-pdf" size="lg" [fixedWidth]="true"></fa-icon>
 
             </button>
-            <button class="btn btn-success btn-icon mb-2" *ngIf="checkEformPermissions(userClaimsEnum.caseGetPdf) && currentTemplate.docxExportEnabled"
+            <button mdbBtn class="btn-success btn-icon mb-2" *ngIf="checkEformPermissions(userClaimsEnum.caseGetPdf) && currentTemplate.docxExportEnabled"
                     (click)="downloadFile(caseModel.id, 'docx')"
                     mdbTooltip="{{ 'Download Docx' | translate }}">
               <fa-icon icon="file-word" size="lg" [fixedWidth]="true"></fa-icon>
 
             </button>
-            <button class="btn btn-danger btn-icon mb-2 "
+            <button mdbBtn class="btn-danger btn-icon mb-2 "
                     mdbTooltip="{{ 'Delete Case' | translate }}"
                     (click)="onDeleteClicked(caseModel)">
               <i class="material-icons" >

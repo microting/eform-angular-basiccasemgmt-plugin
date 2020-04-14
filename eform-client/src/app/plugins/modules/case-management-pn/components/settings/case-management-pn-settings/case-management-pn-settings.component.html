@@ -11,8 +11,8 @@
     <div class="col-md-12 col-xs-12 control-block">
       <div class="col-md-12">
         <div class="md-form input-group">
-          <input mdbInputDirective
-                 [mdbValidate]="false" [(ngModel)]="settingsModel.sdkConnectionString"
+          <input mdbInput
+                  [(ngModel)]="settingsModel.sdkConnectionString"
                  type="text" name="sdkconnectionstring" #sdkconnectionstring="ngModel"
                  id="sdkconnectionstring" class="form-control">
           <label for="sdkconnectionstring">{{'SDK connection string' | translate}}</label>
@@ -20,8 +20,8 @@
       </div>
       <div class="col-md-12">
         <div class="md-form input-group">
-          <input mdbInputDirective
-                 [mdbValidate]="false" [(ngModel)]="settingsModel.logLevel"
+          <input mdbInput
+                  [(ngModel)]="settingsModel.logLevel"
                  type="text" name="loglevel" #loglevel="ngModel"
                  id="loglevel" class="form-control">
           <label for="loglevel">{{'Log Level' | translate}}</label>
@@ -29,8 +29,8 @@
       </div>
       <div class="col-md-12">
         <div class="md-form input-group">
-          <input mdbInputDirective
-                 [mdbValidate]="false" [(ngModel)]="settingsModel.logLimit"
+          <input mdbInput
+                  [(ngModel)]="settingsModel.logLimit"
                  type="text" name="loglimit" #loglimit="ngModel"
                  id="loglimit" class="form-control">
           <label for="loglimit">{{'Log Limit' | translate}}</label>
@@ -38,8 +38,8 @@
       </div>
       <div class="col-md-12">
         <div class="md-form input-group">
-          <input mdbInputDirective
-                 [mdbValidate]="false" [(ngModel)]="settingsModel.maxParallelism"
+          <input mdbInput
+                  [(ngModel)]="settingsModel.maxParallelism"
                  type="text" name="maxparallelism" #maxparallelism="ngModel"
                  id="maxparallelism" class="form-control">
           <label for="maxparallelism">{{'Max parallelism' | translate}}</label>
@@ -47,8 +47,8 @@
       </div>
       <div class="col-md-12">
         <div class="md-form input-group">
-          <input mdbInputDirective
-                 [mdbValidate]="false" [(ngModel)]="settingsModel.numberOfWorkers"
+          <input mdbInput
+                  [(ngModel)]="settingsModel.numberOfWorkers"
                  type="text" name="numberofworkers" #numberofworkers="ngModel"
                  id="numberofworkers" class="form-control">
           <label for="numberofworkers">{{'Number of workers' | translate}}</label>

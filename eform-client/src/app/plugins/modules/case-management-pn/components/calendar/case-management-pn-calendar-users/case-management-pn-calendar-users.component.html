@@ -55,14 +55,14 @@
         <td>
 
           <div class="d-flex flex-row justify-content-center">
-            <button class="btn btn-accent text-black-50 btn-icon mb-2 " mdbTooltip="{{'Edit Device User' | translate}}"
+            <button mdbBtn class="btn-accent text-black-50 btn-icon mb-2 " mdbTooltip="{{'Edit Device User' | translate}}"
                     mdbWavesEffect id="editDeviceUserBtn"
                     (click)="openEditModal(calendarUser)">
               <i class="material-icons">
                 edit
               </i>
             </button>
-            <button class="btn btn-danger btn-icon mb-2 " mdbTooltip="{{'Delete Device User' | translate}}"
+            <button mdbBtn class="btn-danger btn-icon mb-2 " mdbTooltip="{{'Delete Device User' | translate}}"
                     (click)="openDeleteModal(calendarUser)"
                     id="deleteDeviceUserBtn">
               <i class="material-icons">

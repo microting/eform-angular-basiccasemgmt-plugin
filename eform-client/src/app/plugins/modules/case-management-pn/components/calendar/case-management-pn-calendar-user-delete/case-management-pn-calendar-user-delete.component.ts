@@ -10,7 +10,7 @@ import {CaseManagementPnCalendarService} from '../../../services';
 export class CaseManagementPnCalendarUserDeleteComponent implements OnInit {
   @Output() onUserDeleted: EventEmitter<void> = new EventEmitter<void>();
   selectedCalendarUser: CalendarUserModel = new CalendarUserModel();
-  @ViewChild('frame', {static: false}) frame;
+  @ViewChild('frame') frame;
   spinnerStatus = false;
 
   constructor(private calendarService: CaseManagementPnCalendarService) { }

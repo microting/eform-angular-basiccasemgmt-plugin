@@ -24,7 +24,7 @@ import {EformPermissionsSimpleModel} from '../../../../../../common/models/secur
 })
 export class CaseManagementPnCasesComponent implements OnInit {
 
-  @ViewChild('modalRemoveCase', {static: false}) modalRemoveCase;
+  @ViewChild('modalRemoveCase') modalRemoveCase;
   casesRequestModel: CasesRequestModel = new CasesRequestModel();
   caseListModel: CaseListModel = new CaseListModel();
   currentTemplate: TemplateDto = new TemplateDto;

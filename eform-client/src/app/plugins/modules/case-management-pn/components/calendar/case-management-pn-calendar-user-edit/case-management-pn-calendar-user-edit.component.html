@@ -9,9 +9,9 @@
           <div class="row">
             <div class="col-md-12">
               <div class="md-form mt-1">
-                <input mdbInputDirective required
+                <input mdbInput required
                        [(ngModel)]="selectedCalendarUser.nameInCalendar"
-                       [mdbValidate]="false" type="text" name="email"
+                        type="text" name="email"
                        id="editNameInCalendar" class="form-control">
                 <label class="text-black-50" for="editNameInCalendar">{{'Name in Calendar' | translate }} </label>
               </div>
@@ -48,7 +48,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-success" id="saveEditBtn"
+        <button mdbBtn class="btn-success" id="saveEditBtn"
                 [disabled]="!selectedCalendarUser.nameInCalendar"
                 (click)="updateSingle()">{{'Save' | translate}}</button>
         <button id="cancelEditBtn" class="btn btn-accent text-black-50" (click)="frame.hide()">
