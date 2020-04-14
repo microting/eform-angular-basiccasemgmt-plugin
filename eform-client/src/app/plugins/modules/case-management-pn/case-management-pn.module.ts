@@ -6,7 +6,7 @@ import {TranslateModule} from '@ngx-translate/core';
 import {CalendarModule, DateAdapter} from 'angular-calendar';
 import {adapterFactory} from 'node_modules/angular-calendar/date-adapters/date-fns';
 import localeDa from '@angular/common/locales/da';
-import {MDBRootModule} from 'port/angular-bootstrap-md';
+import {MDBRootModule} from 'angular-bootstrap-md';
 
 import {CaseManagementPnLayoutComponent} from './layouts';
 import {CaseManagementPnCalendarService, CaseManagementPnService} from './services';
