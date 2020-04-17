@@ -58,7 +58,7 @@ export class CaseManagementPnCalendarComponent implements OnInit {
   }
 
   ngOnInit() {
-    let userLocale = this.localeService.getCurrentUserLocale();
+    const userLocale = this.localeService.getCurrentUserLocale();
     if (userLocale === 'da-DK') {
       this.locale = 'da';
     } else {
@@ -102,7 +102,7 @@ export class CaseManagementPnCalendarComponent implements OnInit {
     this.calendarService.getCalendarEvents(this.calendarEventsRequestModel).subscribe((data) => {
       if (data && data.success) {
         if (data.model.length > 0) {
-          for (let calendarEvent of data.model) {
+          for (const calendarEvent of data.model) {
             this.events.push(
               {
                 start: toDate(calendarEvent.start),
