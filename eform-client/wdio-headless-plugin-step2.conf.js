@@ -149,10 +149,10 @@ exports.config = {
     // Options to be passed to Mocha.
     // See the full list at http://mochajs.org/
     mochaOpts: {
-        ui: 'bdd',
-        compilers: ['ts:ts-node/register'],
-        timeout: 600000
-        // requires: ['./test/helpers/common.js']
+      ui: 'bdd',
+      require: 'ts-node/register',
+      compilers: ['tsconfig-paths/register'],
+      timeout: 6000000
     },
     //
     // =====
