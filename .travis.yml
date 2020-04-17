@@ -17,10 +17,10 @@ install:
   - sudo apt-get install rabbitmq-server
   - sudo systemctl enable rabbitmq-server
   - sudo systemctl start rabbitmq-server
-  - sudo rabbitmqctl add_user admin password 
+  - sudo rabbitmqctl add_user admin password
   - sudo rabbitmqctl set_user_tags admin administrator
   - sudo rabbitmqctl set_permissions -p / admin ".*" ".*" ".*"
-  - sudo rabbitmq-plugins enable rabbitmq_management	
+  - sudo rabbitmq-plugins enable rabbitmq_management
   - wget http://localhost:15672/cli/rabbitmqadmin
   - chmod +x rabbitmqadmin
   - ./rabbitmqadmin declare queue name=eformsdk-input durable=true
@@ -57,8 +57,8 @@ script:
   - npm start &
   - sleep 75
   - dotnet run --project ../eFormAPI/eFormAPI.Web/eFormAPI.Web.csproj > dotnet_log 2>&1 &
-  - npm run testheadless
   - sleep 75
+  - npm run testheadless
   - npm run testheadlessplugin
   - touch ~/.aws/config || true
   - echo "[default]" >> ~/.aws/config || true
