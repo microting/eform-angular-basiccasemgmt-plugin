@@ -14,7 +14,6 @@ import {EntitySelectService} from '../../../../../../common/services/advanced';
   styleUrls: ['./case-management-pn-settings.component.scss']
 })
 export class CaseManagementPnSettingsComponent implements OnInit {
-  spinnerStatus = false;
   typeahead = new EventEmitter<string>();
   settingsModel: CaseManagementPnSettingsModel = new CaseManagementPnSettingsModel();
   templateRequestModel: TemplateRequestModel = new TemplateRequestModel();
@@ -47,11 +46,10 @@ export class CaseManagementPnSettingsComponent implements OnInit {
   }
 
   getSettings() {
-    this.spinnerStatus = true;
     this.caseManagementService.getSettings().subscribe((data) => {
       if (data && data.success) {
         this.settingsModel = data.model;
-      } this.spinnerStatus = false;
+      }
     });
   }
 
@@ -61,7 +59,7 @@ export class CaseManagementPnSettingsComponent implements OnInit {
       .subscribe((data) => {
         if (data && data.success) {
 
-        } this.spinnerStatus = false;
+        }
       });
   }
   getEntitySelectableGroupList() {
@@ -69,7 +67,7 @@ export class CaseManagementPnSettingsComponent implements OnInit {
     this.entitySelectService.getEntitySelectableGroupList(this.advEntitySelectableGroupListRequestModel).subscribe((data) => {
       if (data && data.model) {
         this.advEntitySelectableGroupListModel = data.model;
-      } this.spinnerStatus = false;
+      }
     });
   }
   onSelectedChanged(e: any) {

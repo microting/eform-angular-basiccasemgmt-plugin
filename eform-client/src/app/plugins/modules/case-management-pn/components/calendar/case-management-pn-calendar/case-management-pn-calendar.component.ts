@@ -26,7 +26,6 @@ import {CaseManagementPnCalendarService, CaseManagementPnService} from '../../..
   styleUrls: ['./case-management-pn-calendar.component.scss']
 })
 export class CaseManagementPnCalendarComponent implements OnInit {
-  spinnerStatus = false;
   settingsModel: CaseManagementPnSettingsModel = new CaseManagementPnSettingsModel();
   calendarEventsRequestModel: CalendarEventsRequestModel = new CalendarEventsRequestModel();
   view: CalendarView = CalendarView.Month;
@@ -98,7 +97,6 @@ export class CaseManagementPnCalendarComponent implements OnInit {
   }
 
   getEvents() {
-    this.spinnerStatus = true;
     this.calendarService.getCalendarEvents(this.calendarEventsRequestModel).subscribe((data) => {
       if (data && data.success) {
         if (data.model.length > 0) {
@@ -124,7 +122,7 @@ export class CaseManagementPnCalendarComponent implements OnInit {
 
         this.refresh.next();
       }
-      this.spinnerStatus = false;
+
     });
   }
 

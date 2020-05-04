@@ -32,7 +32,6 @@ export class CaseManagementPnCasesComponent implements OnInit {
   vaelgKundeCase: CaseModel = new CaseModel();
   settingsModel: CaseManagementPnSettingsModel = new CaseManagementPnSettingsModel();
   localPageSettings: PageSettingsModel = new PageSettingsModel();
-  spinnerStatus = false;
 
   get role() { return this.authService.currentRole; }
   get userClaims() { return this.authService.userClaims; }
@@ -67,10 +66,9 @@ export class CaseManagementPnCasesComponent implements OnInit {
   }
 
   getCaseManagementSettings() {
-    this.spinnerStatus = true;
     this.caseManagementService.getSettings().subscribe((data) => {
       this.settingsModel = data.model;
-      this.spinnerStatus = false;
+
       if (!this.settingsModel.selectedTemplateId) {
         if (this.role === 'admin') {
           this.router.navigate(['/plugins/case-management-pn/settings']);
@@ -117,7 +115,7 @@ export class CaseManagementPnCasesComponent implements OnInit {
       if (operation && operation.success) {
         this.caseListModel = operation.model;
       }
-      this.spinnerStatus = false;
+
     });
   }
 
@@ -127,7 +125,7 @@ export class CaseManagementPnCasesComponent implements OnInit {
       if (operation && operation.success) {
         this.currentTemplate = operation.model;
       }
-      this.spinnerStatus = false;
+
     });
   }
 
@@ -139,7 +137,7 @@ export class CaseManagementPnCasesComponent implements OnInit {
       if (operation && operation.success && operation.model.cases[0]) {
         this.vaelgKundeCase = operation.model.cases[0];
       }
-      this.spinnerStatus = false;
+
     });
   }
 
@@ -148,7 +146,7 @@ export class CaseManagementPnCasesComponent implements OnInit {
     this.eFormService.downloadEformPDF(this.currentTemplate.id, caseId, fileType).subscribe(data => {
       const blob = new Blob([data]);
       saveAs(blob, `template_${this.currentTemplate.id}.${fileType}`);
-      this.spinnerStatus = false;
+
     });
   }
 
@@ -163,7 +161,7 @@ export class CaseManagementPnCasesComponent implements OnInit {
           if (foundTemplates.length) {
             this.eformPermissionsSimpleModel = foundTemplates.find(x => x.templateId === templateId);
           }
-          this.spinnerStatus = false;
+
         }
       }));
     }

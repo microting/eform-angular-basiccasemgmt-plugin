@@ -19,7 +19,6 @@ export class CaseManagementPnCalendarUsersComponent implements OnInit {
   selectedCalendarUser: CalendarUserModel = new CalendarUserModel();
   calendarUsers: CalendarUsersModel = new CalendarUsersModel();
   calendarUsersRequestModel: CalendarUsersRequestModel = new CalendarUsersRequestModel();
-  spinnerStatus = false;
   sitesDto: Array<SiteDto>;
 
   get pluginClaimsHelper() {
@@ -56,7 +55,6 @@ export class CaseManagementPnCalendarUsersComponent implements OnInit {
   }
 
   loadAllSimpleSites() {
-    this.spinnerStatus = true;
     this.deviceUsersService.getAllDeviceUsers().subscribe(operation => {
       if (operation && operation.success) {
         this.sitesDto = operation.model.map(function(x) {
@@ -64,7 +62,7 @@ export class CaseManagementPnCalendarUsersComponent implements OnInit {
           return x;
         });
       }
-      this.spinnerStatus = false;
+
     });
   }
 
@@ -73,7 +71,7 @@ export class CaseManagementPnCalendarUsersComponent implements OnInit {
     this.calendarService.getCalendarUsers(this.calendarUsersRequestModel).subscribe((data) => {
       if (data && data.success) {
         this.calendarUsers = data.model;
-      } this.spinnerStatus = false;
+      }
     });
   }
 

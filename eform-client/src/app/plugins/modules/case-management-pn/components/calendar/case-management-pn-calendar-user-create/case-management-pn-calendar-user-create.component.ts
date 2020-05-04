@@ -13,7 +13,6 @@ export class CaseManagementPnCalendarUserCreateComponent implements OnInit {
   newCalendarUser: CalendarUserModel = new CalendarUserModel();
   @Output() onUserCreated: EventEmitter<void> = new EventEmitter<void>();
   @ViewChild('frame') frame;
-  spinnerStatus = false;
 
   constructor(private calendarService: CaseManagementPnCalendarService) { }
 
@@ -26,7 +25,6 @@ export class CaseManagementPnCalendarUserCreateComponent implements OnInit {
   }
 
   createCalendarUser() {
-    this.spinnerStatus = true;
     debugger;
     this.calendarService.createCalendarUser(this.newCalendarUser).subscribe(operation => {
       if (operation && operation.success) {
@@ -34,7 +32,7 @@ export class CaseManagementPnCalendarUserCreateComponent implements OnInit {
         this.newCalendarUser = new CalendarUserModel();
         this.frame.hide();
       }
-      this.spinnerStatus = false;
+
     });
   }
 

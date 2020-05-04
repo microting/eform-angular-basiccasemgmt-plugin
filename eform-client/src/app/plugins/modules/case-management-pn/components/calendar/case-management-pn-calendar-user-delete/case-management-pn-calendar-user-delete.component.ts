@@ -11,7 +11,6 @@ export class CaseManagementPnCalendarUserDeleteComponent implements OnInit {
   @Output() onUserDeleted: EventEmitter<void> = new EventEmitter<void>();
   selectedCalendarUser: CalendarUserModel = new CalendarUserModel();
   @ViewChild('frame') frame;
-  spinnerStatus = false;
 
   constructor(private calendarService: CaseManagementPnCalendarService) { }
 
@@ -25,13 +24,12 @@ export class CaseManagementPnCalendarUserDeleteComponent implements OnInit {
   }
 
   deleteCalendarUser() {
-    this.spinnerStatus = true;
     this.calendarService.deleteCalendarUser(this.selectedCalendarUser.id).subscribe(operation => {
       if (operation && operation.success) {
         this.onUserDeleted.emit();
         this.frame.hide();
       }
-      this.spinnerStatus = false;
+
     });
   }
 

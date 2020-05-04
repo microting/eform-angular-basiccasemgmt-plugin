@@ -12,7 +12,6 @@ export class CaseManagementPnCaseRemove implements OnInit {
   @Input() templateId: number;
   @Output() onCaseDeleted: EventEmitter<void> = new EventEmitter<void>();
   selectedCaseModel: CaseModel = new CaseModel();
-  spinnerStatus = false;
 
   constructor(private casesService: CasesService) { }
 
@@ -25,13 +24,12 @@ export class CaseManagementPnCaseRemove implements OnInit {
   }
 
   submitCaseDelete() {
-    this.spinnerStatus = true;
     this.casesService.deleteCase(this.selectedCaseModel.id, this.templateId).subscribe((data => {
       if (data && data.success) {
         this.onCaseDeleted.emit();
         this.frame.hide();
       }
-      this.spinnerStatus = false;
+
     }));
   }
 }
