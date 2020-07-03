@@ -67,7 +67,6 @@ export class CaseManagementPnCalendarUsersComponent implements OnInit {
   }
 
   getCalendarUsers() {
-    this.spinnerStatus = true;
     this.calendarService.getCalendarUsers(this.calendarUsersRequestModel).subscribe((data) => {
       if (data && data.success) {
         this.calendarUsers = data.model;

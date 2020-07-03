@@ -106,7 +106,6 @@ export class CaseManagementPnCasesComponent implements OnInit {
   }
 
   loadAllCases() {
-    this.spinnerStatus = true;
     this.casesRequestModel.sort = this.localPageSettings.sort;
     this.casesRequestModel.isSortDsc = this.localPageSettings.isSortDsc;
     this.casesRequestModel.templateId = this.settingsModel.selectedTemplateId;
@@ -121,7 +120,6 @@ export class CaseManagementPnCasesComponent implements OnInit {
 
   loadTemplateData() {
     this.eFormService.getSingle(this.settingsModel.selectedTemplateId).subscribe(operation => {
-      this.spinnerStatus = true;
       if (operation && operation.success) {
         this.currentTemplate = operation.model;
       }
@@ -133,7 +131,6 @@ export class CaseManagementPnCasesComponent implements OnInit {
     const requestModel = new CasesRequestModel();
     requestModel.nameFilter = '...';
     this.caseManagementService.getCases(requestModel).subscribe(operation => {
-      this.spinnerStatus = true;
       if (operation && operation.success && operation.model.cases[0]) {
         this.vaelgKundeCase = operation.model.cases[0];
       }
@@ -142,7 +139,6 @@ export class CaseManagementPnCasesComponent implements OnInit {
   }
 
   downloadFile(caseId: number, fileType: string) {
-    this.spinnerStatus = true;
     this.eFormService.downloadEformPDF(this.currentTemplate.id, caseId, fileType).subscribe(data => {
       const blob = new Blob([data]);
       saveAs(blob, `template_${this.currentTemplate.id}.${fileType}`);
@@ -154,7 +150,6 @@ export class CaseManagementPnCasesComponent implements OnInit {
     if (this.securityGroupEformsService.mappedPermissions.length) {
       this.eformPermissionsSimpleModel = this.securityGroupEformsService.mappedPermissions.find(x => x.templateId === templateId);
     } else {
-      this.spinnerStatus = true;
       this.securityGroupEformsService.getEformsSimplePermissions().subscribe((data => {
         if (data && data.success) {
           const foundTemplates = this.securityGroupEformsService.mapEformsSimplePermissions(data.model);

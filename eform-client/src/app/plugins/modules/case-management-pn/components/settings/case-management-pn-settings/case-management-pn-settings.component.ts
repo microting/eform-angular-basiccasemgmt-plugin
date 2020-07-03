@@ -54,7 +54,6 @@ export class CaseManagementPnSettingsComponent implements OnInit {
   }
 
   updateSettings() {
-    this.spinnerStatus = true;
     this.caseManagementService.updateSettings(this.settingsModel)
       .subscribe((data) => {
         if (data && data.success) {
@@ -63,7 +62,6 @@ export class CaseManagementPnSettingsComponent implements OnInit {
       });
   }
   getEntitySelectableGroupList() {
-    this.spinnerStatus = true;
     this.entitySelectService.getEntitySelectableGroupList(this.advEntitySelectableGroupListRequestModel).subscribe((data) => {
       if (data && data.model) {
         this.advEntitySelectableGroupListModel = data.model;
