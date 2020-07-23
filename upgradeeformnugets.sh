@@ -12,7 +12,7 @@ if (( "$GIT_STATUS" > 0 )); then
 
 	EFORM_VERSION=`dotnet list package | grep 'Microting.eForm ' | cut -c64-71`
 	EFORM_BASEPN_VERSION=`dotnet list package | grep 'Microting.eFormApi.BasePn' | cut -c64-71`
-	EFORM_PLUGINBASE_VERSION=`dotnet list package | grep 'Microting.CaseManagementBase' | cut -c64-71`
+	EFORM_PLUGINBASE_VERSION=`dotnet list package | grep 'Microting.eFormBasicCaseManagementBase' | cut -c64-71`
 #	COMMIT_MESSAGE="Updating"$'\n'"- Microting.eForm to ${EFORM_VERSION}"$'\n'"- Microting.eFormApi.BasePn to ${EFORM_BASEPN_VERSION}"$'\n'"- Microting.CaseManagementBase to ${EFORM_PLUGINBASE_VERSION}"
 	COMMIT_MESSAGE="Updating"$'\n'"- Microting.eForm to ${EFORM_VERSION}"$'\n'"- Microting.eFormApi.BasePn to ${EFORM_BASEPN_VERSION}"
 
