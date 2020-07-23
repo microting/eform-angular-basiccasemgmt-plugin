@@ -38,7 +38,7 @@ namespace CaseManagement.Pn.Services
             {
                 var calendarEventModels = new List<CalendarEventModel>();
                 var core = _coreHelper.GetCore();
-                var cases = await core.Result.CaseReadAll(requestModel.TemplateId, requestModel.StartDate, requestModel.EndDate);
+                var cases = await core.Result.CaseReadAll(requestModel.TemplateId, requestModel.StartDate, requestModel.EndDate, null);
                 var casesSiteIds = cases.Where(x => x.SiteId != null)
                     .Select(x => x.SiteId)
                     .GroupBy(x => x)
