@@ -8,11 +8,11 @@ if (( "$GIT_STATUS" > 0 )); then
 
 	dotnet add CaseManagement.Pn.csproj package Microting.eForm
 	dotnet add CaseManagement.Pn.csproj package Microting.eFormApi.BasePn
-#	dotnet add TrashInspection.Pn.csproj package Microting.CaseManagementBase
+	dotnet add CaseManagement.Pn.csproj package Microting.CaseManagementBase
 
 	EFORM_VERSION=`dotnet list package | grep 'Microting.eForm ' | cut -c64-71`
 	EFORM_BASEPN_VERSION=`dotnet list package | grep 'Microting.eFormApi.BasePn' | cut -c64-71`
-#	EFORM_PLUGINBASE_VERSION=`dotnet list package | grep 'Microting.CaseManagementBase' | cut -c64-71`
+	EFORM_PLUGINBASE_VERSION=`dotnet list package | grep 'Microting.CaseManagementBase' | cut -c64-71`
 #	COMMIT_MESSAGE="Updating"$'\n'"- Microting.eForm to ${EFORM_VERSION}"$'\n'"- Microting.eFormApi.BasePn to ${EFORM_BASEPN_VERSION}"$'\n'"- Microting.CaseManagementBase to ${EFORM_PLUGINBASE_VERSION}"
 	COMMIT_MESSAGE="Updating"$'\n'"- Microting.eForm to ${EFORM_VERSION}"$'\n'"- Microting.eFormApi.BasePn to ${EFORM_BASEPN_VERSION}"
 
@@ -31,7 +31,7 @@ if (( "$GIT_STATUS" > 0 )); then
 		NEW_GIT_VERSION="v$MAJOR_VERSION.$MINOR_VERSION.$BUILD_VERSION"
 		git tag "$NEW_GIT_VERSION"
 		git push --tags
-		git push	
+		git push
 		echo "Updated Microting eForm to ${EFORM_VERSION} and pushed new version ${NEW_GIT_VERSION}"
 	fi
 else
