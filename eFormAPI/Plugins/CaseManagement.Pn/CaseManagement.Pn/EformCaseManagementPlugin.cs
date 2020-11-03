@@ -12,9 +12,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microting.eFormApi.BasePn;
+using Microting.eFormApi.BasePn.Infrastructure.Consts;
 using Microting.eFormApi.BasePn.Infrastructure.Database.Extensions;
 using Microting.eFormApi.BasePn.Infrastructure.Helpers;
 using Microting.eFormApi.BasePn.Infrastructure.Models.Application;
+using Microting.eFormApi.BasePn.Infrastructure.Models.Application.NavigationMenu;
 using Microting.eFormApi.BasePn.Infrastructure.Settings;
 using Microting.eFormBasicCaseManagementBase.Infrastructure;
 using Microting.eFormBasicCaseManagementBase.Infrastructure.Data;
@@ -87,6 +89,161 @@ namespace CaseManagement.Pn
         public void Configure(IApplicationBuilder appBuilder)
         {
             var serviceProvider = appBuilder.ApplicationServices;
+        }
+
+        public List<PluginMenuItemModel> GetNavigationMenu(IServiceProvider serviceProvider)
+        {
+            var pluginMenu = new List<PluginMenuItemModel>()
+                {
+                    new PluginMenuItemModel
+                    {
+                        Name = "Dropdown",
+                        E2EId = "case-management-pn",
+                        Link = "",
+                        Type = MenuItemTypeEnum.Dropdown,
+                        Position = 0,
+                        Translations = new List<PluginMenuTranslationModel>()
+                        {
+                            new PluginMenuTranslationModel
+                            {
+                                 LocaleName = LocaleNames.English,
+                                 Name = "Case Management",
+                                 Language = LanguageNames.English,
+                            },
+                            new PluginMenuTranslationModel
+                            {
+                                 LocaleName = LocaleNames.German,
+                                 Name = "Case Management",
+                                 Language = LanguageNames.German,
+                            },
+                            new PluginMenuTranslationModel
+                            {
+                                 LocaleName = LocaleNames.Danish,
+                                 Name = "Sagsbehandling",
+                                 Language = LanguageNames.Danish,
+                            }
+                        },
+                        ChildItems = new List<PluginMenuItemModel>()
+                        {
+                            new PluginMenuItemModel
+                            {
+                                Name = "Calendar",
+                                E2EId = "case-management-pn-calendar",
+                                Link = "/plugins/case-management-pn/calendar",
+                                Type = MenuItemTypeEnum.Link,
+                                Position = 0,
+                                MenuTemplate = new PluginMenuTemplateModel()
+                                {
+                                    Name = "Calendar",
+                                    E2EId = "case-management-pn-calendar",
+                                    DefaultLink = "/plugins/case-management-pn/calendar",
+                                    Permissions = new List<PluginMenuTemplatePermissionModel>(),
+                                    Translations = new List<PluginMenuTranslationModel>
+                                    {
+                                        new PluginMenuTranslationModel
+                                        {
+                                            LocaleName = LocaleNames.English,
+                                            Name = "Calendar",
+                                            Language = LanguageNames.English,
+                                        },
+                                        new PluginMenuTranslationModel
+                                        {
+                                            LocaleName = LocaleNames.German,
+                                            Name = "Calendar",
+                                            Language = LanguageNames.German,
+                                        },
+                                        new PluginMenuTranslationModel
+                                        {
+                                            LocaleName = LocaleNames.Danish,
+                                            Name = "Kalender",
+                                            Language = LanguageNames.Danish,
+                                        },
+                                    }
+                                },
+                                Translations = new List<PluginMenuTranslationModel>
+                                    {
+                                        new PluginMenuTranslationModel
+                                        {
+                                            LocaleName = LocaleNames.English,
+                                            Name = "Calendar",
+                                            Language = LanguageNames.English,
+                                        },
+                                        new PluginMenuTranslationModel
+                                        {
+                                            LocaleName = LocaleNames.German,
+                                            Name = "Calendar",
+                                            Language = LanguageNames.German,
+                                        },
+                                        new PluginMenuTranslationModel
+                                        {
+                                            LocaleName = LocaleNames.Danish,
+                                            Name = "Kalender",
+                                            Language = LanguageNames.Danish,
+                                        },
+                                    }
+                            },
+                            new PluginMenuItemModel
+                            {
+                                Name = "Cases",
+                                E2EId = "case-management-pn-cases",
+                                Link = "/plugins/case-management-pn/cases",
+                                Type = MenuItemTypeEnum.Link,
+                                Position = 1,
+                                MenuTemplate = new PluginMenuTemplateModel()
+                                {
+                                    Name = "Cases",
+                                    E2EId = "case-management-pn-cases",
+                                    DefaultLink = "/plugins/case-management-pn/cases",
+                                    Permissions = new List<PluginMenuTemplatePermissionModel>(),
+                                    Translations = new List<PluginMenuTranslationModel>
+                                    {
+                                        new PluginMenuTranslationModel
+                                        {
+                                            LocaleName = LocaleNames.English,
+                                            Name = "Cases",
+                                            Language = LanguageNames.English,
+                                        },
+                                        new PluginMenuTranslationModel
+                                        {
+                                            LocaleName = LocaleNames.German,
+                                            Name = "Cases",
+                                            Language = LanguageNames.German,
+                                        },
+                                        new PluginMenuTranslationModel
+                                        {
+                                            LocaleName = LocaleNames.Danish,
+                                            Name = "Sager",
+                                            Language = LanguageNames.Danish,
+                                        },
+                                    }
+                                },
+                                Translations = new List<PluginMenuTranslationModel>
+                                    {
+                                        new PluginMenuTranslationModel
+                                        {
+                                            LocaleName = LocaleNames.English,
+                                            Name = "Cases",
+                                            Language = LanguageNames.English,
+                                        },
+                                        new PluginMenuTranslationModel
+                                        {
+                                            LocaleName = LocaleNames.German,
+                                            Name = "Cases",
+                                            Language = LanguageNames.German,
+                                        },
+                                        new PluginMenuTranslationModel
+                                        {
+                                            LocaleName = LocaleNames.Danish,
+                                            Name = "Sager",
+                                            Language = LanguageNames.Danish,
+                                        },
+                                    }
+                            }
+                        }
+                    }
+                };
+
+            return pluginMenu;
         }
 
         public MenuModel HeaderMenu(IServiceProvider serviceProvider)
