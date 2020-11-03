@@ -58,7 +58,9 @@ jobs:
     - name: Build
       run: dotnet build main/eFormAPI/Plugins/CaseManagement.Pn/CaseManagement.Pn.sln
     - name: Unit Tests
-      run: dotnet test --no-restore -c Release -v n main/eFormAPI/Plugins/CaseManagement.Pn/CaseManagement.Pn.Test/CaseManagement.Pn.Test.csproj
+      run: dotnet test --no-restore -c Release -v n main/eFormAPI/Plugins/CaseManagement.Pn/CaseManagement.Pn.Tests/CaseManagement.Pn.Tests.csproj
+    - name: Integration Tests
+      run: dotnet test --no-restore -c Release -v n main/eFormAPI/Plugins/CaseManagement.Pn/CaseManagement.Pn.Integration.Tests/CaseManagement.Pn.Integration.Tests.csproj
     - name: Copy dependencies
       run: |
         cp -av main/eform-client/src/app/plugins/modules/case-management-pn eform-angular-frontend/eform-client/src/app/plugins/modules/case-management-pn
