@@ -79,7 +79,7 @@ jobs:
         cp -av main/eFormAPI/eFormAPI.Web/Plugins/CaseManagement eform-angular-frontend/eFormAPI/eFormAPI.Web/Plugins/CaseManagement
         cp -av eform-angular-basecustomer-plugin/eFormAPI/eFormAPI.Web/Plugins/Customers eform-angular-frontend/eFormAPI/eFormAPI.Web/Plugins/Customers
         cd eform-angular-frontend/eform-client && ../../main/testinginstallpn.sh
-        cd eform-angular-frontend/eform-client && ../../eform-angular-basecustomer-plugin/testinginstallpn.sh
+        ../../eform-angular-basecustomer-plugin/testinginstallpn.sh
     - name: Build frontend
       run: dotnet build eform-angular-frontend/eFormAPI/eFormAPI.sln > dotnet_log 2>&1 &
     - name: NPM install
