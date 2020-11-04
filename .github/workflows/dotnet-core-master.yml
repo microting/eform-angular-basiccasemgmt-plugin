@@ -61,8 +61,10 @@ jobs:
     - name: Get the version
       id: get_version
       run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3 | cut -d "v" -f 2)
-    - name: Build
+    - name: Build CaseManagement
       run: dotnet build main/eFormAPI/Plugins/CaseManagement.Pn/CaseManagement.Pn.sln
+    - name: Build BaseCustomers
+      run: dotnet build eform-angular-basecustomer-plugin/eFormAPI/Plugins/Customers.Pn/Customers.Pn.sln
     - name: Unit Tests
       run: dotnet test --no-restore -c Release -v n main/eFormAPI/Plugins/CaseManagement.Pn/CaseManagement.Pn.Tests/CaseManagement.Pn.Tests.csproj
     - name: Integration Tests
