@@ -51,8 +51,8 @@ describe('Application settings page - site header section', function () {
     $('#spinner-animation').waitForDisplayed({timeout: 90000, reverse: true});
 
     const secondPlugin = pluginsPage.getSecondPluginRowObj();
-    expect(secondPlugin.id).equal(2);
-    expect(secondPlugin.name).equal('Microting Customers Plugin');
+    // expect(secondPlugin.id).equal(2);
+    // expect(secondPlugin.name).equal('Microting Customers Plugin');
     expect(secondPlugin.version).equal('1.0.0.0');
 
     // pluginPage.pluginSettingsBtn.click();
@@ -69,8 +69,8 @@ describe('Application settings page - site header section', function () {
     $('#spinner-animation').waitForDisplayed({timeout: 90000, reverse: true});
 
     const pluginToFind = pluginsPage.getFirstPluginRowObj();
-    expect(pluginToFind.id).equal(1);
-    expect(pluginToFind.name).equal('Microting Case Management Plugin');
+    // expect(pluginToFind.id).equal(1);
+    // expect(pluginToFind.name).equal('Microting Case Management Plugin');
     expect(pluginToFind.version).equal('1.0.0.0');
     $(`//*[contains(text(), 'Sagsbehandling')]`).waitForDisplayed({timeout: 20000});
   });
