@@ -1,4 +1,4 @@
-name: .NET Master
+name: .NET Pull requests
 
 on:
   pull_request:
@@ -52,7 +52,7 @@ jobs:
       uses: actions/checkout@v2
       with:
         repository: microting/eform-angular-basecustomer-plugin
-        ref: ${{ steps.extract_branch.outputs.branch }}
+        ref: ${{ github.event.pull_request.base.ref }}
         path: eform-angular-basecustomer-plugin
     - name: Install dependencies
       run: dotnet restore main/eFormAPI/Plugins/CaseManagement.Pn/CaseManagement.Pn.sln
