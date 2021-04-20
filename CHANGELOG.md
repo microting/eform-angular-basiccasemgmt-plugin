@@ -1,5 +1,15 @@
 # Changelog
 
+## [v1.0.147](https://github.com/microting/eform-angular-basiccasemgmt-plugin/tree/v1.0.147) (2021-04-20)
+
+[Full Changelog](https://github.com/microting/eform-angular-basiccasemgmt-plugin/compare/v1.0.146...v1.0.147)
+
+**Implemented enhancements:**
+
+- Bump Microting.eFormBasicCaseManagementBase from 2.0.113 to 2.0.114 [\#139](https://github.com/microting/eform-angular-basiccasemgmt-plugin/issues/139)
+- Bump Microting.eFormApi.BasePn from 2.0.128 to 2.0.129 [\#138](https://github.com/microting/eform-angular-basiccasemgmt-plugin/issues/138)
+- Bump Microting.eForm from 4.4.37 to 4.4.38 [\#137](https://github.com/microting/eform-angular-basiccasemgmt-plugin/issues/137)
+
 ## [v1.0.146](https://github.com/microting/eform-angular-basiccasemgmt-plugin/tree/v1.0.146) (2021-04-19)
 
 [Full Changelog](https://github.com/microting/eform-angular-basiccasemgmt-plugin/compare/v1.0.145...v1.0.146)
