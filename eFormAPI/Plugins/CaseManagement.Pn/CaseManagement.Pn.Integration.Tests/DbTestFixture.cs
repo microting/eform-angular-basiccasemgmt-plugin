@@ -24,9 +24,9 @@ namespace CaseManagement.Pn.Integration.Tests
 
             CaseManagementPnDbContextFactory contextFactory = new CaseManagementPnDbContextFactory();
             DbContext = contextFactory.CreateDbContext(new[] {connectionStr});
-            
+
             DbContext.Database.Migrate();
-            DbContext.Database.EnsureCreated();                
+            DbContext.Database.EnsureCreated();
 
         }
 
@@ -91,7 +91,7 @@ namespace CaseManagement.Pn.Integration.Tests
                     {
                         sqlCmd = string.Format("DELETE FROM [{0}]", modelName);
                     }
-                    DbContext.Database.ExecuteSqlCommand(sqlCmd);
+                    DbContext.Database.ExecuteSqlRaw(sqlCmd);
                 }
                 catch (Exception ex)
                 {

@@ -68,21 +68,17 @@ namespace CaseManagement.Pn
         public void ConfigureDbContext(IServiceCollection services, string connectionString)
         {
             _connectionString = connectionString;
-            if (connectionString.ToLower().Contains("convert zero datetime"))
-            {                
-                services.AddDbContext<eFormCaseManagementPnDbContext>(o => o.UseMySql(connectionString,
-                    b => b.MigrationsAssembly(PluginAssembly().FullName)));
-            }
-            else
-            {                
-                services.AddDbContext<eFormCaseManagementPnDbContext>(o => o.UseSqlServer(connectionString,
-                    b => b.MigrationsAssembly(PluginAssembly().FullName)));
-            }
+            services.AddDbContext<eFormCaseManagementPnDbContext>(o => o.UseMySql(connectionString, new MariaDbServerVersion(
+                new Version(10, 4, 0)), mySqlOptionsAction: builder =>
+            {
+                builder.EnableRetryOnFailure();
+                builder.MigrationsAssembly(PluginAssembly().FullName);
+            }));
 
             var contextFactory = new CaseManagementPnDbContextFactory();
             var context = contextFactory.CreateDbContext(new[] {connectionString});
             context.Database.Migrate();
-            
+
             SeedDatabase(connectionString);
         }
 
@@ -274,7 +270,7 @@ namespace CaseManagement.Pn
                         Link = "/plugins/case-management-pn/cases",
                         Position = 1,
                     }
-                } 
+                }
             });
             return result;
         }
