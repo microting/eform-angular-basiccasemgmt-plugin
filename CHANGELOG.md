@@ -1,5 +1,15 @@
 # Changelog
 
+## [v1.0.163](https://github.com/microting/eform-angular-basiccasemgmt-plugin/tree/v1.0.163) (2021-08-01)
+
+[Full Changelog](https://github.com/microting/eform-angular-basiccasemgmt-plugin/compare/v1.0.162...v1.0.163)
+
+**Implemented enhancements:**
+
+- Bump Microting.eFormBasicCaseManagementBase from 3.0.29 to 3.0.31 [\#248](https://github.com/microting/eform-angular-basiccasemgmt-plugin/issues/248)
+- Bump Microting.eFormApi.BasePn from 3.0.30 to 3.0.33 [\#247](https://github.com/microting/eform-angular-basiccasemgmt-plugin/issues/247)
+- Bump Microting.eForm from 5.2.17 to 5.2.21 [\#246](https://github.com/microting/eform-angular-basiccasemgmt-plugin/issues/246)
+
 ## [v1.0.162](https://github.com/microting/eform-angular-basiccasemgmt-plugin/tree/v1.0.162) (2021-07-15)
 
 [Full Changelog](https://github.com/microting/eform-angular-basiccasemgmt-plugin/compare/v1.0.161...v1.0.162)
@@ -297,6 +307,7 @@
 - Bump Microting.eFormBasicCaseManagementBase from 2.0.99 to 2.0.100 [\#88](https://github.com/microting/eform-angular-basiccasemgmt-plugin/issues/88)
 - Bump Microting.eFormApi.BasePn from 2.0.107 to 2.0.109 [\#87](https://github.com/microting/eform-angular-basiccasemgmt-plugin/issues/87)
 - Bump Microting.eForm from 4.4.13 to 4.4.16 [\#86](https://github.com/microting/eform-angular-basiccasemgmt-plugin/issues/86)
+- Bump Microting.eFormBasicCaseManagementBase from 2.0.98 to 2.0.99 [\#82](https://github.com/microting/eform-angular-basiccasemgmt-plugin/issues/82)
 
 ## [v1.0.133](https://github.com/microting/eform-angular-basiccasemgmt-plugin/tree/v1.0.133) (2021-03-29)
 
@@ -304,7 +315,6 @@
 
 **Implemented enhancements:**
 
-- Bump Microting.eFormBasicCaseManagementBase from 2.0.98 to 2.0.99 [\#82](https://github.com/microting/eform-angular-basiccasemgmt-plugin/issues/82)
 - Bump Microting.eFormApi.BasePn from 2.0.106 to 2.0.107 [\#81](https://github.com/microting/eform-angular-basiccasemgmt-plugin/issues/81)
 - Bump Microting.eForm from 4.4.11 to 4.4.13 [\#80](https://github.com/microting/eform-angular-basiccasemgmt-plugin/issues/80)
 
