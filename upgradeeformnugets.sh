@@ -6,7 +6,7 @@ if (( "$GIT_STATUS" > 0 )); then
 	cd eFormAPI/Plugins/CaseManagement.Pn/CaseManagement.Pn
   CURRENT_NUMBER_OF_COMMITS=`git log --oneline | wc -l`
 
-	PACKAGES=('Microting.eForm' 'Microting.eFormApi.BasePn' 'Microting.eFormBasicCaseManagementBase')
+	PACKAGES=('Microting.eForm' 'Microting.eFormApi.BasePn' 'Microting.eFormBasicCaseManagementBase' 'Microsoft.AspNetCore.Identity.EntityFrameworkCore')
 	PROJECT_NAME='CaseManagement.Pn.csproj'
 	REPOSITORY='eform-angular-basiccasemgmt-plugin'
 
